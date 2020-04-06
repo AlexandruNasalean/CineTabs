@@ -1,2 +1,0 @@
-# CineTabs
-Yes
