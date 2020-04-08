@@ -52,6 +52,7 @@ export function ContactPage() {
             Submit
           </Button>
         </Form>
+        
       </div>
     </div>
   );
