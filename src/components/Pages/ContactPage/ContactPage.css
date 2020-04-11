@@ -1,5 +1,5 @@
 .contact-container {
-  height: 700px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,4 +8,13 @@
 .contact-card,
 .contact-form {
   padding: 50px;
+}
+
+.contact-card {
+  align-self: flex-start;
+  margin-top: 80px;
+}
+
+.contact-card img {
+  background-color: black;
 }
