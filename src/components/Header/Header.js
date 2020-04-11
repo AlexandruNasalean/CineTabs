@@ -10,7 +10,8 @@ export class Header extends Component {
 
         return (
             <div className = "header">
-                   <img className="logo" src="https://i.imgur.com/r3dLpmN.png" alt="Smiley face"/>
+                   <a href="/HomePage"> <img className="logo" src="https://i.imgur.com/r3dLpmN.png" alt="Smiley face"/> </a>
+            
                 <ul className = "menu-ul-list">
                     <li><Link className="link-header" to="/AllMovies">All Movies </Link></li>
                     <li><Link className="link-header" to="/Genres">Genres</Link></li>
