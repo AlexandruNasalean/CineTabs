@@ -8,6 +8,11 @@ import "./SignUp.css";
 
 
 export class SignUp extends Component {
+
+    postData(){
+        let result = fetch('https://movies-api-siit.herokuapp.com/')
+    }
+
     render() {
         return (
             <div class="signUpBody">
@@ -30,7 +35,7 @@ export class SignUp extends Component {
     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters.
     </small>
     </div>
-    <button type="submit" class="btn btn-primary">Sign Up</button>
+    <button type="submit" class="btn btn-primary" onClick={ () => this.postData() }>Sign Up</button>
 </form>
                 </div>
                

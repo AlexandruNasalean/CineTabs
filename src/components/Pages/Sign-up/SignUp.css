@@ -27,7 +27,7 @@ body{
   color: white;
 }
 
-.signUpForm button{
+.btn-primary{
   color: white;
   background-color: #f88c1f;
   border: 0px;
