@@ -19,8 +19,13 @@ class App extends Component {
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-          <Route exact path="/components/Header/components" component={LoginButton} />
+          <Route
+            exact
+            path="/components/Header/components"
+            component={LoginButton}
+          />
           <Footer />
+          <Route exact path="/Contact" component={ContactPage} />
         </div>
       </Router>
     );

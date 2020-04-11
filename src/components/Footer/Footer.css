@@ -3,17 +3,16 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: #5E5E5E;
+  background-color: #5e5e5e;
   text-align: left;
 }
-
 
 .footer h5 {
   margin-top: 30px;
   color: #f88c1f;
 }
 
-.description{
+.description {
   margin-right: 500px;
   margin-left: 20px;
 }
@@ -21,19 +20,17 @@
   color: aliceblue;
 }
 
-.icoane{
+.icoane {
   font-size: 30px;
   color: rgb(236, 236, 236);
   opacity: 0.5;
-  
 }
-.icoane tr{
+.icoane tr {
   display: inline-block;
   width: 300px;
 }
-.icoane p{
+.icoane p {
   font-size: 15px;
   display: inline-block;
   margin-left: 20px;
-  
 }
