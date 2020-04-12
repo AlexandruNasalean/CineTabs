@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {Link} from 'react-router-dom';
 import "./Header.css";
-
-
+import {LoginButton} from "./components/LoginButton"
 
 
 export class Header extends Component {
@@ -17,6 +16,7 @@ export class Header extends Component {
                     <li><Link className="link-header" to="/Genres">Genres</Link></li>
                     <li><Link className="link" to="/AdvancedSearch">Advanced Search</Link></li>
                 </ul>
+                <LoginButton>Login</LoginButton>
             </div> 
            
         )
