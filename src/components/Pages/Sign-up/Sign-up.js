@@ -59,18 +59,26 @@ import "./SignUp.css";
      }
      submitHandler = (e) => {
          e.preventDefault()
-         console.log(this.state)
-         const Url=`http://movies-api-siit.herokuapp.com/auth/register?username=${this.state.username}&password=${this.state.password}`;
-         console.log(Url);
-         Method:POST
-         Path:​/auth/login
-         Payload:​​{
-             username: this.state.username,
-             password : this.state.password,
-            }
-         
-         
-         
+        //  console.log(this.state)
+        fetch("http://movies-api-siit.herokuapp.com/auth/register", {
+            method: "POST",
+            mode: "cors", 
+            cache: "no-cache", 
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify({
+                username: "this.state.username",
+                password: "this.state.password"
+            })
+        })
+            .then(Response => Response.json())
+            .then(json =>{
+                console.log(json);
+            })
      }
     render() {
         const { username, password, body } = this.state
@@ -86,7 +94,7 @@ import "./SignUp.css";
                     <button type="submit">submit</button>
                 </form>
             </div>
-        );
-    }
+        )
+    };
 }
  
