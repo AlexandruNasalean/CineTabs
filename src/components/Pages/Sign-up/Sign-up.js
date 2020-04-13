@@ -59,7 +59,7 @@ import "./SignUp.css";
      }
      submitHandler = (e) => {
          e.preventDefault()
-        //  console.log(this.state)
+         console.log(this.state)
         fetch("http://movies-api-siit.herokuapp.com/auth/register", {
             method: "POST",
             mode: "cors", 
