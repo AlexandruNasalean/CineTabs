@@ -21,6 +21,7 @@ class App extends Component {
           <Route exact path="/Genres" component = {Genres} /> 
           <Route exact path="/AdvancedSearch" component = {AdvancedSearch} /> 
           <Route exact path="/Sign-Up" component = {SignUp} />
+          <Route exact path="/ContactPage" component = {ContactPage} />
           <Footer />
         </div>
       </Router>
