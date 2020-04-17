@@ -7,7 +7,8 @@ import { AllMovies } from "./components/Pages/AllMovies/AllMovies";
 import { AdvancedSearch } from "./components/Pages/AdvancedSearch/AdvancedSearch"
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import {SignUp} from "./components/Pages/Sign-up/Sign-up"
-import {Footer} from "./components/Footer/Footer";
+import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
+
 
 
 class App extends Component {
@@ -20,9 +21,10 @@ class App extends Component {
           <Route exact path="/AllMovies" component = {AllMovies} /> 
           <Route exact path="/Genres" component = {Genres} /> 
           <Route exact path="/AdvancedSearch" component = {AdvancedSearch} /> 
-          <Route exact path="/Sign-Up" component = {SignUp} />
+          <ErrorBoundary><Route exact path="/Sign-Up" component = {SignUp} /></ErrorBoundary>
+         
           <Route exact path="/ContactPage" component = {ContactPage} />
-          <Footer />
+          
         </div>
       </Router>
     );
