@@ -59,7 +59,7 @@ export class SignUp extends Component {
                 <p id="UserIcon"><FontAwesomeIcon icon={faUserPlus} /></p>
                 </div>
                 <div>
-                <form className="was-validated" onSubmit={this.submitHandler} noValidate>
+                <form className="was-validated" onSubmit={this.submitHandler}>
     <div className="form-group">
         <h1 className="username-Error">{this.state.error}</h1>
     <label>Email address</label>

@@ -3,6 +3,10 @@ body{
   background-color: #3b3b3b;
 }
 
+form{
+  width: 50%;
+}
+
 .title{
   display: inline-flexbox;
 }
@@ -32,9 +36,9 @@ body{
   color: white;
   background-color: #f88c1f;
   border: 0px;
-  width: 60%;
   margin-top: 70px;
   margin-left: 320px;
+  width: 100%;
 }
 .username-Error{
   text-align: center;
