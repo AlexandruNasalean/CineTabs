@@ -9,12 +9,17 @@ export function Footer() {
   return (
   
          <div className="footer">
-         <p>About us</p>
-         <div className="">
+           <divc className="footer-title">
+           <p>About us</p>
+           <p>Contact</p>
+           </divc>
+         <div className="footer-description">
            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
              Integer consequat diam non fringilla feugiat. 
              Vivamus sit amet viverra nibh. 
              </p>
+             <p><FontAwesomeIcon icon={faEnvelope}/ ></p>
+             <p><FontAwesomeIcon icon={faPhone}/ ></p>
          </div>
          </div>
          
