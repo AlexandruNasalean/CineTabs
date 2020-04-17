@@ -3,33 +3,44 @@
   bottom: 0px;
   width: 100%;
   background-color: #5e5e5e;
+  display: inline-flex;
+  
 }
 
-.footer-title {
-  margin-top: 30px;
+.about-us-block{
+  position: relative;
+  top: 10px;
+  left: 100px;
+}
+.about-us-block h5{
   color: #f88c1f;
-  display: flexbox;
+}
+.lorem{
+  color: white
 }
 
-.description {
-  margin-right: 500px;
-  margin-left: 20px;
+.contact-block{
+  position: relative;
+  display: inline-block;
+  top: 10px;
+  left: 30%;
+  min-width: 50%;
 }
-.description p {
+.icon{
+  color: blue;
+}
+
+.contact-envelope{
+  font-size: 40px;
+}
+.contact-phone{
+  font-size: 40px;
+}
+.contact-info p{
+  display: inline-block;
   color: aliceblue;
-}
-
-.icoane {
-  font-size: 30px;
-  color: rgb(236, 236, 236);
-  opacity: 0.5;
-}
-.icoane tr {
-  display: inline-block;
-  width: 300px;
-}
-.icoane p {
-  font-size: 15px;
-  display: inline-block;
-  margin-left: 20px;
+  font-size: 20px;
+  position: relative;
+  bottom: 10px;
+  left: 20px;
 }
