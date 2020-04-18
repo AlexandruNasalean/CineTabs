@@ -7,40 +7,35 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 export function Footer() {
   return (
-    <table>
-      <div class="footer">
-        <td>
-          <div class="description">
-            <h5>About the website</h5>
-            <tr>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+  
+         <div className="footer">
+           <div className="about-us-block">
+             <h5>About us</h5>
+             <div className="lorem">
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 eget enim eleifend, luctus nisi eget, pretium odio. Quisque id
-                tellus ex. Nunc pharetra molestie eleifend. Class aptent taciti
-                sociosqu ad litora torquent per conubia nostra, per inceptos
-                himenaeos.
-              </p>
-            </tr>
-          </div>
-        </td>
-        <td>
-          <h5>
-            <Link className="link" to="/Contact">
-              Contact
+                tellus ex.<br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                eget enim eleifend, luctus nisi eget, <br />pretium odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+                eget enim eleifend, luctus nisi eget, pretium odio.
+                </p>
+             </div>
+           </div>
+           <div className="contact-block">
+           <Link className="link" to="/Contact">
+              <h5>Contact</h5>
             </Link>
-          </h5>
-          <div class="icoane">
-            <tr>
+            <div className="contact-info">
+              <div className="contact-envelope">
               <FontAwesomeIcon icon={faEnvelope} />
               <p>neptunTeam@scit.com</p>
-            </tr>
-            <tr>
+              </div>
+              <div className="contact-phone">
               <FontAwesomeIcon icon={faPhone} />
               <p>+40 8978 5254 6484</p>
-            </tr>
-          </div>
-        </td>
-      </div>
-    </table>
-  );
-}
+              </div>
+            </div>
+           </div>
+              </div>
+             )
+             };
+
