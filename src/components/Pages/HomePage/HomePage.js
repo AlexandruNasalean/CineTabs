@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {SearchBar} from "../PageComponents/searchbar"
+import SearchBar from "../PageComponents/searchbar"
 import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
 import { Button } from 'react-bootstrap'
@@ -10,9 +10,8 @@ export class HomePage extends Component {
 
         return (
         <div>
-            <h1> 
-                HomePage (loc de pus SearchBar)
-            </h1>
+          <h4 className="SearchBarText">All the good movies are here:</h4>
+         <SearchBar>SearchBar</SearchBar>
   <div>
   <Carousel className="Carousel">
 <Carousel.Item>

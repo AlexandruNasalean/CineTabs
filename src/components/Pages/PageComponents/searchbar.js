@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-export class SearchBar extends Component {
+import "./searchbar.css";
+class SearchBar extends Component {
 
 state = {
     query: '',
@@ -52,16 +52,18 @@ render() {
     return (
         <div className="searchForm">
             <form>
-                <input type="text" id="filter" placeholder="Search for..."  onChange={this.handleInputChange}/>
+                <input className="searchbar" type="text" id="filter" placeholder="Search for..."  onChange={this.handleInputChange}/>
             </form>
-            <div>
+          <div>
                 {
-                    this.state.responseData.map((i) =>
-                        <p>{i.name}</p>
-                    )
+                //  this.state.responseData.map((i) =>
+                 //       <p>{i.name}</p>
+                 //   )
                 }
             </div>
         </div>
     )
   }
 }
+
+export default SearchBar
