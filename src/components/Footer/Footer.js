@@ -7,24 +7,24 @@ import { faPhone } from "@fortawesome/free-solid-svg-icons";
 
 export function Footer() {
   return (
-  
-         <div className="footer">
-           <div className="about-us-block">
-             <h5>About us</h5>
-             <div className="lorem">
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+    <div className='background'>
+    <div class="container">
+    <div class="row">
+      <div class="col-md no-gutters" id="About-us">
+        <h5> About us</h5>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 eget enim eleifend, luctus nisi eget, pretium odio. Quisque id
                 tellus ex.<br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 eget enim eleifend, luctus nisi eget, <br />pretium odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 eget enim eleifend, luctus nisi eget, pretium odio.
                 </p>
-             </div>
-           </div>
-           <div className="contact-block">
-           <Link className="link" to="/Contact">
+      </div>
+    
+      <div class="col-md no-gutters" id="Contact">
+      <Link className="link" to="/Contact">
               <h5>Contact</h5>
             </Link>
-            <div className="contact-info">
+        <div className="contact-info">
               <div className="contact-envelope">
               <FontAwesomeIcon icon={faEnvelope} />
               <p>neptunTeam@scit.com</p>
@@ -34,7 +34,9 @@ export function Footer() {
               <p>+40 8978 5254 6484</p>
               </div>
             </div>
-           </div>
-              </div>
+      </div>
+    </div>
+  </div>
+  </div>
              )
              };
