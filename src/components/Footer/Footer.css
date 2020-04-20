@@ -1,7 +1,9 @@
 .background{
   background-color: #5e5e5e;
-  height: 100%;
-  margin-top: 100px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  
 }
 .background h5{
   color: #f88c1f;

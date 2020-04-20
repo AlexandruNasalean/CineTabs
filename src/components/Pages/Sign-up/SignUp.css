@@ -32,6 +32,7 @@
 #signup{
   color: white;
   background-color: #f88c1f;
+  width: 100%;
 }
 .username-Error{
   text-align: center;
