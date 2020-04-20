@@ -15,8 +15,7 @@ export function Footer() {
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
                 eget enim eleifend, luctus nisi eget, pretium odio. Quisque id
                 tellus ex.<br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                eget enim eleifend, luctus nisi eget, <br />pretium odio.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                eget enim eleifend, luctus nisi eget, pretium odio.
+                eget enim eleifend, luctus nisi eget,
                 </p>
       </div>
       <div class="col-6">

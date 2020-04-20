@@ -1,5 +1,11 @@
 .background{
   background-color: #5e5e5e;
+  height: 100%;
+  margin-top: 100px;
+}
+.background h5{
+  color: #f88c1f;
+  margin-top: 10px;
 }
 #About-us{
   background-color: #5e5e5e;
