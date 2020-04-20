@@ -29,8 +29,8 @@ class App extends Component {
             path="/components/Header/components"
             component={LoginButton}
           />
-          <Footer />
           <Route exact path="/Contact" component={ContactPage} />
+          <Footer />
         </div>
       </Router>
     );

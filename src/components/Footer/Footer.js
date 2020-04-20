@@ -19,7 +19,8 @@ export function Footer() {
                 eget enim eleifend, luctus nisi eget, pretium odio.
                 </p>
       </div>
-    
+      <div class="col-6">
+    </div>
       <div class="col-md no-gutters" id="Contact">
       <Link className="link" to="/Contact">
               <h5>Contact</h5>

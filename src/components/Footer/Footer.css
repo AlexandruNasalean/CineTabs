@@ -1,34 +1,13 @@
-
-.footer {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
+.background{
   background-color: #5e5e5e;
-  display: inline-flex;
-  
 }
-
-.about-us-block{
-  position: relative;
-  top: 10px;
-  left: 100px;
+#About-us{
+  background-color: #5e5e5e;
+  color: white;
+  align-self: flex-start;
 }
-.about-us-block h5{
+#About-us h5{
   color: #f88c1f;
-}
-.lorem{
-  color: white
-}
-
-.contact-block{
-  position: relative;
-  display: inline-block;
-  top: 10px;
-  left: 30%;
-  min-width: 50%;
-}
-.icon{
-  color: blue;
 }
 
 .contact-envelope{
@@ -45,3 +24,4 @@
   bottom: 10px;
   left: 20px;
 }
+
