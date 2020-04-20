@@ -11,6 +11,7 @@ import { LogOutButton } from "./components/Header/components/LogOutButton";
 import { Footer } from "./components/Footer/Footer";
 import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
 import {SignUp} from "./components/Pages/Sign-up/Sign-up"
+import "./App.css"
 
 class App extends Component {
   render() {
