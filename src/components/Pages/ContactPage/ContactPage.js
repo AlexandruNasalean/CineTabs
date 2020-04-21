@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Card, ListGroup, ListGroupItem, Form, Button } from "react-bootstrap";
 import "./ContactPage.css";
 
@@ -18,6 +19,9 @@ export function ContactPage() {
   return (
     <div className="contact-container">
       <div className="contact-card">
+        <button>
+          <Link to="/MoviePage">MoviePage</Link>
+        </button>
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src="https://i.imgur.com/r3dLpmN.png" />
           <Card.Body>
