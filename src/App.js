@@ -10,7 +10,8 @@ import { LoginButton } from "./components/Header/components/LoginButton";
 import { LogOutButton } from "./components/Header/components/LogOutButton";
 import { Footer } from "./components/Footer/Footer";
 import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
-import {SignUp} from "./components/Pages/Sign-up/Sign-up"
+import { SignUp } from "./components/Pages/Sign-up/Sign-up";
+import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 
 class App extends Component {
   render() {
@@ -22,15 +23,17 @@ class App extends Component {
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-      <ErrorBoundary><Route exact path="/Sign-Up" component = {SignUp} /></ErrorBoundary>
-      <Route exact path="/ContactPage" component = {ContactPage} />
+          <Route exact path="/MoviePage" component={MoviePage} />
+          <Route exact path="/Contact" component={ContactPage} />
+          <ErrorBoundary>
+            <Route exact path="/Sign-Up" component={SignUp} />
+          </ErrorBoundary>
           <Route
             exact
             path="/components/Header/components"
             component={LoginButton}
           />
           <Footer />
-          <Route exact path="/Contact" component={ContactPage} />
         </div>
       </Router>
     );
