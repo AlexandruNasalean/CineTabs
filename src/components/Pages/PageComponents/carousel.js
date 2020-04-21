@@ -40,7 +40,7 @@ import Carousel from 'react-bootstrap/Carousel'
     const {index} = this.state
     return (
 
-      <Carousel className="Carousel" activeIndex={index} onSelect={this.handleSelect}>
+      <Carousel className="Carousel" activeIndex={index}>
     <Carousel.Item>
       <img
         className="Carousel-image"
