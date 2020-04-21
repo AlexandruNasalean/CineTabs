@@ -4,6 +4,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import Card from 'react-bootstrap/Card'
 import { Button } from 'react-bootstrap'
 import "./Homepage.css";
+import { Carouselu } from '../PageComponents/carousel'
 
 export class HomePage extends Component {
     render() {
@@ -12,45 +13,7 @@ export class HomePage extends Component {
         <div>
           <h4 className="SearchBarText">All the good movies are here:</h4>
          <SearchBar>SearchBar</SearchBar>
-  <div>
-  <Carousel className="Carousel">
-<Carousel.Item>
-  <img
-    className="Carousel-image"
-    src="https://i.imgur.com/8Z0Dl9T.jpg?1"
-    alt="First slide"
-  />
-  <Carousel.Caption>
-    <h3>Latest Movie Name 1st</h3>
-    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-  </Carousel.Caption>
-</Carousel.Item>
-<Carousel.Item>
-  <img
-    className="Carousel-image"
-    src="https://i.imgur.com/vZYKEaf.jpg"
-    alt="Third slide"
-  />
-
-  <Carousel.Caption>
-    <h3>Latest Movie Name 2nd</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </Carousel.Caption>
-</Carousel.Item>
-<Carousel.Item>
-  <img
-    className="Carousel-image"
-    src="https://i.imgur.com/DmBWHnt.jpg"
-    alt="Third slide"
-  />
-
-  <Carousel.Caption>
-    <h3>Latest Movie Name 3rd</h3>
-    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-  </Carousel.Caption>
-</Carousel.Item>
-</Carousel>
-  </div>
+        <Carouselu></Carouselu>
 
 <div className="BestMovie2018">
     <div className="DescriptionBestMovie2018">

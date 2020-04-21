@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Card, ListGroup, ListGroupItem, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import "./SignUp.css";
