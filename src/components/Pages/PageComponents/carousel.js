@@ -6,45 +6,39 @@ import Carousel from 'react-bootstrap/Carousel'
     super(props);
     
     this.state = {
-        title: '',
-        released: '',
-        genre: '',
-        plot: '',
-        poster: '',
-        index: '0',
+      movieData: [],
+      isLoaded: false,
+      index: [],
       }
   }
-  handleSelect = (e) => {
-    console.log(this.state)
-    fetch("https://movies-api-siit.herokuapp.com/movies?&take=50&skip=20", {
-       method: "GET", 
-       mode: "cors", 
-       cache: "no-cache", 
-       credentials: "same-origin", 
-       headers: {
-         "Content-Type": "application/json"
-       },
-       redirect: "follow", 
-       referrerPolicy: "no-referrer",
-       body: JSON.stringify({
-         username: this.state.username,
-         password: this.state.password,
-       })
-     })
-       .then(response => response.json())
-       .then(json => {
-         console.log(json);
-       })
-   };
+  componentDidMount() {
+    fetch("https://movies-api-siit.herokuapp.com/movies?&take=8")
+      .then((response) => response.json())
+      .then((json) => {
+          console.log(json);
+        for (let i = 0; i < json.results.length; i++) {
+          const movie = json.results[i];
+    
+          // console.log(movie);
+          console.log(movie.Poster);
+
+          this.setState({
+            isLoaded: true,
+            movieData: movie,
+
+          });
+        }
+      });
+  }
   render() {
-    const {index} = this.state
+    const movie = this.state.movieData;
     return (
 
-      <Carousel className="Carousel" activeIndex={index}>
+      <Carousel className="Carousel" >
     <Carousel.Item>
       <img
         className="Carousel-image"
-        src="https://i.imgur.com/8Z0Dl9T.jpg?1"
+        src={movie.Poster}
         alt="First slide"
       />
       <Carousel.Caption>
@@ -55,7 +49,7 @@ import Carousel from 'react-bootstrap/Carousel'
     <Carousel.Item>
       <img
         className="Carousel-image"
-        src="https://i.imgur.com/vZYKEaf.jpg"
+        src={movie.Poster}
         alt="Third slide"
       />
     
@@ -67,7 +61,7 @@ import Carousel from 'react-bootstrap/Carousel'
     <Carousel.Item>
       <img
         className="Carousel-image"
-        src="https://i.imgur.com/DmBWHnt.jpg"
+        src={movie.Poster}
         alt="Third slide"
       />
     
