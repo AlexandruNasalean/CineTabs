@@ -12,6 +12,8 @@ import { Footer } from "./components/Footer/Footer";
 import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
 import { SignUp } from "./components/Pages/Sign-up/Sign-up";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
+import { SignUp } from "./components/Pages/Sign-up/Sign-up"
+import "./App.css"
 
 class App extends Component {
   render() {
@@ -33,6 +35,7 @@ class App extends Component {
             path="/components/Header/components"
             component={LoginButton}
           />
+          <Route exact path="/Contact" component={ContactPage} />
           <Footer />
         </div>
       </Router>

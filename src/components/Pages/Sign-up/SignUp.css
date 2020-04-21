@@ -1,10 +1,7 @@
 
-body{
-  background-color: #3b3b3b;
-}
 
-form{
-  width: 50%;
+.signUpBody label{
+  color: white;
 }
 
 .title{
@@ -26,18 +23,15 @@ form{
   color: white;
 }
 
-.form-group{
-  margin-left: 20em;
-  margin-right: 20em;
+#signUpForm{
   color: white;
+  height: 100%;
+
 }
 
-.btn-primary{
+#signup{
   color: white;
   background-color: #f88c1f;
-  border: 0px;
-  margin-top: 70px;
-  margin-left: 320px;
   width: 100%;
 }
 .username-Error{
@@ -45,6 +39,7 @@ form{
   font-weight: bold;
   color: red;
 }
+
 
 
 

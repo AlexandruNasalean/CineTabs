@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Card, ListGroup, ListGroupItem, Form, Button } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import "./SignUp.css";
@@ -59,14 +59,11 @@ export class SignUp extends Component {
                 <p id="UserIcon"><FontAwesomeIcon icon={faUserPlus} /></p>
                 </div>
                 <div>
-                <form className="was-validated" onSubmit={this.submitHandler}>
-    <div className="form-group">
+                <form className="col-lg-6 offset-lg-3 was-validated" onSubmit={this.submitHandler}>
+    <div className="form-group" id="signUpForm">
         <h1 className="username-Error">{this.state.error}</h1>
     <label>Email address</label>
     <input type="email" className="form-control" name="username"  value={ username } onChange={ this.changeHandler} aria-describedby="emailHelp" required />
-    <div className="valid-feedback">
-      Username is not used
-    </div>
     </div>
     <div className="form-group">
     <label >Password</label>
@@ -78,11 +75,12 @@ export class SignUp extends Component {
     Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters.
     </small>
     </div>
-    <button type="submit" className="btn btn-primary" >Sign Up</button>
+    <button type="submit" className="btn btn-primary" id="signup" >Sign Up</button>
 </form>
                 </div>
             </div>
           
-        )
+        
+          )
     }
 }
