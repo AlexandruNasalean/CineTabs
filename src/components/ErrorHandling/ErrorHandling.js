@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 
- export class ErrorBoundary extends React.Component {
+export class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
@@ -9,7 +9,6 @@ import React, { Component } from "react";
   componentDidCatch(error, info) {
     // Display fallback UI
     this.setState({ hasError: true });
-   
   }
 
   render() {

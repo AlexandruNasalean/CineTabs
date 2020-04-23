@@ -1,77 +1,66 @@
-import React, { Component } from 'react';
-import Carousel from 'react-bootstrap/Carousel'
+import React, { Component } from "react";
+import Carousel from "react-bootstrap/Carousel";
+import Spinner from "react-bootstrap/Spinner";
 
- export class Carouselu extends Component {
+import "./Carousel.css";
+import { randomNumber } from "./utils";
+
+export class Carouselu extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       movieData: [],
-      isLoaded: false,
+      loading: false,
       index: [],
-      }
+    };
   }
+
   componentDidMount() {
-    fetch("https://movies-api-siit.herokuapp.com/movies?&take=8")
+    this.setState({ loading: true });
+
+    fetch(
+      `https://movies-app-siit.herokuapp.com/movies?take=3&skip=${randomNumber()}`
+    )
       .then((response) => response.json())
       .then((json) => {
-          console.log(json);
-        for (let i = 0; i < json.results.length; i++) {
-          const movie = json.results[i];
-    
-          // console.log(movie);
-          console.log(movie.Poster);
-
-          this.setState({
-            isLoaded: true,
-            movieData: movie,
-
-          });
-        }
+        this.setState({
+          loading: false,
+          movieData: json.results,
+        });
       });
   }
-  render() {
-    const movie = this.state.movieData;
-    return (
 
-      <Carousel className="Carousel" >
-    <Carousel.Item>
-      <img
-        className="Carousel-image"
-        src={movie.Poster}
-        alt="First slide"
-      />
-      <Carousel.Caption>
-        <h3>Latest Movie Name 1st</h3>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </Carousel.Caption>
-    </Carousel.Item>
-    <Carousel.Item>
-      <img
-        className="Carousel-image"
-        src={movie.Poster}
-        alt="Third slide"
-      />
-    
-      <Carousel.Caption>
-        <h3>Latest Movie Name 2nd</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </Carousel.Caption>
-    </Carousel.Item>
-    <Carousel.Item>
-      <img
-        className="Carousel-image"
-        src={movie.Poster}
-        alt="Third slide"
-      />
-    
-      <Carousel.Caption>
-        <h3>Latest Movie Name 3rd</h3>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </Carousel.Caption>
-    </Carousel.Item>
-    </Carousel>
+  render() {
+    const { movieData, loading } = this.state;
+
+    return (
+      <Carousel
+        className={
+          "Carousel Carouselu" +
+          (movieData.length === 0 ? " hide-indicator" : "")
+        }
+      >
+        {loading ? (
+          <Spinner animation="border" />
+        ) : (
+          movieData.map((movie, index) => (
+            <Carousel.Item key={index}>
+              <img
+                className="Carousel-image"
+                src={movie.Poster}
+                alt="First slide"
+              />
+              <Carousel.Caption>
+                <h3>{movie.Title}</h3>
+                <p>
+                  Nulla vitae elit libero, a pharetra augue mollis interdum.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))
+        )}
+      </Carousel>
     );
   }
 }
- 

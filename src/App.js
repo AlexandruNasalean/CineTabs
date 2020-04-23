@@ -7,18 +7,17 @@ import { AllMovies } from "./components/Pages/AllMovies/AllMovies";
 import { AdvancedSearch } from "./components/Pages/AdvancedSearch/AdvancedSearch";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { LoginButton } from "./components/Header/components/LoginButton";
-import { LogOutButton } from "./components/Header/components/LogOutButton";
 import { Footer } from "./components/Footer/Footer";
 import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
 import { SignUp } from "./components/Pages/Sign-up/Sign-up";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
-import "./App.css"
+import "./App.css";
 
 class App extends Component {
   render() {
     return (
       <Router>
-        <div>
+        <div className="app">
           <Header />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/AllMovies" component={AllMovies} />
