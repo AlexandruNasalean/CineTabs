@@ -14,6 +14,15 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import "./App.css";
 
 class App extends Component {
+  state = {
+    isLoggedIn: false,
+    userName: "",
+  };
+
+  componentDidMount() {
+    // TODO: getFromCookie token and username  then setState
+  }
+
   render() {
     return (
       <Router>

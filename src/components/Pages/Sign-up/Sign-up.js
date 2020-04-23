@@ -39,6 +39,8 @@ export class SignUp extends Component {
       .then((json) => {
         console.log(json.message);
         document.cookie = `token=${json.accessToken}`;
+        //TODO: add user name in cookie
+
         this.setState({
           error: json.message,
         });
