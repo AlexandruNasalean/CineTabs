@@ -1,0 +1,9 @@
+.Carouselu .spinner-border {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}
+
+.hide-indicator .carousel-indicators {
+  display: none;
+}
