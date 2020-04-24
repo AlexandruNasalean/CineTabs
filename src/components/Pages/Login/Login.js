@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import "./SignUp.css";
 
-export class SignUp extends Component {
+import Cookies from "js-cookie";
+import "./Login.css";
+import {
+  getLoginTitle,
+  getLoginIcon,
+  getLoginButtonText,
+  getLoginUrl,
+} from "./LoginUtils";
+
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -17,10 +24,18 @@ export class SignUp extends Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
   submitHandler = (e) => {
     e.preventDefault();
     console.log(this.state);
-    fetch("http://movies-api-siit.herokuapp.com/auth/register", {
+
+    const {
+      location: { pathname },
+    } = this.props;
+
+    const url = getLoginUrl(pathname);
+
+    fetch(url, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -37,24 +52,41 @@ export class SignUp extends Component {
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.message);
-        document.cookie = `token=${json.accessToken}`;
-        //TODO: add user name in cookie
-
         this.setState({
           error: json.message,
         });
+
+        if (
+          json.message !== "Username already existing" &&
+          json.message !== "Wrong password" &&
+          json.message !== "User not found"
+        ) {
+          Cookies.set("token", json.accessToken);
+          Cookies.set("username", this.state.username);
+          this.props.onLogin(this.state.username, json.accessToken);
+          this.props.history.push("/");
+        }
       });
   };
   render() {
     const { username, password } = this.state;
 
+    // location will not appear if the component it is not used with route component
+    const {
+      location: { pathname },
+    } = this.props;
+    // const pathname = this.props.location.pathname;
+
+    const title = getLoginTitle(pathname);
+    const icon = getLoginIcon(pathname);
+    const loginButtonText = getLoginButtonText(pathname);
+
     return (
       <div className="signUpBody">
         <div className="title">
-          <h1>CREATE ACCOUNT</h1>
+          <h1>{title}</h1>
           <p id="UserIcon">
-            <FontAwesomeIcon icon={faUserPlus} />
+            <FontAwesomeIcon icon={icon} />
           </p>
         </div>
         <div>
@@ -92,7 +124,7 @@ export class SignUp extends Component {
               </small>
             </div>
             <button type="submit" className="btn btn-primary" id="signup">
-              Sign Up
+              {loginButtonText}
             </button>
           </form>
         </div>

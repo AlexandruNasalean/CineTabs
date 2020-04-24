@@ -1,26 +1,24 @@
 .header {
-    background: black;  
-    width: 100%;
-    display: flex;
-  
-  }
+  background: black;
+  width: 100%;
+  display: flex;
+}
 
+.menu-ul-list li {
+  display: inline-block;
+  margin-top: 10px;
+  margin-right: 90px;
+  font-weight: 400;
+  text-decoration: none;
+}
 
-  .menu-ul-list li {
-    display: inline-block;
-    margin-top: 10px;
-    margin-right: 90px;
-    font-weight: 400;
-    text-decoration: none;
+.logo {
+  margin-left: 10px;
+  margin-top: 3px;
+  height: 40px;
+  width: 120px;
+}
 
-  }
-
- 
-  .logo {
-      margin-left: 10px;
-      margin-top: 3px;
-      height:40px;
-      width:120px;
-  }
-  
-  
+.username {
+  color: white;
+}

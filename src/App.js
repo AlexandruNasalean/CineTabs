@@ -6,41 +6,74 @@ import { Genres } from "./components/Pages/Genres/Genres";
 import { AllMovies } from "./components/Pages/AllMovies/AllMovies";
 import { AdvancedSearch } from "./components/Pages/AdvancedSearch/AdvancedSearch";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { LoginButton } from "./components/Header/components/LoginButton";
 import { Footer } from "./components/Footer/Footer";
-import { ErrorBoundary } from "./components/ErrorHandling/ErrorHandling";
-import { SignUp } from "./components/Pages/Sign-up/Sign-up";
+import { Login } from "./components/Pages/Login/Login";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
+import Cookies from "js-cookie";
 import "./App.css";
 
 class App extends Component {
   state = {
     isLoggedIn: false,
-    userName: "",
+    username: null,
+    token: null,
   };
 
   componentDidMount() {
-    // TODO: getFromCookie token and username  then setState
+    const token = Cookies.get("token");
+    if (token) {
+      this.setState({
+        isLoggedIn: true,
+        token,
+        username: Cookies.get("username"),
+      });
+    }
   }
 
+  handleLogin = (username, token) => {
+    this.setState({
+      isLoggedIn: true,
+      username,
+      token,
+    });
+  };
+
+  handleLogOut = () => {
+    // remove from cookies
+    this.setState({
+      isLoggedIn: false,
+      username: null,
+      token: null,
+    });
+  };
+
   render() {
+    const { isLoggedIn, username } = this.state;
+
     return (
       <Router>
         <div className="app">
-          <Header />
+          <Header isLoggedIn={isLoggedIn} username={username} />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
           <Route exact path="/MoviePage" component={MoviePage} />
           <Route exact path="/Contact" component={ContactPage} />
-          <ErrorBoundary>
-            <Route exact path="/Sign-Up" component={SignUp} />
-          </ErrorBoundary>
           <Route
             exact
-            path="/components/Header/components"
-            component={LoginButton}
+            path="/login"
+            component={(props) => (
+              <Login {...props} onLogin={this.handleLogin} />
+            )}
+          />
+          <Route
+            exact
+            path="/sign-up"
+            component={(props) => (
+              <Login {...props} onLogin={this.handleLogin} />
+            )}
+            onLogin={this.handleLogin}
           />
           <Footer />
         </div>
