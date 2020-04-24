@@ -33,7 +33,6 @@ export class Carouselu extends Component {
 
   render() {
     const { movieData, loading } = this.state;
-
     return (
       <Carousel
         className={
@@ -51,10 +50,10 @@ export class Carouselu extends Component {
                 src={movie.Poster}
                 alt="First slide"
               />
-              <Carousel.Caption>
+              <Carousel.Caption className="carousel-second-half">
                 <h3>{movie.Title}</h3>
                 <p>
-                  Nulla vitae elit libero, a pharetra augue mollis interdum.
+          {movie.Year}, {movie.Language}, {movie.Runtime}, {movie.Genre}
                 </p>
               </Carousel.Caption>
             </Carousel.Item>

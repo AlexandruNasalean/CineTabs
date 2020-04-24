@@ -7,3 +7,17 @@
 .hide-indicator .carousel-indicators {
   display: none;
 }
+
+.carousel-caption h3{
+
+  margin-bottom: 4rem;
+}
+
+.carousel-inner{
+  background-color: #5b5b5b;  
+}
+
+.carousel-control-prev{
+  position: absolute;
+  left: 100px;
+}
