@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Spinner from "react-bootstrap/Spinner";
-
 import "./Carousel.css";
 import { randomNumber } from "./utils";
 

@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./Header.css";
 
 export class Header extends Component {
   render() {
-    const { isLoggedIn, username } = this.props;
+    const { isLoggedIn, username, onShowLogOutModal } = this.props;
 
     return (
       <div className="header">
@@ -35,7 +36,10 @@ export class Header extends Component {
             </Link>
           </li>
           {isLoggedIn ? (
+            <React.Fragment>
             <li className="username">{username}</li>
+            <Button onClick={onShowLogOutModal}>Log Out</Button>
+            </React.Fragment>
           ) : (
             <React.Fragment>
               <li>

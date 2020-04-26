@@ -9,14 +9,17 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Footer } from "./components/Footer/Footer";
 import { Login } from "./components/Pages/Login/Login";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
+import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import Cookies from "js-cookie";
 import "./App.css";
+import { Form } from "react-bootstrap";
 
 class App extends Component {
   state = {
     isLoggedIn: false,
     username: null,
     token: null,
+    showLogOutModal: false,
   };
 
   componentDidMount() {
@@ -47,13 +50,24 @@ class App extends Component {
     });
   };
 
+  handleLogOutShowModal =() =>{
+    this.setState({
+      showLogOutModal: true,
+    })
+    
+  }
+  handleHideLogOutModal =() =>{
+    this.setState({
+      showLogOutModal:false,
+    })
+  }
   render() {
     const { isLoggedIn, username } = this.state;
 
     return (
       <Router>
         <div className="app">
-          <Header isLoggedIn={isLoggedIn} username={username} />
+          <Header isLoggedIn={isLoggedIn} username={username} onShowLogOutModal={this.handleLogOutShowModal}/>
           <Route exact path="/" component={HomePage} />
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
@@ -76,6 +90,7 @@ class App extends Component {
             onLogin={this.handleLogin}
           />
           <Footer />
+          <LogOffModal show={this.state.showLogOutModal} hideModal={this.handleHideLogOutModal} />
         </div>
       </Router>
     );
