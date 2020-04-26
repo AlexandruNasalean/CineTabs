@@ -4,17 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 
  export class LogOffModal extends Component {
-  constructor() {
-    super();
-    this.state = { 
-      show: false,
-     }
-  }
-
-  handleModal(){
-
-    this.setState({show:!this.state.show})
-  }
+  
   render() { 
     return (
       <div>
@@ -22,7 +12,7 @@ import Button from 'react-bootstrap/Button'
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered 
-      show={this.state.show}
+      show={this.props.show}
     >
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
@@ -35,8 +25,8 @@ import Button from 'react-bootstrap/Button'
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={()=>{this.handleModal()}}>Yes</Button>
-        <Button onClick={()=>{this.handleModal()}}>No</Button>
+        <Button >Yes</Button>
+        <Button onClick={this.props.hideModal}>No</Button>
       </Modal.Footer>
     </Modal>
 </div>
