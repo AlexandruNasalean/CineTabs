@@ -1,5 +1,8 @@
 #movie-page-container {
   padding-top: 30px;
+  align-content: center;
+  text-align: center;
+  color: white;
 }
 
 #movie-page {
