@@ -12,7 +12,7 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import Cookies from "js-cookie";
 import "./App.css";
-import { Form } from "react-bootstrap";
+// import { Form } from "react-bootstrap";
 
 class App extends Component {
   state = {
@@ -43,31 +43,57 @@ class App extends Component {
 
   handleLogOut = () => {
     // remove from cookies
+
+    const token = Cookies.get("token");
+
+    fetch("https://movies-app-siit.herokuapp.com/auth/logout", {
+      method: "GET", // *GET, POST, PUT, DELETE, etc.
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+        "X-Auth-Token": token,
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *client
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        this.setState({
+          isLoggedIn: false,
+          username: Cookies("username", undefined),
+          token: Cookies("token", undefined),
+          showLogOutModal: false,
+        });
+      });
+    console.log(this.isLoggedIn);
+  };
+
+  handleLogOutShowModal = () => {
     this.setState({
-      isLoggedIn: false,
-      username: null,
-      token: null,
+      showLogOutModal: true,
     });
   };
 
-  handleLogOutShowModal =() =>{
+  handleHideLogOutModal = () => {
     this.setState({
-      showLogOutModal: true,
-    })
-    
-  }
-  handleHideLogOutModal =() =>{
-    this.setState({
-      showLogOutModal:false,
-    })
-  }
+      showLogOutModal: false,
+    });
+  };
+
   render() {
     const { isLoggedIn, username } = this.state;
 
     return (
       <Router>
         <div className="app">
-          <Header isLoggedIn={isLoggedIn} username={username} onShowLogOutModal={this.handleLogOutShowModal}/>
+          <Header
+            isLoggedIn={isLoggedIn}
+            username={username}
+            onShowLogOutModal={this.handleLogOutShowModal}
+          />
           <Route exact path="/" component={HomePage} />
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
@@ -90,7 +116,11 @@ class App extends Component {
             onLogin={this.handleLogin}
           />
           <Footer />
-          <LogOffModal show={this.state.showLogOutModal} hideModal={this.handleHideLogOutModal} />
+          <LogOffModal
+            show={this.state.showLogOutModal}
+            hideModal={this.handleHideLogOutModal}
+            removeCookies={this.handleLogOut}
+          />
         </div>
       </Router>
     );
