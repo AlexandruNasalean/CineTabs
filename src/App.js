@@ -12,7 +12,7 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import Cookies from "js-cookie";
 import "./App.css";
-import { Form } from "react-bootstrap";
+
 
 class App extends Component {
   state = {
@@ -72,7 +72,12 @@ class App extends Component {
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-          <Route exact path="/MoviePage" component={MoviePage} />
+          <Route 
+          exact 
+          path="/MoviePage" 
+          component={(props) =>(
+            <MoviePage {...props} isLoggedIn={isLoggedIn}/>
+          )} />
           <Route exact path="/Contact" component={ContactPage} />
           <Route
             exact

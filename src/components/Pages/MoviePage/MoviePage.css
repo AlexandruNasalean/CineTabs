@@ -40,3 +40,20 @@ h2 {
 .buttons button {
   border-radius: 8px;
 }
+
+.Movie-Page-Buttons{
+  position: relative;
+  bottom: 0px;
+  right: 100px;
+  top: 20px;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.Movie-Page-Buttons button{
+  background: none;
+  border: none;
+  font-size: 30px;
+
+}
