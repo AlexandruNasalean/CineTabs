@@ -12,13 +12,14 @@ export class MoviePage extends Component {
       movieData: [],
       isLoaded: false,
       currentMovieIndex: 0,
+      movieID: null,
     };
   }
 
   componentDidMount() {
     this.setState({ isLoaded: true });
 
-    fetch("https://movies-app-siit.herokuapp.com/movies")
+    fetch("https://movies-app-siit.herokuapp.com/movies?Genre=Action&take=50")
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -34,7 +35,6 @@ export class MoviePage extends Component {
     if (currentMovieIndex < movieData.length - 1) {
       this.setState({
         currentMovieIndex: currentMovieIndex + 1,
-        isLoaded: true,
       });
     }
     console.log("next");
@@ -55,6 +55,7 @@ export class MoviePage extends Component {
     const { isLoggedIn } = this.props;
     const { movieData, isLoaded, currentMovieIndex } = this.state;
     const movie = movieData[currentMovieIndex] || {};
+    console.log(this.state.movieID);
 
     return (
       <div id="movie-page-container">

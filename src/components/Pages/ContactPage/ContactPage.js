@@ -20,7 +20,7 @@ export function ContactPage() {
     <div className="contact-container">
       <div className="contact-card">
         <button>
-          <Link to="/MoviePage">MoviePage</Link>
+          <Link to={`/MoviePage`}>MoviePage</Link>
         </button>
         <Card style={{ width: "18rem" }}>
           <Card.Img variant="top" src="https://i.imgur.com/r3dLpmN.png" />
