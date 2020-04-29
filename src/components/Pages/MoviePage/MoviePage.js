@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrash,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
 export class MoviePage extends Component {
@@ -9,9 +13,8 @@ export class MoviePage extends Component {
     super(props);
 
     this.state = {
-      movieData: [],
+      movie: {},
       isLoaded: false,
-      currentMovieIndex: 0,
       movieID: null,
     };
   }
@@ -19,46 +22,30 @@ export class MoviePage extends Component {
   componentDidMount() {
     this.setState({ isLoaded: true });
 
-    fetch("https://movies-app-siit.herokuapp.com/movies?Genre=Action&take=50")
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: false,
-          movieData: json.results,
+    const search = this.props.location.search;
+    if (search) {
+      const [_, id] = search.split("=");
+      const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          this.setState({
+            isLoaded: false,
+            movie: json,
+          });
         });
-      });
+    }
   }
-
-  handleNext = () => {
-    const { movieData, currentMovieIndex } = this.state;
-
-    if (currentMovieIndex < movieData.length - 1) {
-      this.setState({
-        currentMovieIndex: currentMovieIndex + 1,
-      });
-    }
-    console.log("next");
-  };
-
-  handleBack = () => {
-    const { currentMovieIndex } = this.state;
-
-    if (currentMovieIndex > 0) {
-      this.setState({
-        currentMovieIndex: currentMovieIndex - 1,
-      });
-    }
-    console.log("back");
-  };
 
   render() {
     const { isLoggedIn } = this.props;
-    const { movieData, isLoaded, currentMovieIndex } = this.state;
-    const movie = movieData[currentMovieIndex] || {};
-    console.log(this.state.movieID);
+    const { movie, isLoaded, currentMovieIndex } = this.state;
 
     return (
       <div id="movie-page-container">
+        <h5>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to search results
+        </h5>
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
@@ -67,30 +54,6 @@ export class MoviePage extends Component {
             <div id="movie-page">
               <div className="poster-section">
                 <img className="poster" src={movie.Poster} alt="" />
-                <div className="buttons">
-                  <button
-                    id="back-button"
-                    className={
-                      "navigation-button" +
-                      (currentMovieIndex === 0 ? " disabled" : "")
-                    }
-                    onClick={this.handleBack}
-                  >
-                    {"<"}
-                  </button>
-                  <button
-                    id="next-button"
-                    className={
-                      "navigation-button" +
-                      (currentMovieIndex === movieData.length - 1
-                        ? " disabled"
-                        : "")
-                    }
-                    onClick={this.handleNext}
-                  >
-                    {">"}
-                  </button>
-                </div>
               </div>
               <div className="movie-details">
                 <ul>
