@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrash,
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
 export class MoviePage extends Component {
@@ -9,44 +13,47 @@ export class MoviePage extends Component {
     super(props);
 
     this.state = {
-      movieData: [],
+      movie: {},
       isLoaded: false,
-      index: 0,
+      movieID: null,
     };
   }
 
   componentDidMount() {
     this.setState({ isLoaded: true });
 
-    fetch("https://movies-app-siit.herokuapp.com/movies")
-      .then((response) => response.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: false,
-          movieData: json.results,
+    const search = this.props.location.search;
+    if (search) {
+      const [_, id] = search.split("=");
+      const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          this.setState({
+            isLoaded: false,
+            movie: json,
+          });
         });
-      });
+    }
   }
 
   render() {
     const { isLoggedIn } = this.props;
-    const { movieData, isLoaded, index } = this.state;
-    const movie = movieData[index] || {};
+    const { movie, isLoaded, currentMovieIndex } = this.state;
 
     return (
       <div id="movie-page-container">
+        <h5>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back to search results
+        </h5>
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
-          <React.Fragment key={index}>
+          <React.Fragment key={currentMovieIndex}>
             <h2 id="title">{movie.Title}</h2>
             <div id="movie-page">
               <div className="poster-section">
                 <img className="poster" src={movie.Poster} alt="" />
-                <div className="buttons">
-                  <button id="back-button">Back</button>
-                  <button id="next-button">Next</button>
-                </div>
               </div>
               <div className="movie-details">
                 <ul>
