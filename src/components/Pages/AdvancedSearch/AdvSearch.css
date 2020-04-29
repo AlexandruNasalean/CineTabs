@@ -1,3 +1,11 @@
 .cards{
   background-color: thistle;
 }
+#Adv-Search-Title-Label{
+  color: aliceblue;
+}
+.Adv-Results{
+  display: flex;
+  flex-wrap:wrap;
+
+}
