@@ -63,12 +63,18 @@ class App extends Component {
         console.log(json);
         this.setState({
           isLoggedIn: false,
-          username: Cookies("username", undefined),
-          token: Cookies("token", undefined),
+          username: null,
+          token: null,
           showLogOutModal: false,
         });
+        Cookies.remove("token", {
+          path: "",
+        });
+        Cookies.remove("username", {
+          path: "",
+        });
       });
-    console.log(this.isLoggedIn);
+    console.log(this.state.isLoggedIn);
   };
 
   handleLogOutShowModal = () => {
@@ -98,12 +104,13 @@ class App extends Component {
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-          <Route 
-          exact 
-          path="/MoviePage" 
-          component={(props) =>(
-            <MoviePage {...props} isLoggedIn={isLoggedIn}/>
-          )} />
+          <Route
+            exact
+            path="/MoviePage"
+            component={(props) => (
+              <MoviePage {...props} isLoggedIn={isLoggedIn} />
+            )}
+          />
           <Route exact path="/Contact" component={ContactPage} />
           <Route
             exact
