@@ -1,7 +1,6 @@
 #movie-page-container {
   padding-top: 30px;
   align-content: center;
-  text-align: center;
   color: white;
 }
 
@@ -12,6 +11,10 @@
   padding-top: 20px;
   padding-left: 200px;
   color: white;
+}
+
+#movie-page-container h1 {
+  text-align: center;
 }
 
 .poster-section {
@@ -40,23 +43,26 @@ h2 {
   justify-content: space-around;
 }
 
-.buttons button {
+#back-button,
+#next-button {
   border-radius: 8px;
 }
 
-.Movie-Page-Buttons{
+.disabled {
+  opacity: 0.5;
+}
+
+.Movie-Page-Buttons {
   position: relative;
   bottom: 0px;
   right: 100px;
   top: 20px;
   display: flex;
   justify-content: space-around;
-
 }
 
-.Movie-Page-Buttons button{
+.Movie-Page-Buttons button {
   background: none;
   border: none;
   font-size: 30px;
-
 }

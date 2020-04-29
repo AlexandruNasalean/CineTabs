@@ -11,7 +11,7 @@ export class MoviePage extends Component {
     this.state = {
       movieData: [],
       isLoaded: false,
-      index: 0,
+      currentMovieIndex: 0,
     };
   }
 
@@ -28,24 +28,67 @@ export class MoviePage extends Component {
       });
   }
 
+  handleNext = () => {
+    const { movieData, currentMovieIndex } = this.state;
+
+    if (currentMovieIndex < movieData.length - 1) {
+      this.setState({
+        currentMovieIndex: currentMovieIndex + 1,
+        isLoaded: true,
+      });
+    }
+    console.log("next");
+  };
+
+  handleBack = () => {
+    const { currentMovieIndex } = this.state;
+
+    if (currentMovieIndex > 0) {
+      this.setState({
+        currentMovieIndex: currentMovieIndex - 1,
+      });
+    }
+    console.log("back");
+  };
+
   render() {
     const { isLoggedIn } = this.props;
-    const { movieData, isLoaded, index } = this.state;
-    const movie = movieData[index] || {};
+    const { movieData, isLoaded, currentMovieIndex } = this.state;
+    const movie = movieData[currentMovieIndex] || {};
 
     return (
       <div id="movie-page-container">
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
-          <React.Fragment key={index}>
+          <React.Fragment key={currentMovieIndex}>
             <h2 id="title">{movie.Title}</h2>
             <div id="movie-page">
               <div className="poster-section">
                 <img className="poster" src={movie.Poster} alt="" />
                 <div className="buttons">
-                  <button id="back-button">Back</button>
-                  <button id="next-button">Next</button>
+                  <button
+                    id="back-button"
+                    className={
+                      "navigation-button" +
+                      (currentMovieIndex === 0 ? " disabled" : "")
+                    }
+                    onClick={this.handleBack}
+                  >
+                    {"<"}
+                  </button>
+                  <button
+                    id="next-button"
+                    className={
+                      "navigation-button" +
+                      (currentMovieIndex === movieData.length - 1
+                        ? " disabled"
+                        : "")
+                    }
+                    onClick={this.handleNext}
+                  >
+                    {">"}
+                  </button>
                 </div>
               </div>
               <div className="movie-details">
