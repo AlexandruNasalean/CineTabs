@@ -8,9 +8,10 @@
   display: flex;
   flex-wrap:wrap;
   justify-content: space-around;
+
   
 }
 
 .card-body{
-  min-height: 100%;
+  min-height: 250px;
 }
