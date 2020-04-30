@@ -12,7 +12,6 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import Cookies from "js-cookie";
 import "./App.css";
-import { AdvancedSearchResults } from "./components/Pages/AdvancedSearch/AdvancedSearchResults"
 // import { Form } from "react-bootstrap";
 
 class App extends Component {
@@ -21,6 +20,7 @@ class App extends Component {
     username: null,
     token: null,
     showLogOutModal: false,
+  
   };
 
   componentDidMount() {
@@ -91,7 +91,7 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn, username } = this.state;
+    const { isLoggedIn, username,} = this.state;
 
     return (
       <Router>
@@ -102,10 +102,10 @@ class App extends Component {
             onShowLogOutModal={this.handleLogOutShowModal}
           />
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/AdvancedSearchResults" component={AdvancedSearchResults} />
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
+       
           <Route
             exact
             path="/MoviePage"
