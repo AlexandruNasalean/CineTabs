@@ -14,11 +14,9 @@ export class AdvancedSearch extends Component {
     };
   }
   componentDidMount(){
-      const SerachQuerry = Cookies.get("SearchQuery")
-  
-      if(SerachQuerry) {
-        const searchQuery = this.state.query;
-        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${SerachQuerry}`;
+       const CookieSearchQuery = Cookies.get("CookieSearchQuery");
+      if(CookieSearchQuery) {
+        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${CookieSearchQuery}`;
         fetch(url)
           .then((response) => response.json())
           .then((json) => {
@@ -33,7 +31,6 @@ export class AdvancedSearch extends Component {
               this.setState({
                 emptySearch: false,
               });
-              Cookies.set("SearchQuery",searchQuery)
             }
           });
       }
@@ -53,7 +50,8 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         this.setState({
           searchResults: json.results,
-        });
+        })
+        Cookies.set("CookieSearchQuery",searchQuery);
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
@@ -61,8 +59,9 @@ export class AdvancedSearch extends Component {
         } else {
           this.setState({
             emptySearch: false,
+
+
           });
-          Cookies.set("SearchQuery",searchQuery)
         }
       });
   };
