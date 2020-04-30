@@ -11,7 +11,6 @@ import { Button } from "react-bootstrap";
 export class MoviePage extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       movie: {},
       isLoaded: false,

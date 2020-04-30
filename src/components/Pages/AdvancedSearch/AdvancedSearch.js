@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./AdvSearch.css";
-import Card from "react-bootstrap/Card";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { AdvancedSearchResult } from "./AdvancedSearchResults.js"
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -13,7 +13,31 @@ export class AdvancedSearch extends Component {
       emptySearch: "",
     };
   }
-
+  componentDidMount(){
+      const SerachQuerry = Cookies.get("SearchQuery")
+  
+      if(SerachQuerry) {
+        const searchQuery = this.state.query;
+        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${SerachQuerry}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({
+              searchResults: json.results,
+            });
+            if (json.results.length === 0) {
+              this.setState({
+                emptySearch: true,
+              });
+            } else {
+              this.setState({
+                emptySearch: false,
+              });
+              Cookies.set("SearchQuery",searchQuery)
+            }
+          });
+      }
+  }
   handleInputChange = (event) => {
     this.setState({
       query: event.target.value,
@@ -38,13 +62,16 @@ export class AdvancedSearch extends Component {
           this.setState({
             emptySearch: false,
           });
+          Cookies.set("SearchQuery",searchQuery)
         }
       });
   };
   render() {
     console.log(this.state.searchResults);
     const { emptySearch, searchResults } = this.state;
-    console.log(emptySearch);
+    // console.log(emptySearch);
+    // console.log(Cookies.get("SearchQueryURL"));
+
     return (
       <div className="container-lg">
         <div className="Advanced-Filter">
@@ -72,25 +99,7 @@ export class AdvancedSearch extends Component {
               <h1>No Results!</h1>
             </React.Fragment>
           ) : (
-            searchResults.map((movie, index) => (
-              <Link to={`/MoviePage?id=${movie._id}`} key={index}>
-                <div className="container-cards">
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Img variant="top" src={movie.Poster} />
-                    <Card.Body>
-                      <Card.Title>{movie.Title}</Card.Title>
-                      <Card.Text>
-                        <ul>
-                          <li>Year: {movie.Year}</li>
-                          <li>Genre: {movie.Genre}</li>
-                          <li>Language: {movie.Language}</li>
-                        </ul>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </Link>
-            ))
+            <AdvancedSearchResult searchResults={searchResults}/>
           )}
         </div>
       </div>

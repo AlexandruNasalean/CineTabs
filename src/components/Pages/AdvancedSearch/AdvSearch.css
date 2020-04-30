@@ -7,5 +7,10 @@
 .Adv-Results{
   display: flex;
   flex-wrap:wrap;
+  justify-content: space-around;
+  
+}
 
+.card-body{
+  min-height: 100%;
 }

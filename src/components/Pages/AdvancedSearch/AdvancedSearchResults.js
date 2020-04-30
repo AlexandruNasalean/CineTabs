@@ -1,28 +1,38 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import "./AdvSearch.css"
+import { Link } from "react-router-dom";
 
 
-export class AdvancedSearchResults extends Component {
+export class AdvancedSearchResult extends Component {
   
   constructor(props) {
     super(props);
     this.state = {  }
   }
-  render() { 
+  
+  render() {
+    const {searchResults} = this.props
     return ( 
-      <div className="container">
-      <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-          <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of
-            the card's content.
-            </Card.Text>
-        </Card.Body>
-      </Card>
-      </div>
+      searchResults.map((movie, index) => (
+        <Link to={`/MoviePage?id=${movie._id}`} key={index}>
+          <div className="container-cards">
+            <Card style={{ width: "18rem" }}>
+              <Card.Img variant="top" src={movie.Poster} />
+              <Card.Body>
+                <Card.Title>{movie.Title}</Card.Title>
+                <Card.Text>
+                  
+                    <li>Year: {movie.Year}</li>
+                    <li>Genre: {movie.Genre}</li>
+                    <li>Language: {movie.Language}</li>
+          
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </div>
+        </Link>
+      ))
      );
   }
 }
