@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
-import { AdvancedSearchResult } from "./AdvancedSearchResults.js"
+import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
+import {Form} from "react-bootstrap";
+import {generateAdvancedSearchUrl} from "./AdvanceSearchUtils";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -11,12 +13,15 @@ export class AdvancedSearch extends Component {
       data: [],
       searchResults: [],
       emptySearch: "",
+      Genre : [],
+        
     };
+
   }
   componentDidMount(){
-       const CookieSearchQuery = Cookies.get("CookieSearchQuery");
-      if(CookieSearchQuery) {
-        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${CookieSearchQuery}`;
+
+       const url = Cookies.get("CookieSearchQuery");
+      if(url) {
         fetch(url)
           .then((response) => response.json())
           .then((json) => {
@@ -41,17 +46,35 @@ export class AdvancedSearch extends Component {
     });
   };
 
+  CheckBoxChangeHandler = (event) => {
+    console.log(event.target.name);
+    const Genre = [...this.state.Genre];
+    if(Genre.includes(event.target.name)){
+      this.setState({
+        Genre: Genre.filter(element =>( element !== event.target.name))
+      })
+    }
+    else{
+        Genre.push(event.target.name);
+      this.setState({
+        Genre
+      })
+    }
+
+  }
+  
   submitHandler = (e) => {
     e.preventDefault();
-    const searchQuery = this.state.query;
-    const url = `https://movies-app-siit.herokuapp.com/movies?Title=${searchQuery}`;
+    const url = generateAdvancedSearchUrl(this.state);
+    console.log(url);
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
           searchResults: json.results,
         })
-        Cookies.set("CookieSearchQuery",searchQuery);
+        Cookies.set("CookieSearchQuery",url);
+        console.log(json.results);
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
@@ -65,12 +88,13 @@ export class AdvancedSearch extends Component {
         }
       });
   };
-  render() {
-    console.log(this.state.searchResults);
-    const { emptySearch, searchResults } = this.state;
-    // console.log(emptySearch);
-    // console.log(Cookies.get("SearchQueryURL"));
 
+  render() {
+    // console.log(this.state.searchResults);
+    const { emptySearch, searchResults, Genre} = this.state;
+    // const {checkBoxData, Action, Comedy} =this.state;
+    // console.log(Cookies.get("SearchQueryURL"));
+    console.log(Genre)
     return (
       <div className="container-lg">
         <div className="Advanced-Filter">
@@ -86,7 +110,18 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
-            </div>
+                    <div className="Genre-Filter">
+                          {['checkbox'].map((type) => (
+                          <div key={`inline-${type}`} className="mb-3">
+                              <Form.Check inline label="Comedy" name="Comedy" value="Comedy" onClick={this.CheckBoxChangeHandler}/>
+                              <Form.Check inline label="Action" name="Action" value="Action" onClick={this.CheckBoxChangeHandler}/>
+                              <Form.Check inline label="Adventure" name="Adventure" value="Adventure" onClick={this.CheckBoxChangeHandler}/>
+
+
+                          </div>
+                          ))}
+                    </div>
+                  </div>
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
