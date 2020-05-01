@@ -8,10 +8,12 @@ export class HomePage extends Component {
   render() {
     return (
       <div>
+          <div className = "searchsectionStyling">
         <h4 className="SearchBarText" id="search-bar" onClick={carouselFetch}>
           All the good movies are here:
         </h4>
         <SearchBar>SearchBar</SearchBar>
+          </div>
 
         <Carouselu></Carouselu>
         <div className="BestMovie2018">
