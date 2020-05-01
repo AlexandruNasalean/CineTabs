@@ -1,74 +1,69 @@
-import React, { Component } from "react";
+import React from "react";
 import "./searchbar.css";
-class SearchBar extends Component {
-  state = {
-    query: "",
-    data: [],
-    searchString: [],
-  };
 
-  handleInputChange = (event) => {
-    this.setState(
-      {
-        query: event.target.value,
-      },
-      () => {
-        this.filterArray();
-      }
-    );
-  };
 
-  getData = () => {
-    // fetch(`https://movies-app-siit.herokuapp.com/`)
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     // console.log(responseData)
-    //     this.setState({
-    //       data: responseData,
-    //       searchString: responseData,
-    //     });
-    //   });
-  };
+class SearchBar extends React.Component {
+constructor( props ) {
+  super(props);
 
-  filterArray = () => {
-    let searchString = this.state.query;
-    let responseData = this.state.data;
-
-    if (searchString.length > 0) {
-      // console.log(responseData[i].name);
-      responseData = responseData.filter(searchString);
-      this.setState({
-        responseData,
-      });
-    }
-  };
-
-  componentDidMount() {
-    this.getData();
+  this.state = {
+    query: '',
+    results: {},
+    loading: false,
+    message: ''
   }
 
-  render() {
-    return (
-      <div className="searchForm">
-        <form>
-          <input
-            className="searchbar"
-            type="text"
-            id="filter"
-            placeholder="Search for..."
-            onChange={this.handleInputChange}
-          />
-        </form>
-        <div>
-          {
-            //  this.state.responseData.map((i) =>
-            //       <p>{i.name}</p>
-            //   )
-          }
-        </div>
-      </div>
-    );
+  
+}
+
+fetchSearchResults = (query) => {
+ // const pageNumber = updatePageNo ? `` 
+  
+ const searchUrl = `https://movies-app-siit.herokuapp.com/movies?Title=${query}`;
+ fetch (searchUrl)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        results: json.results,
+      })
+    })
+
+}
+onKeyDown = (event) => {
+  if (event.key === "Enter") {
+    this.fetchSearchResults ( this.state.query)
   }
 }
 
+
+
+
+handleOnInputChange = ( event ) => {
+  const query = event.target.value;
+  //console.log(query);
+  this.setState({ query} );
+};
+
+
+  render() {
+    
+    const { query} = this.state;
+    console.log(this.state)
+    return(
+        <div className="container">
+       <input
+       type="text"
+       name="query"
+       value={query}
+       id="search-input"
+       placeholder="Search your movie..."
+       onChange={this.handleOnInputChange}
+       onKeyDown={this.onKeyDown}
+       />
+        </div>
+    )
+  }
+}
+
+    
 export default SearchBar;
