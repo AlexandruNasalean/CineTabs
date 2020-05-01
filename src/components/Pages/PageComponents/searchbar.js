@@ -50,7 +50,7 @@ handleOnInputChange = ( event ) => {
     const { query} = this.state;
     console.log(this.state)
     return(
-        <div className="container">
+        <div className="searchbarcontainer">
        <input
        type="text"
        name="query"
