@@ -32,10 +32,9 @@ export class MoviePage extends Component {
           this.setState({
             isLoaded: false,
             movie: json,
-            movieID: id,
           });
+          localStorage.setItem("movie", id);
         });
-      localStorage.setItem("movieID", id);
     }
   }
 

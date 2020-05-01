@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
-import { AdvancedSearchResult } from "./AdvancedSearchResults.js"
+import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -13,27 +13,30 @@ export class AdvancedSearch extends Component {
       emptySearch: "",
     };
   }
-  componentDidMount(){
-       const CookieSearchQuery = Cookies.get("CookieSearchQuery");
-      if(CookieSearchQuery) {
-        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${CookieSearchQuery}`;
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
-            this.setState({
-              searchResults: json.results,
-            });
-            if (json.results.length === 0) {
-              this.setState({
-                emptySearch: true,
-              });
-            } else {
-              this.setState({
-                emptySearch: false,
-              });
-            }
+  componentDidMount() {
+    const SerachQuerry = Cookies.get("SearchQuery");
+
+    if (SerachQuerry) {
+      const searchQuery = this.state.query;
+      const url = `https://movies-app-siit.herokuapp.com/movies?Title=${SerachQuerry}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          this.setState({
+            searchResults: json.results,
           });
-      }
+          if (json.results.length === 0) {
+            this.setState({
+              emptySearch: true,
+            });
+          } else {
+            this.setState({
+              emptySearch: false,
+            });
+            Cookies.set("SearchQuery", searchQuery);
+          }
+        });
+    }
   }
   handleInputChange = (event) => {
     this.setState({
@@ -50,8 +53,7 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         this.setState({
           searchResults: json.results,
-        })
-        Cookies.set("CookieSearchQuery",searchQuery);
+        });
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
@@ -59,9 +61,8 @@ export class AdvancedSearch extends Component {
         } else {
           this.setState({
             emptySearch: false,
-
-
           });
+          Cookies.set("SearchQuery", searchQuery);
         }
       });
   };
@@ -86,6 +87,64 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
+              {/* my work */}
+              <div className="rating-searchbar">
+                <label>User Rating</label>
+                <div className="movie-rating">
+                  <p>From</p>
+                  <select className="rating-dropdown" name="movie-rating">
+                    <option value="-">-</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+                  <p>to</p>
+                  <select className="rating-dropdown" name="movie-rating">
+                    <option value="-">-</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                  </select>
+                </div>
+              </div>
+              <div className="votes-searchbar">
+                <label>Number of Votes</label>
+                <div className="movie-votes">
+                  <p>From</p>
+                  <input
+                    className="form-control"
+                    id="min-votes"
+                    type="number"
+                    min="0"
+                    placeholder="Enter a number"
+                    // onChange={}
+                  />
+                  <p>to</p>
+                  <input
+                    className="form-control"
+                    id="max-votes"
+                    type="number"
+                    min="0"
+                    placeholder="Enter a number"
+                    // onChange={}
+                  />
+                </div>
+              </div>
+              {/* end */}
             </div>
             <button type="submit" className="btn btn-primary">
               Submit
@@ -98,7 +157,7 @@ export class AdvancedSearch extends Component {
               <h1>No Results!</h1>
             </React.Fragment>
           ) : (
-            <AdvancedSearchResult searchResults={searchResults}/>
+            <AdvancedSearchResult searchResults={searchResults} />
           )}
         </div>
       </div>

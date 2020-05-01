@@ -1,17 +1,51 @@
-.cards{
+.cards {
   background-color: thistle;
 }
-#Adv-Search-Title-Label{
+#Adv-Search-Title-Label {
   color: aliceblue;
 }
-.Adv-Results{
+.Adv-Results {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   justify-content: space-around;
-
-  
 }
 
-.card-body{
+.card-body {
   min-height: 250px;
+}
+
+.form-group {
+  color: white;
+}
+
+.rating-searchbar,
+.votes-searchbar {
+  padding-bottom: 30px;
+}
+
+.rating-searchbar {
+  padding-top: 30px;
+}
+
+.movie-votes,
+.movie-rating {
+  display: flex;
+}
+
+.movie-votes input {
+  width: 150px;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.rating-dropdown {
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 25px;
+}
+
+.form-group label {
+  color: salmon;
+  font-weight: bold;
 }
