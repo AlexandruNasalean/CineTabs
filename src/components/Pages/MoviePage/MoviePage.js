@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import {
   faEdit,
   faTrash,
   faArrowLeft,
+  faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -15,6 +17,7 @@ export class MoviePage extends Component {
     this.state = {
       movie: {},
       isLoaded: false,
+
     };
   }
 
@@ -22,7 +25,7 @@ export class MoviePage extends Component {
     this.setState({ isLoaded: true });
 
     const search = this.props.location.search;
-    console.log(search);
+    // console.log(search);
     if (search) {
       const [_, id] = search.split("=");
       const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
@@ -31,12 +34,36 @@ export class MoviePage extends Component {
         .then((json) => {
           this.setState({
             isLoaded: false,
+            isDeleted: false,
             movie: json,
             movieID: id,
           });
         });
       localStorage.setItem("movieID", id);
     }
+  }
+
+  handleDeleteMovie(){
+    const logInToken = Cookies.get("token");
+    const movieLocalID = localStorage.getItem("movieID");
+    const urlDelete = `https://movies-app-siit.herokuapp.com/movies/:${movieLocalID}`;
+    console.log(urlDelete);
+    console.log(logInToken);
+    // fetch(urlDelete, {
+    //   method: "DELETE",
+    //   mode: "cors",
+    //   cache: "no-cache",
+    //   credentials: "same-origin",
+    //   headers: {
+    //     "x-auth-token": "logInToken",
+    //   },
+    //   redirect: "follow",
+    //   referrerPolicy: "no-referrer",
+    //   body: JSON.stringify({
+    //     username: this.state.username,
+    //     password: this.state.password,
+    //   }),
+    // })
   }
 
   render() {
@@ -71,7 +98,7 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button>
+                    <Button onClick={this.handleDeleteMovie}>
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
                     <Button>
