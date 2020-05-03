@@ -33,7 +33,7 @@ export class MoviePage extends Component {
             isLoaded: false,
             movie: json,
           });
-          localStorage.setItem("movie", id);
+          localStorage.setItem("movie", JSON.stringify);
         });
     }
   }
