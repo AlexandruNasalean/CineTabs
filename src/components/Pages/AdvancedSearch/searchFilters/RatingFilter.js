@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
+import { unique } from "lodash";
 
 export class RatingFilter extends Component {
+  state = {
+    minRating: null,
+    maxRating: null,
+  };
+
+  handleOnChange = (event) => {
+    this.props.filterByRating();
+  };
+
   render() {
     const { searchResults } = this.props;
 
@@ -11,8 +21,8 @@ export class RatingFilter extends Component {
         <div className="movie-rating">
           <p>From</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating) => (
-              <option key={movieRating} value={movieRating.imdbRating}>
+            {searchResults.map((movieRating, index) => (
+              <option key={index} value={movieRating.imdbRating}>
                 {movieRating.imdbRating}
               </option>
             ))}
@@ -33,8 +43,8 @@ export class RatingFilter extends Component {
           </select>
           <p>to</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating) => (
-              <option key={movieRating} value={movieRating.imdbRating}>
+            {searchResults.map((movieRating, index) => (
+              <option key={index} value={movieRating.imdbRating}>
                 {movieRating.imdbRating}
               </option>
             ))}

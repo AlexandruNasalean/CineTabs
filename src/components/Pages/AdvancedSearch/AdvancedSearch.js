@@ -68,6 +68,13 @@ export class AdvancedSearch extends Component {
         }
       });
   };
+
+  filterByRating(minRating, maxRating) {
+    this.setState({
+      searchResults: this.state.searchResults.filter((movie) => {}),
+    });
+  }
+
   render() {
     console.log(this.state.searchResults);
     const { emptySearch, searchResults } = this.state;
@@ -89,7 +96,10 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
-              <RatingFilter searchResults={searchResults} />
+              <RatingFilter
+                searchResults={searchResults}
+                filterByRating={this.filterByRating}
+              />
               <VotesFilter searchResults={searchResults} />
             </div>
             <button type="submit" className="btn btn-primary">

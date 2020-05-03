@@ -11,16 +11,16 @@ export class VotesFilter extends Component {
         <div className="movie-rating">
           <p>From</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating) => (
-              <option key={movieRating} value={movieRating.imdbVotes}>
+            {searchResults.map((movieRating, index) => (
+              <option key={index} value={movieRating.imdbVotes}>
                 {movieRating.imdbVotes}
               </option>
             ))}
           </select>
           <p>to</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating) => (
-              <option key={movieRating} value={movieRating.imdbVotes}>
+            {searchResults.map((movieRating, index) => (
+              <option key={index} value={movieRating.imdbVotes}>
                 {movieRating.imdbVotes}
               </option>
             ))}
