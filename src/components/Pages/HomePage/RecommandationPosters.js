@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Spinner from "react-bootstrap/Spinner";
-import RecommandationPosters from "./Carousel.css";
-import { randomNumber } from "./utils";
+// import RecommandationPosters from "./Carousel.css";
+import { randomNumber } from "../PageComponents/utils";
 
 export class RecommandationPosters extends Component {
   constructor(props) {
@@ -51,9 +51,7 @@ export class RecommandationPosters extends Component {
               />
               <Carousel.Caption className="carousel-second-half">
                 <h3>{movie.Title}</h3>
-                <p>
-           {movie.Genre}
-                </p>
+                <p>{movie.Genre}</p>
               </Carousel.Caption>
             </Carousel.Item>
           ))
