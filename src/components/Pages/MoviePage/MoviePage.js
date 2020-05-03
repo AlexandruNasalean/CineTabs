@@ -25,16 +25,26 @@ export class MoviePage extends Component {
     console.log(search);
     if (search) {
       const [_, id] = search.split("=");
-      const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({
-            isLoaded: false,
-            movie: json,
-          });
-          localStorage.setItem("movie", JSON.stringify);
+      const localStorageData = localStorage.getItem(`movie_${id}`);
+
+      if (localStorageData) {
+        const data = JSON.parse(localStorageData);
+        this.setState({
+          isLoaded: false,
+          movie: data,
         });
+      } else {
+        const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({
+              isLoaded: false,
+              movie: json,
+            });
+            localStorage.setItem(`movie_${id}`, JSON.stringify(json));
+          });
+      }
     }
   }
 

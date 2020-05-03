@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { getBestMovie } from "./BestMovieUtils";
 
 export class BestMovie extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ export class BestMovie extends Component {
 
     this.state = {
       loading: false,
-      movieData: {},
+      movie: {},
     };
   }
 
@@ -17,18 +18,18 @@ export class BestMovie extends Component {
     fetch("https://movies-app-siit.herokuapp.com/movies?Year=2019")
       .then((response) => response.json())
       .then((json) => {
+        console.log(json);
         this.setState({
           loading: false,
-          movieData: json,
+          movie: getBestMovie(json.results),
         });
-        console.log(this.state.movieData);
       });
   }
 
   render() {
-    const { movieData } = this.state;
-    const bestMovie = movieData.results;
-    console.log(bestMovie);
+    const { movie } = this.state;
+
+    console.log(movie);
 
     return (
       <div className="BestMovie2018">
