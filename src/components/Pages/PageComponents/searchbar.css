@@ -1,8 +1,10 @@
-.searchForm{
-    margin-left: 40%;
-    width: 400px;
+.searchbarcontainer {
+    width: 100%;
+    margin-top: 2%;
+
 }
 
-.searchbar{
-    width: 400px;
+#search-input {
+    width: 500px;
+    margin-left: 35%;
 }

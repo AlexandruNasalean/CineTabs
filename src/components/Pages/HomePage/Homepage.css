@@ -63,7 +63,11 @@ button {
   height: 200px;
 }
 
-.SearchBarText {
-  margin-left: 40%;
-  color: white;
+.SearchBarText{
+margin-left: 40%;
+color: white;
+}
+
+.searchsectionStyling{
+width: 100%;
 }
