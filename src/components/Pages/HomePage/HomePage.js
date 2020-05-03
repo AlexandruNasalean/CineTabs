@@ -4,6 +4,8 @@ import Card from "react-bootstrap/Card";
 import "./Homepage.css";
 import { carouselFetch } from "./movieFetch";
 import { Carouselu } from "../PageComponents/carousel";
+import { RecommandationPosters } from "./RecommandationPosters";
+
 export class HomePage extends Component {
   render() {
     return (
@@ -117,6 +119,7 @@ export class HomePage extends Component {
               />
             </Card>
           </div>
+          <RecommandationPosters></RecommandationPosters>
         </div>
       </div>
     );
