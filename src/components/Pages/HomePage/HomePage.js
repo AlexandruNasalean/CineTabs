@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import "./Homepage.css";
 import { carouselFetch } from "./movieFetch";
 import { Carouselu } from "../PageComponents/carousel";
+import { BestMovie } from "./BestMovie";
 import { RecommandationPosters } from "./RecommandationPosters";
 
 export class HomePage extends Component {
@@ -18,37 +19,7 @@ export class HomePage extends Component {
           </div>
 
         <Carouselu></Carouselu>
-        <div className="BestMovie2018">
-          <div className="DescriptionBestMovie2018">
-            <h3>
-              The Most Appreciated Movie of 2018
-              &#9733;&#9733;&#9733;&#9733;&#9733;
-            </h3>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. Lorem Ipsum is
-              simply dummy text of the printing and typesetting industry. Lorem
-              Ipsum has been the industry's standard dummy text ever since the
-              1500s, when an unknown printer took a galley of type and scrambled
-              it to make a type specimen book.{" "}
-            </p>
-
-            <a href="/AllMovies">
-              <button type="button" className="btn btn-outline-warning">
-                Discover All Good Movies
-              </button>
-            </a>
-          </div>
-          <div>
-            <img
-              className="ImgBestMovie2018"
-              src="https://image.freepik.com/free-vector/best-film-movie-award-golden-label-design_1017-12389.jpg"
-              alt="empty"
-            ></img>
-          </div>
-        </div>
+        <BestMovie />
 
         <div className="MovieRecomandation">
           <div>

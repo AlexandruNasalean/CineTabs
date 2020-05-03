@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
-import { AdvancedSearchResult } from "./AdvancedSearchResults.js"
+import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
+import { RatingFilter } from "./searchFilters/RatingFilter";
+import { VotesFilter } from "./searchFilters/VotesFilter";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -13,28 +15,33 @@ export class AdvancedSearch extends Component {
       emptySearch: "",
     };
   }
-  componentDidMount(){
-       const CookieSearchQuery = Cookies.get("CookieSearchQuery");
-      if(CookieSearchQuery) {
-        const url = `https://movies-app-siit.herokuapp.com/movies?Title=${CookieSearchQuery}`;
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
-            this.setState({
-              searchResults: json.results,
-            });
-            if (json.results.length === 0) {
-              this.setState({
-                emptySearch: true,
-              });
-            } else {
-              this.setState({
-                emptySearch: false,
-              });
-            }
+
+  componentDidMount() {
+    const SerachQuerry = Cookies.get("SearchQuery");
+
+    if (SerachQuerry) {
+      const searchQuery = this.state.query;
+      const url = `https://movies-app-siit.herokuapp.com/movies?Title=${SerachQuerry}`;
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
+          this.setState({
+            searchResults: json.results,
           });
-      }
+          if (json.results.length === 0) {
+            this.setState({
+              emptySearch: true,
+            });
+          } else {
+            this.setState({
+              emptySearch: false,
+            });
+            Cookies.set("SearchQuery", searchQuery);
+          }
+        });
+    }
   }
+
   handleInputChange = (event) => {
     this.setState({
       query: event.target.value,
@@ -50,8 +57,7 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         this.setState({
           searchResults: json.results,
-        })
-        Cookies.set("CookieSearchQuery",searchQuery);
+        });
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
@@ -59,17 +65,35 @@ export class AdvancedSearch extends Component {
         } else {
           this.setState({
             emptySearch: false,
-
-
           });
+          Cookies.set("SearchQuery", searchQuery);
         }
       });
   };
+
+  filterByRating(minRating, maxRating) {
+    this.setState({
+      searchResults: this.state.searchResults.filter((movie) => {
+        return movie.sort((a, b) => {
+          const minRating = Number(a.imdbRating);
+          const maxRating = Number(b.imdbRating);
+
+          return maxRating - minRating;
+        });
+      }),
+    });
+    console.log(minRating, maxRating);
+  }
+
+  filterByVotes(minVotes, maxVotes) {
+    this.setState({
+      searchResults: this.state.searchResults.filter((movie) => {}),
+    });
+  }
+
   render() {
-    console.log(this.state.searchResults);
     const { emptySearch, searchResults } = this.state;
-    // console.log(emptySearch);
-    // console.log(Cookies.get("SearchQueryURL"));
+    console.log(searchResults);
 
     return (
       <div className="container-lg">
@@ -86,6 +110,14 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
+              <RatingFilter
+                searchResults={searchResults}
+                filterByRating={this.filterByRating}
+              />
+              <VotesFilter
+                searchResults={searchResults}
+                filterByVotes={this.filterByVotes}
+              />
             </div>
             <button type="submit" className="btn btn-primary">
               Submit
@@ -98,7 +130,7 @@ export class AdvancedSearch extends Component {
               <h1>No Results!</h1>
             </React.Fragment>
           ) : (
-            <AdvancedSearchResult searchResults={searchResults}/>
+            <AdvancedSearchResult searchResults={searchResults} />
           )}
         </div>
       </div>
