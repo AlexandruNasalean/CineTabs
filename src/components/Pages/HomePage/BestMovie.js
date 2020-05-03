@@ -18,7 +18,6 @@ export class BestMovie extends Component {
     fetch("https://movies-app-siit.herokuapp.com/movies?Year=2019")
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
         this.setState({
           loading: false,
           movie: getBestMovie(json.results),
@@ -32,16 +31,18 @@ export class BestMovie extends Component {
     console.log(movie);
 
     return (
-      <div className="BestMovie2018">
-        <div className="DescriptionBestMovie2018">
+      <div className="BestMovie2019">
+        <div className="DescriptionBestMovie2019">
           <h3>
-            The Most Appreciated Movie of 2018
+            The Most Appreciated Movie of 2019
             &#9733;&#9733;&#9733;&#9733;&#9733;
           </h3>
-          <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.{" "}
-          </p>
+          <ul>
+            <li>{movie.Title}</li>
+            <li>{movie.Genre}</li>
+            <li>Rating: {movie.imdbRating}</li>
+            <li>Votes: {movie.imdbVotes}</li>
+          </ul>
 
           <Link to="/AllMovies">
             <button type="button" className="btn btn-outline-warning">
@@ -50,11 +51,13 @@ export class BestMovie extends Component {
           </Link>
         </div>
         <div>
-          <img
-            className="ImgBestMovie2018"
-            src="https://image.freepik.com/free-vector/best-film-movie-award-golden-label-design_1017-12389.jpg"
-            alt="empty"
-          ></img>
+          <Link to={`/MoviePage?id=${movie._id}`}>
+            <img
+              className="ImgBestMovie2019"
+              src={movie.Poster}
+              alt="empty"
+            ></img>
+          </Link>
         </div>
       </div>
     );

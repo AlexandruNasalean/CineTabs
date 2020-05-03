@@ -1,54 +1,42 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
+import { uniq } from "lodash";
 
 export class VotesFilter extends Component {
+  state = {
+    minVotes: null,
+    maxVotes: null,
+  };
+
+  handleOnChange = (event) => {
+    this.props.filterByVotes();
+  };
+
   render() {
     const { searchResults } = this.props;
 
     return (
-      <div className="rating-searchbar">
-        <label>User Rating</label>
-        <div className="movie-rating">
+      <div className="votes-filter">
+        <label>Number of Votes</label>
+        <div className="movie-votes">
           <p>From</p>
-          <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating, index) => (
-              <option key={index} value={movieRating.imdbVotes}>
-                {movieRating.imdbVotes}
+          <select className="votes-dropdown" name="movie-votes-drop-down">
+            {searchResults.map((movie, index) => (
+              <option key={index} value={movie.imdbVotes}>
+                {movie.imdbVotes}
               </option>
             ))}
           </select>
           <p>to</p>
-          <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movieRating, index) => (
-              <option key={index} value={movieRating.imdbVotes}>
-                {movieRating.imdbVotes}
+          <select className="votes-dropdown" name="movie-votes-drop-down">
+            {searchResults.map((movie, index) => (
+              <option key={index} value={movie.imdbVotes}>
+                {movie.imdbVotes}
               </option>
             ))}
           </select>
         </div>
       </div>
-
-      //   <div className="votes-searchbar">
-      //     <label>Number of Votes</label>
-      //     <div className="movie-votes">
-      //       <p>From</p>
-      //       <input
-      //         className="form-control"
-      //         id="min-votes"
-      //         type="number"
-      //         min="0"
-      //         placeholder="fewest"
-      //       />
-      //       <p>to</p>
-      //       <input
-      //         className="form-control"
-      //         id="max-votes"
-      //         type="number"
-      //         min="0"
-      //         placeholder="most"
-      //       />
-      //     </div>
-      //   </div>
     );
   }
 }
