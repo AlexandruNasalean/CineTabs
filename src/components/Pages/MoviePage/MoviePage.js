@@ -43,27 +43,25 @@ export class MoviePage extends Component {
     }
   }
 
-  handleDeleteMovie(){
+  handleDeleteMovie = () => {
     const logInToken = Cookies.get("token");
     const movieLocalID = localStorage.getItem("movieID");
-    const urlDelete = `https://movies-app-siit.herokuapp.com/movies/:${movieLocalID}`;
+    const urlDelete = `https://movies-app-siit.herokuapp.com/movies/${movieLocalID}`;
     console.log(urlDelete);
     console.log(logInToken);
-    // fetch(urlDelete, {
-    //   method: "DELETE",
-    //   mode: "cors",
-    //   cache: "no-cache",
-    //   credentials: "same-origin",
-    //   headers: {
-    //     "x-auth-token": "logInToken",
-    //   },
-    //   redirect: "follow",
-    //   referrerPolicy: "no-referrer",
-    //   body: JSON.stringify({
-    //     username: this.state.username,
-    //     password: this.state.password,
-    //   }),
-    // })
+    fetch(urlDelete, {
+      method: "DELETE",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "x-auth-token": logInToken,
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+    }).then ( () =>{
+      this.props.history.push("/AllMovies")
+    })
   }
 
   render() {
@@ -98,10 +96,10 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button onClick={this.handleDeleteMovie}>
+                    <Button >
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
-                    <Button>
+                    <Button onClick={this.handleDeleteMovie}>
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
                   </div>
