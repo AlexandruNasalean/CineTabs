@@ -1,5 +1,6 @@
 import React from "react";
 import "./searchbar.css";
+import Cookies from "js-cookie";
 
 
 class SearchBar extends React.Component {
@@ -44,13 +45,36 @@ handleOnInputChange = ( event ) => {
   this.setState({ query} );
 };
 
+submitHandler = (e) => {
+  e.preventDefault();
+  const searchQuery = this.state.query;
+  const url = `https://movies-app-siit.herokuapp.com/movies?Title=${searchQuery}`;
+  fetch(url)
+    .then((response) => response.json())
+.then((json) => {
+  this.setState({
+    searchResults: json.results,
+  })
+  Cookies.set("CookieSearchQuery",searchQuery);
+  if (json.results.length === 0) {
+    this.setState({
+      emptySearch: true,
+    });
+  } else {
+    this.setState({
+      emptySearch: false,
+    });
+  }
+});
+};  
 
-  render() {
+
+  render() { 
     
     const { query} = this.state;
     console.log(this.state)
     return(
-        <div className="container">
+        <div className="searchbarcontainer">
        <input
        type="text"
        name="query"
@@ -62,8 +86,8 @@ handleOnInputChange = ( event ) => {
        />
         </div>
     )
-  }
-}
+  };} 
+
 
     
 export default SearchBar;

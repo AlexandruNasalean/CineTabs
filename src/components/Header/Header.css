@@ -16,14 +16,14 @@
   margin-left: 10px;
   margin-top: 3px;
   height: 40px;
-  width: 120px;
+  width: 140px;
 }
 
 .username {
   color: white;
 }
 
-.signOut{
+.signOut {
   color: white;
   font-size: 30px;
 }

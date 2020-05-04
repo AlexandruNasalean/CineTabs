@@ -1,64 +1,73 @@
-.Carousel-image, .ImgBestMovie2018 {
-    width: 200px;
-    height: 200px;
+.Carousel-image,
+.ImgBestMovie2019 {
+  width: 150px;
+  height: 200px;
 }
 
 .Carousel {
-    width: 100%;
-    height: 200px;
-   display: flex;
+  width: 100%;
+  height: 200px;
+  display: flex;
 }
 
-.BestMovie2018 {
-    width: 100%;
-    height: 300px;
-    display:flex;
-    background-color: #161616;
+.BestMovie2019 {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  background-color: #161616;
 }
 
-.DescriptionBestMovie2018 {
-    color: white;
-}
- 
-.DescriptionBestMovie2018 h3 {
-    color: #D4AF37;
+.DescriptionBestMovie2019 {
+  color: white;
 }
 
-.Carousel{
-    background-color: teal;
+.DescriptionBestMovie2019 h3,
+button {
+  color: orange;
 }
 
-.ImgBestMovie2018, .DescriptionBestMovie2018{
-    display: inline-block;
+.DescriptionBestMovie2019 button {
+  border-color: orange;
 }
 
-
-.ImgBestMovie2018 {
-    width: 300px;
-    height: 300px;
-}
-.DescriptionBestMovie2018{
-    margin: 50px 140px 30px 140px;
-
+.Carousel {
+  background-color: teal;
 }
 
-
-.MovieRecomandation{
-   display: flex;
-   width: 100%;
-   background-color: teal;
+.ImgBestMovie2019,
+.DescriptionBestMovie2019 {
+  display: inline-block;
 }
 
-.MovieCard{
-    margin: 40px;
-    display: inline-block;
+.ImgBestMovie2019 {
+  width: 200px;
+  height: 300px;
+}
+.DescriptionBestMovie2019 {
+  margin: 50px 140px 30px 140px;
 }
 
-.MovieCardIMG{
-    height: 200px;
+.MovieRecomandation {
+  display: flex;
+  width: 100%;
+  background-color: teal;
+}
+
+.MovieCard {
+  margin: 40px;
+  display: inline-block;
+}
+
+.MovieCardIMG {
+  height: 200px;
 }
 
 .SearchBarText{
 margin-left: 40%;
 color: white;
+}
+
+.searchsectionStyling{
+width: 100%;
 }
