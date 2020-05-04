@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./AdvSearch.css";
 import Cookies from "js-cookie";
 import {Form} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap"
 
 export class CountryFilters extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ export class CountryFilters extends Component {
       <div>
         <Dropdown>
   <Dropdown.Toggle variant="success" id="dropdown-basic">
-    Dropdown Button
+    Country Filters
   </Dropdown.Toggle>
 
   <Dropdown.Menu>

@@ -7,6 +7,8 @@ import {generateAdvancedSearchUrl} from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
+import {Dropdown} from "react-bootstrap"
+// import {CountryFilters} from "./searchFilters/CountryFilters"
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ export class AdvancedSearch extends Component {
       searchResults: [],
       emptySearch: "",
       Genre : [],
+      Country: [],
         
     };
 
@@ -48,7 +51,22 @@ export class AdvancedSearch extends Component {
       query: event.target.value,
     });
   };
+  checkCountryHandler = (event) =>{
+    console.log(event.target.name);
+    const Country = [...this.state.Country];
+    if(Country.includes(event.target.name)){
+      this.setState({
+        Country: Country.filter(element =>( element !== event.target.name))
+      })
+    }
+    else{
+      Country.push(event.target.name);
+      this.setState({
+        Country
+      })
+    }
 
+  }
   CheckBoxChangeHandler = (event) => {
     console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -96,6 +114,7 @@ export class AdvancedSearch extends Component {
   //     Genre: Genres,
   //   })
   // )
+ 
   filterByRating(minRating, maxRating) {
     this.setState({
       searchResults: this.state.searchResults.filter((movie) => {
@@ -158,7 +177,20 @@ export class AdvancedSearch extends Component {
                     <Form.Check inline label="Thriller" name="Thriller" value="Thriller" onClick={this.CheckBoxChangeHandler}/>
                 </div>
                 ))}
-          </div>
+                    </div>
+                      <div>
+                    <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Country Filters
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                { searchResults.map((movie, index) =>(
+                     <Dropdown.Item name={movie.Country} onClick={this.checkCountryHandler} key={index}>{movie.Country}</Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
+                  </div>
               <RatingFilter
                 searchResults={searchResults}
                 filterByRating={this.filterByRating}
@@ -167,6 +199,7 @@ export class AdvancedSearch extends Component {
                 searchResults={searchResults}
                 filterByVotes={this.filterByVotes}
               />
+              
             </div>
             <button type="submit" className="btn btn-primary">
               Submit
