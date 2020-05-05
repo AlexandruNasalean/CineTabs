@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import {
   faEdit,
   faTrash,
   faArrowLeft,
+  faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
@@ -14,6 +16,7 @@ export class MoviePage extends Component {
     this.state = {
       movie: {},
       isLoaded: false,
+
     };
   }
 
@@ -21,7 +24,7 @@ export class MoviePage extends Component {
     this.setState({ isLoaded: true });
 
     const search = this.props.location.search;
-    console.log(search);
+    // console.log(search);
     if (search) {
       const [_, id] = search.split("=");
       const localStorageData = localStorage.getItem(`movie_${id}`);
@@ -47,6 +50,26 @@ export class MoviePage extends Component {
     }
   }
 
+  handleDeleteMovie = () => {
+    const logInToken = Cookies.get("token");
+    const movieLocalID = localStorage.getItem("movieID");
+    const urlDelete = `https://movies-app-siit.herokuapp.com/movies/${movieLocalID}`;
+    console.log(urlDelete);
+    console.log(logInToken);
+    fetch(urlDelete, {
+      method: "DELETE",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "x-auth-token": logInToken,
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+    }).then ( () =>{
+      this.props.history.push("/AllMovies")
+    })
+  }
   goBack = () => {
     this.props.history.goBack();
     console.log("click");
@@ -82,10 +105,10 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button>
+                    <Button >
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
-                    <Button>
+                    <Button onClick={this.handleDeleteMovie}>
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
                   </div>
