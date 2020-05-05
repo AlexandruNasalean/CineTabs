@@ -7,7 +7,6 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -48,17 +47,20 @@ export class MoviePage extends Component {
     }
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+    console.log("click");
+  };
+
   render() {
     const { isLoggedIn } = this.props;
     const { movie, isLoaded } = this.state;
 
     return (
       <div id="movie-page-container">
-        <Link to="/AdvancedSearch">
-          <h5>
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to search results
-          </h5>
-        </Link>
+        <h5 className="back-btn" onClick={this.goBack}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </h5>
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
