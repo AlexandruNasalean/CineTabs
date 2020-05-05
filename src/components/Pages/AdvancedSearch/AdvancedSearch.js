@@ -7,6 +7,7 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
+import { uniq } from "lodash";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -17,6 +18,8 @@ export class AdvancedSearch extends Component {
       searchResults: [],
       emptySearch: "",
       Genre: [],
+      minRating: null,
+      maxRating: null,
     };
   }
   componentDidMount() {
@@ -25,8 +28,13 @@ export class AdvancedSearch extends Component {
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
+          const movieRatings = json.results.map((movie) => movie.imdbRating);
+          const uniqueRatings = uniq(movieRatings).sort();
+
           this.setState({
             searchResults: json.results,
+            minRating: uniqueRatings[0],
+            maxRating: uniqueRatings[uniqueRatings.length - 1],
           });
           if (json.results.length === 0) {
             this.setState({
@@ -69,8 +77,12 @@ export class AdvancedSearch extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
+        const movieRatings = json.results.map((movie) => movie.imdbRating);
+        const uniqueRatings = uniq(movieRatings).sort();
         this.setState({
           searchResults: json.results,
+          minRating: uniqueRatings[0],
+          maxRating: uniqueRatings[uniqueRatings.length - 1],
         });
         Cookies.set("CookieSearchQuery", url);
         if (json.results.length === 0) {
@@ -85,11 +97,13 @@ export class AdvancedSearch extends Component {
       });
   };
 
-  filterByRating(minRating, maxRating) {
-    this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {}),
-    });
-  }
+  handleMinRatingChange = (minRating) => {
+    this.setState({ minRating });
+  };
+
+  handleMaxRatingChange = (maxRating) => {
+    this.setState({ maxRating });
+  };
 
   filterByVotes(minVotes, maxVotes) {
     this.setState({
@@ -98,7 +112,7 @@ export class AdvancedSearch extends Component {
   }
 
   render() {
-    const { emptySearch, searchResults } = this.state;
+    const { emptySearch, searchResults, minRating, maxRating } = this.state;
     console.log(searchResults);
 
     return (
@@ -250,8 +264,11 @@ export class AdvancedSearch extends Component {
                 ))}
               </div>
               <RatingFilter
+                minRating={minRating}
+                maxRating={maxRating}
+                onMinRatingChange={this.handleMinRatingChange}
+                onMaxRatingChange={this.handleMaxRatingChange}
                 searchResults={searchResults}
-                filterByRating={this.filterByRating}
               />
               <VotesFilter
                 searchResults={searchResults}
@@ -269,7 +286,11 @@ export class AdvancedSearch extends Component {
               <h1>No Results!</h1>
             </React.Fragment>
           ) : (
-            <AdvancedSearchResult searchResults={searchResults} />
+            <AdvancedSearchResult
+              minRating={minRating}
+              maxRating={maxRating}
+              searchResults={searchResults}
+            />
           )}
         </div>
       </div>
