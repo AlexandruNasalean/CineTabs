@@ -100,6 +100,7 @@ export class AdvancedSearch extends Component {
   render() {
     const { emptySearch, searchResults } = this.state;
     console.log(searchResults);
+
     return (
       <div className="container-lg">
         <div className="Advanced-Filter">

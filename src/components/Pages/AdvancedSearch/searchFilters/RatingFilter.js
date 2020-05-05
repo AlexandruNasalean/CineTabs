@@ -10,12 +10,29 @@ export class RatingFilter extends Component {
 
   handleOnChange = (event) => {
     const { minRating, maxRating } = this.state;
-    this.props.filterByRating(minRating, maxRating);
-    console.log(event.target.value);
   };
+
+  // componentDidMount() {
+  //   const { searchResults } = this.props;
+  //   const movieRatings = searchResults.map((movie) => movie.imdbRating);
+  //   console.log(movieRatings);
+
+  //   if (movieRatings) {
+  //     this.setState({
+  //       uniqueRatings: uniq(movieRatings).sort(),
+  //       minRating: this.state.uniqueRatings[0],
+  //       maxRating: this.state.uniqueRatings[
+  //         this.state.uniqueRatings.length - 1
+  //       ],
+  //     });
+  //   }
+  // }
 
   render() {
     const { searchResults } = this.props;
+    const movieRatings = searchResults.map((movie) => movie.imdbRating);
+    const uniqueRatings = uniq(movieRatings).sort();
+    console.log(uniqueRatings);
 
     return (
       <div className="rating-filter">
@@ -23,17 +40,17 @@ export class RatingFilter extends Component {
         <div className="movie-rating">
           <p>From</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRating}>
-                {movie.imdbRating}
+            {uniqueRatings.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>
           <p>to</p>
           <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRating}>
-                {movie.imdbRating}
+            {uniqueRatings.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>
