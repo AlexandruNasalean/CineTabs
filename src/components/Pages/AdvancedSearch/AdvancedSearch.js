@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
 import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
-import {Form} from "react-bootstrap";
-import {generateAdvancedSearchUrl} from "./AdvanceSearchUtils";
+import { Form } from "react-bootstrap";
+import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
@@ -16,17 +16,15 @@ export class AdvancedSearch extends Component {
       data: [],
       searchResults: [],
       emptySearch: "",
-      Genre : [],
-        
+      Genre: [],
     };
-
   }
-  componentDidMount(){
-       const url = Cookies.get("CookieSearchQuery");
-      if(url) {
-        fetch(url)
-          .then((response) => response.json())
-          .then((json) => {
+  componentDidMount() {
+    const url = Cookies.get("CookieSearchQuery");
+    if (url) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((json) => {
           this.setState({
             searchResults: json.results,
           });
@@ -52,20 +50,18 @@ export class AdvancedSearch extends Component {
   CheckBoxChangeHandler = (event) => {
     console.log(event.target.name);
     const Genre = [...this.state.Genre];
-    if(Genre.includes(event.target.name)){
+    if (Genre.includes(event.target.name)) {
       this.setState({
-        Genre: Genre.filter(element =>( element !== event.target.name))
-      })
-    }
-    else{
-        Genre.push(event.target.name);
+        Genre: Genre.filter((element) => element !== event.target.name),
+      });
+    } else {
+      Genre.push(event.target.name);
       this.setState({
-        Genre
-      })
+        Genre,
+      });
     }
+  };
 
-  }
-  
   submitHandler = (e) => {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
@@ -75,8 +71,8 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         this.setState({
           searchResults: json.results,
-        })
-        Cookies.set("CookieSearchQuery",url);
+        });
+        Cookies.set("CookieSearchQuery", url);
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
@@ -86,28 +82,13 @@ export class AdvancedSearch extends Component {
             emptySearch: false,
           });
         }
+      });
+  };
 
-        });
-      
-      };
- 
-  // setGenreData = (Genres)=>(
-  //   this.setState({
-  //     Genre: Genres,
-  //   })
-  // )
   filterByRating(minRating, maxRating) {
     this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {
-        return movie.sort((a, b) => {
-          const minRating = Number(a.imdbRating);
-          const maxRating = Number(b.imdbRating);
-
-          return maxRating - minRating;
-        });
-      }),
+      searchResults: this.state.searchResults.filter((movie) => {}),
     });
-    console.log(minRating, maxRating);
   }
 
   filterByVotes(minVotes, maxVotes) {
@@ -134,31 +115,139 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
-                   {/* <GenreFilter sendGenreData = {this.CheckBoxChangeHandler}></GenreFilter> */}
-                            <div className="Genre-Filter">
-                {['checkbox'].map((type) => (
-                <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check inline label="Comedy" name="Comedy" value="Comedy" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Action" name="Action" value="Action" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Adventure" name="Adventure" value="Adventure" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Family" name="Family" value="Family" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="History" name="History" value="History" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Mystery" name="Mystery" value="Mystery" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Sci-Fi" name="Sci-Fi" value="Sci-Fi" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="War" name="War" value="War" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Crime" name="Crime" value="Crime" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Fantasy" name="Fantasy" value="Fantasy" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Horror" name="Horror" value="Horror" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Sport" name="Sport" value="Sport" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Western" name="Western" value="Western" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Animation" name="Animation" value="Animation" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Documentary" name="Documentary" value="Documentary" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Drama	" name="Drama	" value="Drama	" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Romance" name="Romance" value="Romance" onClick={this.CheckBoxChangeHandler}/>
-                    <Form.Check inline label="Thriller" name="Thriller" value="Thriller" onClick={this.CheckBoxChangeHandler}/>
-                </div>
+              {/* <GenreFilter sendGenreData = {this.CheckBoxChangeHandler}></GenreFilter> */}
+              <div className="Genre-Filter">
+                {["checkbox"].map((type) => (
+                  <div key={`inline-${type}`} className="mb-3">
+                    <Form.Check
+                      inline
+                      label="Comedy"
+                      name="Comedy"
+                      value="Comedy"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Action"
+                      name="Action"
+                      value="Action"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Adventure"
+                      name="Adventure"
+                      value="Adventure"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Family"
+                      name="Family"
+                      value="Family"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="History"
+                      name="History"
+                      value="History"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Mystery"
+                      name="Mystery"
+                      value="Mystery"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Sci-Fi"
+                      name="Sci-Fi"
+                      value="Sci-Fi"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="War"
+                      name="War"
+                      value="War"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Crime"
+                      name="Crime"
+                      value="Crime"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Fantasy"
+                      name="Fantasy"
+                      value="Fantasy"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Horror"
+                      name="Horror"
+                      value="Horror"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Sport"
+                      name="Sport"
+                      value="Sport"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Western"
+                      name="Western"
+                      value="Western"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Animation"
+                      name="Animation"
+                      value="Animation"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Documentary"
+                      name="Documentary"
+                      value="Documentary"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Drama	"
+                      name="Drama	"
+                      value="Drama	"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Romance"
+                      name="Romance"
+                      value="Romance"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                    <Form.Check
+                      inline
+                      label="Thriller"
+                      name="Thriller"
+                      value="Thriller"
+                      onClick={this.CheckBoxChangeHandler}
+                    />
+                  </div>
                 ))}
-          </div>
+              </div>
               <RatingFilter
                 searchResults={searchResults}
                 filterByRating={this.filterByRating}
