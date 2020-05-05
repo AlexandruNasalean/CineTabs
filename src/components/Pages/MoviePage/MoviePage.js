@@ -9,7 +9,6 @@ import {
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -28,18 +27,26 @@ export class MoviePage extends Component {
     // console.log(search);
     if (search) {
       const [_, id] = search.split("=");
-      const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => {
-          this.setState({
-            isLoaded: false,
-            isDeleted: false,
-            movie: json,
-            movieID: id,
-          });
+      const localStorageData = localStorage.getItem(`movie_${id}`);
+
+      if (localStorageData) {
+        const data = JSON.parse(localStorageData);
+        this.setState({
+          isLoaded: false,
+          movie: data,
         });
-      localStorage.setItem("movieID", id);
+      } else {
+        const url = `https://movies-app-siit.herokuapp.com/movies/${id}`;
+        fetch(url)
+          .then((response) => response.json())
+          .then((json) => {
+            this.setState({
+              isLoaded: false,
+              movie: json,
+            });
+            localStorage.setItem(`movie_${id}`, JSON.stringify(json));
+          });
+      }
     }
   }
 
@@ -63,6 +70,10 @@ export class MoviePage extends Component {
       this.props.history.push("/AllMovies")
     })
   }
+  goBack = () => {
+    this.props.history.goBack();
+    console.log("click");
+  };
 
   render() {
     const { isLoggedIn } = this.props;
@@ -70,11 +81,9 @@ export class MoviePage extends Component {
 
     return (
       <div id="movie-page-container">
-        <Link to="/AdvancedSearch">
-          <h5>
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to search results
-          </h5>
-        </Link>
+        <h5 className="back-btn" onClick={this.goBack}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </h5>
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
