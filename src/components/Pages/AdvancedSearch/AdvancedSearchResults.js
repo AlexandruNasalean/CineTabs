@@ -25,6 +25,7 @@ export class AdvancedSearchResult extends Component {
                     <li>Year: {movie.Year}</li>
                     <li>Genre: {movie.Genre}</li>
                     <li>Language: {movie.Language}</li>
+                    <li>Country: {movie.Country}</li>
           
                 </Card.Text>
               </Card.Body>
