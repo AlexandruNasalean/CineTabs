@@ -7,10 +7,7 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
-import {Dropdown} from "react-bootstrap";
 import { CountryFilters } from "./searchFilters/CountryFilters";
-
-// import {CountryFilters} from "./searchFilters/CountryFilters"
 
 export class AdvancedSearch extends Component {
   constructor(props) {
