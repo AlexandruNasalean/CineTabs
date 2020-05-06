@@ -8,7 +8,6 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
 import {Dropdown} from "react-bootstrap";
-import { uniqBy } from "loadsh";
 import { CountryFilters } from "./searchFilters/CountryFilters";
 
 // import {CountryFilters} from "./searchFilters/CountryFilters"
