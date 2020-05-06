@@ -7,11 +7,7 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
-import {Dropdown} from "react-bootstrap";
-import { uniqBy } from "loadsh";
 import { CountryFilters } from "./searchFilters/CountryFilters";
-
-// import {CountryFilters} from "./searchFilters/CountryFilters"
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -21,10 +17,9 @@ export class AdvancedSearch extends Component {
       data: [],
       searchResults: [],
       emptySearch: "",
-      Genre : [],
+      Genre: [],
       Country: [],
       searchState: "",
-
     };
   }
   componentDidMount() {
@@ -54,25 +49,22 @@ export class AdvancedSearch extends Component {
       query: event.target.value,
     });
   };
-  checkCountryHandler = (event) =>{
-
+  checkCountryHandler = (event) => {
     console.log(event.target.name);
     const Country = [...this.state.Country];
 
-    if(Country.includes(event.target.name)){
+    if (Country.includes(event.target.name)) {
       this.setState({
-        Country: Country.filter(element =>( element !== event.target.name))
-      })
-    }
-    else{
+        Country: Country.filter((element) => element !== event.target.name),
+      });
+    } else {
       Country.push(event.target.name);
       this.setState({
-        Country
-      })
+        Country,
+      });
     }
+  };
 
-  }
- 
   CheckBoxChangeHandler = (event) => {
     console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -92,7 +84,7 @@ export class AdvancedSearch extends Component {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
     console.log(url);
-    var _ =  require  ('lodash');
+    var _ = require("lodash");
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -114,8 +106,6 @@ export class AdvancedSearch extends Component {
       });
   };
 
-
-
   filterByRating(minRating, maxRating) {
     this.setState({
       searchResults: this.state.searchResults.filter((movie) => {}),
@@ -129,9 +119,9 @@ export class AdvancedSearch extends Component {
   }
 
   render() {
-    const { emptySearch, searchResults, searchState} = this.state;
+    const { emptySearch, searchResults, searchState } = this.state;
     console.log(searchResults);
-    var _ =  require  ('lodash');
+    var _ = require("lodash");
 
     return (
       <div className="container-lg">
@@ -280,25 +270,23 @@ export class AdvancedSearch extends Component {
                     />
                   </div>
                 ))}
-                    </div>
-                    { searchState ?( 
-                      <React.Fragment>
-                       <CountryFilters searchResults={searchResults}/>
-                       <RatingFilter
-                         searchResults={searchResults}
-                         filterByRating={this.filterByRating}
-                       />
-                       <VotesFilter
-                         searchResults={searchResults}
-                         filterByVotes={this.filterByVotes}
-                       />
-                       </React.Fragment>
-                    ) : (
-                      ""
-                    )
-                     }
-                    
-                  </div>
+              </div>
+              {searchState ? (
+                <React.Fragment>
+                  <CountryFilters searchResults={searchResults} />
+                  <RatingFilter
+                    searchResults={searchResults}
+                    filterByRating={this.filterByRating}
+                  />
+                  <VotesFilter
+                    searchResults={searchResults}
+                    filterByVotes={this.filterByVotes}
+                  />
+                </React.Fragment>
+              ) : (
+                ""
+              )}
+            </div>
 
             <button type="submit" className="btn btn-primary">
               Submit
