@@ -10,6 +10,7 @@ import { VotesFilter } from "./searchFilters/VotesFilter";
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 
+
 export class AdvancedSearch extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +63,7 @@ export class AdvancedSearch extends Component {
         Country: Country.filter(element =>( element !== event.target.name))
       })
     }
-      else{
+    else{
       Country.push(event.target.name);
       this.setState({
         Country
@@ -100,6 +101,7 @@ export class AdvancedSearch extends Component {
       });
     }
   };
+
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -316,6 +318,7 @@ export class AdvancedSearch extends Component {
                        searchResults={searchResults}
                        filterByRuntime={this.filterByRuntime}
                        />
+
                        </React.Fragment>
                     ) : (
                       ""

@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Cookies from "js-cookie";
 import {
   faEdit,
   faTrash,
   faArrowLeft,
+  faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export class MoviePage extends Component {
     this.state = {
       movie: {},
       isLoaded: false,
+
     };
   }
 
@@ -22,7 +24,7 @@ export class MoviePage extends Component {
     this.setState({ isLoaded: true });
 
     const search = this.props.location.search;
-    console.log(search);
+    // console.log(search);
     if (search) {
       const [_, id] = search.split("=");
       const localStorageData = localStorage.getItem(`movie_${id}`);
@@ -48,17 +50,40 @@ export class MoviePage extends Component {
     }
   }
 
+  handleDeleteMovie = () => {
+    const logInToken = Cookies.get("token");
+    const movieLocalID = localStorage.getItem("movieID");
+    const urlDelete = `https://movies-app-siit.herokuapp.com/movies/${movieLocalID}`;
+    console.log(urlDelete);
+    console.log(logInToken);
+    fetch(urlDelete, {
+      method: "DELETE",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "x-auth-token": logInToken,
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+    }).then ( () =>{
+      this.props.history.push("/AllMovies")
+    })
+  }
+  goBack = () => {
+    this.props.history.goBack();
+    console.log("click");
+  };
+
   render() {
     const { isLoggedIn } = this.props;
     const { movie, isLoaded } = this.state;
 
     return (
       <div id="movie-page-container">
-        <Link to="/AdvancedSearch">
-          <h5>
-            <FontAwesomeIcon icon={faArrowLeft} /> Back to search results
-          </h5>
-        </Link>
+        <h5 className="back-btn" onClick={this.goBack}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </h5>
         {isLoaded ? (
           <h1>Loading...</h1>
         ) : (
@@ -80,10 +105,10 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button>
+                    <Button >
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
-                    <Button>
+                    <Button onClick={this.handleDeleteMovie}>
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
                   </div>

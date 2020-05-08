@@ -12,7 +12,6 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import Cookies from "js-cookie";
 import "./App.css";
-// import { Form } from "react-bootstrap";
 
 class App extends Component {
   state = {
@@ -20,7 +19,6 @@ class App extends Component {
     username: null,
     token: null,
     showLogOutModal: false,
-  
   };
 
   componentDidMount() {
@@ -43,21 +41,19 @@ class App extends Component {
   };
 
   handleLogOut = () => {
-    // remove from cookies
-
     const token = Cookies.get("token");
 
     fetch("https://movies-app-siit.herokuapp.com/auth/logout", {
-      method: "GET", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
+      method: "GET",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
         "X-Auth-Token": token,
       },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *client
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
     })
       .then((response) => response.json())
       .then((json) => {
@@ -91,7 +87,7 @@ class App extends Component {
   };
 
   render() {
-    const { isLoggedIn, username,} = this.state;
+    const { isLoggedIn, username } = this.state;
 
     return (
       <Router>
@@ -105,7 +101,7 @@ class App extends Component {
           <Route exact path="/AllMovies" component={AllMovies} />
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-       
+
           <Route
             exact
             path="/MoviePage"
