@@ -8,6 +8,7 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
 import { uniq } from "lodash";
+import { convertToNumbers } from "./searchFilters/filtersUtils";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -20,8 +21,11 @@ export class AdvancedSearch extends Component {
       Genre: [],
       minRating: null,
       maxRating: null,
+      minVotes: null,
+      maxVotes: null,
     };
   }
+
   componentDidMount() {
     const url = Cookies.get("CookieSearchQuery");
     if (url) {
@@ -31,11 +35,18 @@ export class AdvancedSearch extends Component {
           const movieRatings = json.results.map((movie) => movie.imdbRating);
           const uniqueRatings = uniq(movieRatings).sort();
 
+          const movieVotes = json.results.map((movie) => movie.imdbVotes);
+          const uniquemovieVotes = uniq(movieVotes);
+          const uniqueVotes = convertToNumbers(uniquemovieVotes);
+
           this.setState({
             searchResults: json.results,
             minRating: uniqueRatings[0],
             maxRating: uniqueRatings[uniqueRatings.length - 1],
+            minVotes: uniqueVotes[0],
+            maxVotes: uniqueVotes[uniqueVotes.length - 1],
           });
+
           if (json.results.length === 0) {
             this.setState({
               emptySearch: true,
@@ -79,10 +90,17 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         const movieRatings = json.results.map((movie) => movie.imdbRating);
         const uniqueRatings = uniq(movieRatings).sort();
+
+        const movieVotes = json.results.map((movie) => movie.imdbVotes);
+        const uniquemovieVotes = uniq(movieVotes);
+        const uniqueVotes = convertToNumbers(uniquemovieVotes);
+
         this.setState({
           searchResults: json.results,
           minRating: uniqueRatings[0],
           maxRating: uniqueRatings[uniqueRatings.length - 1],
+          minVotes: uniqueVotes[0],
+          maxVotes: uniqueVotes[uniqueVotes.length - 1],
         });
         Cookies.set("CookieSearchQuery", url);
         if (json.results.length === 0) {
@@ -105,14 +123,23 @@ export class AdvancedSearch extends Component {
     this.setState({ maxRating });
   };
 
-  filterByVotes(minVotes, maxVotes) {
-    this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {}),
-    });
-  }
+  handleMinVotesChange = (minVotes) => {
+    this.setState({ minVotes });
+  };
+
+  handleMaxVotesChange = (maxVotes) => {
+    this.setState({ maxVotes });
+  };
 
   render() {
-    const { emptySearch, searchResults, minRating, maxRating } = this.state;
+    const {
+      emptySearch,
+      searchResults,
+      minRating,
+      maxRating,
+      minVotes,
+      maxVotes,
+    } = this.state;
     console.log(searchResults);
 
     return (
@@ -271,8 +298,11 @@ export class AdvancedSearch extends Component {
                 searchResults={searchResults}
               />
               <VotesFilter
+                minVotes={minVotes}
+                maxVotes={maxVotes}
+                onMaxVotesChange={this.handleMinVotesChange}
+                onMinVotesChange={this.handleMaxVotesChange}
                 searchResults={searchResults}
-                filterByVotes={this.filterByVotes}
               />
             </div>
             <button type="submit" className="btn btn-primary">
@@ -289,6 +319,8 @@ export class AdvancedSearch extends Component {
             <AdvancedSearchResult
               minRating={minRating}
               maxRating={maxRating}
+              minVotes={minVotes}
+              maxVotes={maxVotes}
               searchResults={searchResults}
             />
           )}

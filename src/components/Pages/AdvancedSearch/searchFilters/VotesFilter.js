@@ -13,19 +13,22 @@ export class VotesFilter extends Component {
       maxVotes,
     } = this.props;
     const movieVotes = searchResults.map((movie) => movie.imdbVotes);
-    console.log("movieVotes = ", movieVotes);
     const uniquemovieVotes = uniq(movieVotes);
-    console.log("uniquemovieVotes = ", uniquemovieVotes);
     const uniqueVotes = convertToNumbers(uniquemovieVotes);
-    console.log("uniqueVotes = ", uniqueVotes);
-    console.log(typeof uniqueVotes[0]);
 
     return (
       <div className="votes-filter">
         <label>Number of Votes</label>
         <div className="movie-votes">
           <p>From</p>
-          <select className="votes-dropdown" name="movie-votes-drop-down">
+          <select
+            className="votes-dropdown"
+            name="movie-votes-drop-down"
+            onChange={(event) => {
+              onMinVotesChange(event.target.value);
+            }}
+            value={minVotes || ""}
+          >
             {uniqueVotes.map((movie, index) => (
               <option key={index} value={movie}>
                 {movie}
@@ -33,7 +36,14 @@ export class VotesFilter extends Component {
             ))}
           </select>
           <p>to</p>
-          <select className="votes-dropdown" name="movie-votes-drop-down">
+          <select
+            className="votes-dropdown"
+            name="movie-votes-drop-down"
+            onChange={(event) => {
+              onMaxVotesChange(event.target.value);
+            }}
+            value={maxVotes || ""}
+          >
             {uniqueVotes.map((movie, index) => (
               <option key={index} value={movie}>
                 {movie}
