@@ -7,11 +7,9 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
-import {Dropdown} from "react-bootstrap";
-import { uniqBy } from "loadsh";
 import { CountryFilters } from "./searchFilters/CountryFilters";
+import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 
-// import {CountryFilters} from "./searchFilters/CountryFilters"
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -23,6 +21,7 @@ export class AdvancedSearch extends Component {
       emptySearch: "",
       Genre : [],
       Country: [],
+      Runtime: [],
       searchState: "",
 
     };
@@ -88,6 +87,22 @@ export class AdvancedSearch extends Component {
     }
   };
 
+  CheckBoxChangeRuntimeHandler = (event) => {
+    console.log(event.target.name);
+    const Runtime = [...this.state.Runtime];
+    if (Runtime.includes(event.target.name)) {
+      this.setState({
+        Runtime: Runtime.filter((element) => element !== event.target.name),
+      });
+    } else {
+      Runtime.push(event.target.name);
+      this.setState({
+        Runtime,
+      });
+    }
+  };
+
+
   submitHandler = (e) => {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
@@ -127,6 +142,13 @@ export class AdvancedSearch extends Component {
       searchResults: this.state.searchResults.filter((movie) => {}),
     });
   }
+
+  filterByRuntime(minRuntime, maxRuntime){
+    this.setState({
+      searchResults: this.state.searchResults.filter((movie) => {}),
+    });
+      }
+      
 
   render() {
     const { emptySearch, searchResults, searchState, Country} = this.state;
@@ -292,6 +314,11 @@ export class AdvancedSearch extends Component {
                          searchResults={searchResults}
                          filterByVotes={this.filterByVotes}
                        />
+                       <RuntimeFilter
+                       searchResults={searchResults}
+                       filterByRuntime={this.filterByRuntime}
+                       />
+
                        </React.Fragment>
                     ) : (
                       ""
