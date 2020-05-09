@@ -187,7 +187,7 @@ export class AdvancedSearch extends Component {
                     </div>
                     { searchState ?( 
                       <React.Fragment>
-                       <CountryFilters searchResults={searchResults}/>
+                       <CountryFilters checkCountryHandler ={this.checkCountryHandler} searchResults={searchResults}/>
                        <RatingFilter
                          searchResults={searchResults}
                          filterByRating={this.filterByRating}

@@ -8,7 +8,7 @@ import { uniqBy } from "lodash";
 export class CountryFilters extends Component {
 
   render() {
-    const {searchResults}= this.props;
+    const {searchResults, checkCountryHandler}= this.props;
     const CountryFiltered = uniqBy(searchResults, 'Country')
     console.log(CountryFiltered)
     return ( 
@@ -19,7 +19,7 @@ export class CountryFilters extends Component {
           </Dropdown.Toggle>
           <Dropdown.Menu>
             {CountryFiltered.map((movie, index) =>(
-                <Dropdown.Item name={movie.Country} onClick={this.checkCountryHandler} key={index}>{movie.Country}</Dropdown.Item>
+                <Dropdown.Item name={movie.Country} onClick={checkCountryHandler} key={index}>{movie.Country}</Dropdown.Item>
             ))}
           </Dropdown.Menu>
           </Dropdown>
