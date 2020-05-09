@@ -32,7 +32,7 @@ export function ContactPage() {
         </Card>
       </div>
       <div className="contact-form">
-        <h2>We'd love to hear from you!</h2>
+        <h2 id="greeting">We'd love to hear from you!</h2>
         <br />
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicPassword">
