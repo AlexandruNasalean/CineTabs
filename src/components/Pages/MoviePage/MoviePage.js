@@ -16,7 +16,6 @@ export class MoviePage extends Component {
     this.state = {
       movie: {},
       isLoaded: false,
-
     };
   }
 
@@ -66,10 +65,11 @@ export class MoviePage extends Component {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-    }).then ( () =>{
-      this.props.history.push("/AllMovies")
-    })
-  }
+    }).then(() => {
+      this.props.history.push("/AllMovies");
+    });
+  };
+
   goBack = () => {
     this.props.history.goBack();
     console.log("click");
@@ -105,7 +105,7 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button >
+                    <Button>
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
                     <Button onClick={this.handleDeleteMovie}>
