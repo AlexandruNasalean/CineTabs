@@ -8,7 +8,6 @@ import "./CountryFilters.css"
 
 export class CountryFilters extends Component {
 
-
   render() {
     const {searchResults, checkCountryHandler, Country, countrybuttontext}= this.props;
     const CountryFiltered = uniqBy(searchResults, 'Country')
