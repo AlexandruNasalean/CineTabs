@@ -12,6 +12,8 @@ import {
   extractUniqueVotes,
   convertToNumbers,
 } from "./searchFilters/filtersUtils";
+import { CountryFilters } from "./searchFilters/CountryFilters";
+import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -21,11 +23,14 @@ export class AdvancedSearch extends Component {
       data: [],
       searchResults: [],
       emptySearch: "",
-      Genre: [],
       minRating: null,
       maxRating: null,
       minVotes: null,
       maxVotes: null,
+      Genre : [],
+      Country: [],
+      Runtime: [],
+      searchState: "",
     };
   }
 
@@ -67,6 +72,25 @@ export class AdvancedSearch extends Component {
     });
   };
 
+  checkCountryHandler = (event) =>{
+
+    console.log(event.target.name);
+    const Country = [...this.state.Country];
+
+    if(Country.includes(event.target.name)){
+      this.setState({
+        Country: Country.filter(element =>( element !== event.target.name))
+      })
+    }
+    else{
+      Country.push(event.target.name);
+      this.setState({
+        Country
+      })
+    }
+
+  }
+ 
   CheckBoxChangeHandler = (event) => {
     console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -82,10 +106,27 @@ export class AdvancedSearch extends Component {
     }
   };
 
+  CheckBoxChangeRuntimeHandler = (event) => {
+    console.log(event.target.name);
+    const Runtime = [...this.state.Runtime];
+    if (Runtime.includes(event.target.name)) {
+      this.setState({
+        Runtime: Runtime.filter((element) => element !== event.target.name),
+      });
+    } else {
+      Runtime.push(event.target.name);
+      this.setState({
+        Runtime,
+      });
+    }
+  };
+
+
   submitHandler = (e) => {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
     console.log(url);
+    var _ =  require  ('lodash');
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -103,10 +144,12 @@ export class AdvancedSearch extends Component {
         if (json.results.length === 0) {
           this.setState({
             emptySearch: true,
+            searchState: false,
           });
         } else {
           this.setState({
             emptySearch: false,
+            searchState: true,
           });
         }
       });
@@ -128,6 +171,13 @@ export class AdvancedSearch extends Component {
     this.setState({ maxVotes });
   };
 
+  filterByRuntime(minRuntime, maxRuntime){
+    this.setState({
+      searchResults: this.state.searchResults.filter((movie) => {}),
+    });
+      }
+      
+
   render() {
     const {
       emptySearch,
@@ -136,8 +186,12 @@ export class AdvancedSearch extends Component {
       maxRating,
       minVotes,
       maxVotes,
+      searchState,
+      Country
     } = this.state;
+    
     console.log(searchResults);
+    var _ =  require  ('lodash');
 
     return (
       <div className="container-lg">
@@ -287,7 +341,13 @@ export class AdvancedSearch extends Component {
                   </div>
                 ))}
               </div>
-              <RatingFilter
+              
+            </div>
+                    </div>
+                    { searchState ?( 
+                      <React.Fragment>
+                       <CountryFilters Country = {Country} checkCountryHandler ={this.checkCountryHandler} searchResults={searchResults}/>
+                       <RatingFilter
                 minRating={minRating}
                 maxRating={maxRating}
                 onMinRatingChange={this.handleMinRatingChange}
@@ -301,7 +361,19 @@ export class AdvancedSearch extends Component {
                 onMaxVotesChange={this.handleMaxVotesChange}
                 searchResults={searchResults}
               />
-            </div>
+                       <RuntimeFilter
+                       searchResults={searchResults}
+                       filterByRuntime={this.filterByRuntime}
+                       />
+
+                       </React.Fragment>
+                    ) : (
+                      ""
+                    )
+                     }
+                    
+                  </div>
+
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
