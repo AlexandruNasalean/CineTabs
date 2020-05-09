@@ -7,8 +7,11 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 // import {GenreFilter} from "./Filters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
-import { uniq } from "lodash";
-import { convertToNumbers } from "./searchFilters/filtersUtils";
+import {
+  extractUniqueRatings,
+  extractUniqueVotes,
+  convertToNumbers,
+} from "./searchFilters/filtersUtils";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -32,12 +35,10 @@ export class AdvancedSearch extends Component {
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
-          const movieRatings = json.results.map((movie) => movie.imdbRating);
-          const uniqueRatings = uniq(movieRatings).sort();
-
-          const movieVotes = json.results.map((movie) => movie.imdbVotes);
-          const uniquemovieVotes = uniq(movieVotes);
-          const uniqueVotes = convertToNumbers(uniquemovieVotes);
+          const uniqueRatings = extractUniqueRatings(json.results);
+          const uniqueVotes = convertToNumbers(
+            extractUniqueVotes(json.results)
+          );
 
           this.setState({
             searchResults: json.results,
@@ -88,12 +89,8 @@ export class AdvancedSearch extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
-        const movieRatings = json.results.map((movie) => movie.imdbRating);
-        const uniqueRatings = uniq(movieRatings).sort();
-
-        const movieVotes = json.results.map((movie) => movie.imdbVotes);
-        const uniquemovieVotes = uniq(movieVotes);
-        const uniqueVotes = convertToNumbers(uniquemovieVotes);
+        const uniqueRatings = extractUniqueRatings(json.results);
+        const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
 
         this.setState({
           searchResults: json.results,
@@ -300,8 +297,8 @@ export class AdvancedSearch extends Component {
               <VotesFilter
                 minVotes={minVotes}
                 maxVotes={maxVotes}
-                onMaxVotesChange={this.handleMinVotesChange}
-                onMinVotesChange={this.handleMaxVotesChange}
+                onMinVotesChange={this.handleMinVotesChange}
+                onMaxVotesChange={this.handleMaxVotesChange}
                 searchResults={searchResults}
               />
             </div>

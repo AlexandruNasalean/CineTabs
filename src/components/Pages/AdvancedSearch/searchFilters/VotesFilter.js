@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
-import { uniq } from "lodash";
-import { convertToNumbers } from "./filtersUtils";
+import { convertToNumbers, extractUniqueVotes } from "./filtersUtils";
 
 export class VotesFilter extends Component {
   render() {
@@ -12,9 +11,8 @@ export class VotesFilter extends Component {
       minVotes,
       maxVotes,
     } = this.props;
-    const movieVotes = searchResults.map((movie) => movie.imdbVotes);
-    const uniquemovieVotes = uniq(movieVotes);
-    const uniqueVotes = convertToNumbers(uniquemovieVotes);
+
+    const uniqueVotes = convertToNumbers(extractUniqueVotes(searchResults));
 
     return (
       <div className="votes-filter">

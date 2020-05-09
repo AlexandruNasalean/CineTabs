@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
-import { uniq } from "lodash";
+import { extractUniqueRatings } from "./filtersUtils";
 
 export class RatingFilter extends Component {
   render() {
@@ -11,8 +11,8 @@ export class RatingFilter extends Component {
       minRating,
       maxRating,
     } = this.props;
-    const movieRatings = searchResults.map((movie) => movie.imdbRating);
-    const uniqueRatings = uniq(movieRatings).sort();
+
+    const uniqueRatings = extractUniqueRatings(searchResults);
 
     return (
       <div className="rating-filter">
