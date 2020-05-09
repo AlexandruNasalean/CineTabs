@@ -1,39 +1,50 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
-import { uniq } from "lodash";
+import { extractUniqueRatings } from "./filtersUtils";
 
 export class RatingFilter extends Component {
-  state = {
-    minRating: null,
-    maxRating: null,
-  };
-
-  handleOnChange = (event) => {
-    const { minRating, maxRating } = this.state;
-    this.props.filterByRating(minRating, maxRating);
-    console.log(event.target.value);
-  };
-
   render() {
-    const { searchResults } = this.props;
+    const {
+      searchResults,
+      onMinRatingChange,
+      onMaxRatingChange,
+      minRating,
+      maxRating,
+    } = this.props;
+
+    const uniqueRatings = extractUniqueRatings(searchResults);
 
     return (
       <div className="rating-filter">
         <label>User Rating</label>
         <div className="movie-rating">
           <p>From</p>
-          <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRating}>
-                {movie.imdbRating}
+          <select
+            className="rating-dropdown"
+            name="movie-rating-drop-down"
+            onChange={(event) => {
+              onMinRatingChange(event.target.value);
+            }}
+            value={minRating || ""}
+          >
+            {uniqueRatings.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>
           <p>to</p>
-          <select className="rating-dropdown" name="movie-rating-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRating}>
-                {movie.imdbRating}
+          <select
+            className="rating-dropdown"
+            name="movie-rating-drop-down"
+            onChange={(event) => {
+              onMaxRatingChange(event.target.value);
+            }}
+            value={maxRating || ""}
+          >
+            {uniqueRatings.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>
