@@ -2,18 +2,24 @@
   background: black;
   width: 100%;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.menu-ul-list li {
+.menu-ul-list li,
+.on-login-buttons li {
   display: inline-block;
   margin-top: 10px;
-  margin-right: 90px;
+  margin-right: 70px;
   font-weight: 400;
   text-decoration: none;
 }
 
+.on-login-buttons {
+  margin-right: 15px;
+}
+
 .logo {
-  margin-left: 10px;
   margin-top: 3px;
   height: 40px;
   width: 140px;
