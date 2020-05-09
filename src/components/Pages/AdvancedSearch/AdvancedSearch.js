@@ -141,7 +141,7 @@ export class AdvancedSearch extends Component {
   }
 
   render() {
-    const { emptySearch, searchResults, searchState} = this.state;
+    const { emptySearch, searchResults, searchState, Country} = this.state;
     console.log(searchResults);
     var _ =  require  ('lodash');
 
@@ -187,7 +187,7 @@ export class AdvancedSearch extends Component {
                     </div>
                     { searchState ?( 
                       <React.Fragment>
-                       <CountryFilters checkCountryHandler ={this.checkCountryHandler} searchResults={searchResults}/>
+                       <CountryFilters Country = {Country} checkCountryHandler ={this.checkCountryHandler} searchResults={searchResults}/>
                        <RatingFilter
                          searchResults={searchResults}
                          filterByRating={this.filterByRating}
