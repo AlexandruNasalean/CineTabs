@@ -114,9 +114,7 @@ export class AdvancedSearch extends Component {
       });
   };
 
-        });
-      
-      };
+
 
   filterByRating(minRating, maxRating) {
     this.setState({
