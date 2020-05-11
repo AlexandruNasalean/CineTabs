@@ -32,6 +32,11 @@
   display: flex;
 }
 
+.movie-votes p,
+.movie-rating p {
+  color: white;
+}
+
 .rating-dropdown,
 .votes-dropdown,
 .title-filterinput{
@@ -49,4 +54,3 @@
   color: orange;
   font-weight: bold;
 }
-

@@ -7,10 +7,14 @@ import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
 import {GenreFilter} from  "./searchFilters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
+import {
+  extractUniqueRatings,
+  extractUniqueVotes,
+  convertToNumbers,
+} from "./searchFilters/filtersUtils";
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 import { YearFilter } from "./searchFilters/YearFilter";
-
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -20,23 +24,37 @@ export class AdvancedSearch extends Component {
       data: [],
       searchResults: [],
       emptySearch: "",
-      Genre : [],
+      minRating: null,
+      maxRating: null,
+      minVotes: null,
+      maxVotes: null,
+      Genre: [],
       Country: [],
       Year: [],
       Runtime: [],
       searchState: "",
-
     };
   }
+
   componentDidMount() {
     const url = Cookies.get("CookieSearchQuery");
     if (url) {
       fetch(url)
         .then((response) => response.json())
         .then((json) => {
+          const uniqueRatings = extractUniqueRatings(json.results);
+          const uniqueVotes = convertToNumbers(
+            extractUniqueVotes(json.results)
+          );
+
           this.setState({
             searchResults: json.results,
+            minRating: uniqueRatings[0],
+            maxRating: uniqueRatings[uniqueRatings.length - 1],
+            minVotes: uniqueVotes[0],
+            maxVotes: uniqueVotes[uniqueVotes.length - 1],
           });
+
           if (json.results.length === 0) {
             this.setState({
               emptySearch: true,
@@ -69,13 +87,12 @@ export class AdvancedSearch extends Component {
     else{
       Country.push(event.target.value);
       this.setState({
-        Country
-      })
+        Country,
+      });
     }
+  };
 
   }
-
- 
   CheckBoxChangeHandler = (event) => {
     // console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -121,17 +138,25 @@ export class AdvancedSearch extends Component {
     }
   };
 
-
   submitHandler = (e) => {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
     console.log(url);
+
     // var _ =  require  ('lodash');
+
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
+        const uniqueRatings = extractUniqueRatings(json.results);
+        const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
+
         this.setState({
           searchResults: json.results,
+          minRating: uniqueRatings[0],
+          maxRating: uniqueRatings[uniqueRatings.length - 1],
+          minVotes: uniqueVotes[0],
+          maxVotes: uniqueVotes[uniqueVotes.length - 1],
         });
         Cookies.set("CookieSearchQuery", url);
         if (json.results.length === 0) {
@@ -148,32 +173,43 @@ export class AdvancedSearch extends Component {
       });
   };
 
+  handleMinRatingChange = (minRating) => {
+    this.setState({ minRating });
+  };
 
+  handleMaxRatingChange = (maxRating) => {
+    this.setState({ maxRating });
+  };
 
-  filterByRating(minRating, maxRating) {
+  handleMinVotesChange = (minVotes) => {
+    this.setState({ minVotes });
+  };
+
+  handleMaxVotesChange = (maxVotes) => {
+    this.setState({ maxVotes });
+  };
+
+  filterByRuntime(minRuntime, maxRuntime) {
     this.setState({
       searchResults: this.state.searchResults.filter((movie) => {}),
     });
   }
-
-  filterByVotes(minVotes, maxVotes) {
-    this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {}),
-    });
-  }
-
-  filterByRuntime(minRuntime, maxRuntime){
-    this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {}),
-    });
-      }
-  
-      
 
   render() {
-    const { emptySearch, searchResults, searchState, Country, Year} = this.state;
+    const {
+      emptySearch,
+      searchResults,
+      minRating,
+      maxRating,
+      minVotes,
+      maxVotes,
+      searchState,
+      Country,
+      Year
+    } = this.state;
+
     console.log(searchResults);
-    var _ =  require  ('lodash');
+    var _ = require("lodash");
 
     return (
       <div className="container-lg">
@@ -193,31 +229,37 @@ export class AdvancedSearch extends Component {
 
               <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
               <div className="Genre-Filter">
-                    </div>
-                    { searchState ?( 
-                      <React.Fragment>
-                        <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
-                       <CountryFilters Country = {Country} checkCountryHandler ={this.checkCountryHandler} searchResults={searchResults}/>
-                       <RatingFilter
-                         searchResults={searchResults}
-                         filterByRating={this.filterByRating}
-                       />
-                       <VotesFilter
-                         searchResults={searchResults}
-                         filterByVotes={this.filterByVotes}
-                       />
-                       <RuntimeFilter
-                       searchResults={searchResults}
-                       filterByRuntime={this.filterByRuntime}
-                       />
 
-                       </React.Fragment>
-                    ) : (
-                      ""
-                    )
-                     }
-                    
-                  </div>
+            {searchState ? (
+              <React.Fragment>
+               <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
+                <CountryFilters
+                  Country={Country}
+                  checkCountryHandler={this.checkCountryHandler}
+                  searchResults={searchResults}
+                />
+                <RatingFilter
+                  minRating={minRating}
+                  maxRating={maxRating}
+                  onMinRatingChange={this.handleMinRatingChange}
+                  onMaxRatingChange={this.handleMaxRatingChange}
+                  searchResults={searchResults}
+                />
+                <VotesFilter
+                  minVotes={minVotes}
+                  maxVotes={maxVotes}
+                  onMinVotesChange={this.handleMinVotesChange}
+                  onMaxVotesChange={this.handleMaxVotesChange}
+                  searchResults={searchResults}
+                />
+                <RuntimeFilter
+                  searchResults={searchResults}
+                  filterByRuntime={this.filterByRuntime}
+                />
+              </React.Fragment>
+            ) : (
+              ""
+            )}
 
             <button type="submit" className="btn btn-primary">
               Submit
@@ -230,7 +272,13 @@ export class AdvancedSearch extends Component {
               <h1>No Results!</h1>
             </React.Fragment>
           ) : (
-            <AdvancedSearchResult searchResults={searchResults} />
+            <AdvancedSearchResult
+              minRating={minRating}
+              maxRating={maxRating}
+              minVotes={minVotes}
+              maxVotes={maxVotes}
+              searchResults={searchResults}
+            />
           )}
         </div>
       </div>
