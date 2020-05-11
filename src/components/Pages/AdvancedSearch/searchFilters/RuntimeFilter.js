@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../AdvSearch.css";
-import { uniq } from "lodash";
+// import { uniq } from "lodash";
 
 export class RuntimeFilter extends Component {
   state = {
