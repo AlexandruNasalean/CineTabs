@@ -90,7 +90,7 @@ export class HomePage extends Component {
               />
             </Card>
           </div>
-          <RecommandationPosters></RecommandationPosters>
+          {/* <RecommandationPosters></RecommandationPosters> */}
         </div>
       </div>
     );
