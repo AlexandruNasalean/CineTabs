@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import "./AdvSearch.css";
 import { Link } from "react-router-dom";
-import { filterByRatingOrVotes } from "./AdvanceSearchUtils";
+// import { filterByRatingOrVotes } from "./AdvanceSearchUtils"
 
 export class AdvancedSearchResult extends Component {
   constructor(props) {
@@ -19,10 +19,11 @@ export class AdvancedSearchResult extends Component {
       maxVotes,
     } = this.props;
 
-    return searchResults
-      .filter((movie) =>
-        filterByRatingOrVotes(movie, minRating, maxRating, minVotes, maxVotes)
-      )
+    return (
+      searchResults
+      // .filter((movie) =>
+      //   filterByRatingOrVotes(movie, minRating, maxRating, minVotes, maxVotes)
+      // )
       .map((movie, index) => (
         <Link to={`/MoviePage?id=${movie._id}`} key={index}>
           <div className="container-cards">
@@ -40,6 +41,8 @@ export class AdvancedSearchResult extends Component {
             </Card>
           </div>
         </Link>
-      ));
+      ))
+    )
   }
 }
+

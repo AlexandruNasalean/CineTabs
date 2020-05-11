@@ -1,5 +1,5 @@
 export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
-import { changeNumberFormat } from "./searchFilters/filtersUtils";
+// import { changeNumberFormat } from "./searchFilters/filtersUtils";
 
   let baseUrl = "https://movies-app-siit.herokuapp.com/movies";
   const urlQuery = [];
@@ -26,23 +26,23 @@ import { changeNumberFormat } from "./searchFilters/filtersUtils";
   return baseUrl;
 }
 
-export function filterByRatingOrVotes(
-  movie,
-  minRating,
-  maxRating,
-  minVotes,
-  maxVotes
-) {
-  const { imdbRating, imdbVotes } = movie;
-  const imdbVotesNumber = changeNumberFormat(imdbVotes);
+// export function filterByRatingOrVotes(
+//   movie,
+//   minRating,
+//   maxRating,
+//   minVotes,
+//   maxVotes
+// ) {
+//   const { imdbRating, imdbVotes } = movie;
+//   const imdbVotesNumber = changeNumberFormat(imdbVotes);
 
-  if (
-    imdbRating >= minRating &&
-    imdbRating <= maxRating &&
-    imdbVotesNumber >= minVotes &&
-    imdbVotesNumber <= maxVotes
-  )
-    return true;
+//   if (
+//     imdbRating >= minRating &&
+//     imdbRating <= maxRating &&
+//     imdbVotesNumber >= minVotes &&
+//     imdbVotesNumber <= maxVotes
+//   )
+//     return true;
 
-  return false;
-}
+//   return false;
+// }

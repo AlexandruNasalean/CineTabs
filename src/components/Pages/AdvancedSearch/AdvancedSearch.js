@@ -73,6 +73,7 @@ export class AdvancedSearch extends Component {
       query: event.target.value,
     });
   };
+
   checkCountryHandler = (event) =>{
     console.log(event.target.value);
     console.log(event.target);
@@ -92,7 +93,7 @@ export class AdvancedSearch extends Component {
     }
   };
 
-  }
+  
   CheckBoxChangeHandler = (event) => {
     // console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -107,6 +108,7 @@ export class AdvancedSearch extends Component {
       });
     }
   };
+  
   YearChangeHandler = (event) =>{
     console.log(event.target.value);
     const Year = [...this.state.Year];
@@ -226,11 +228,9 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
-
               <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
               <div className="Genre-Filter">
-
-            {searchState ? (
+              {searchState ? (
               <React.Fragment>
                <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
                 <CountryFilters
@@ -257,29 +257,31 @@ export class AdvancedSearch extends Component {
                   filterByRuntime={this.filterByRuntime}
                 />
               </React.Fragment>
-            ) : (
-              ""
-            )}
+                    ) : (
+                      ""
+                    )}
 
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>
+              </div>
+            </div>
           </form>
-        </div>
-        <div className="Adv-Results">
-          {emptySearch ? (
-            <React.Fragment>
-              <h1>No Results!</h1>
-            </React.Fragment>
-          ) : (
-            <AdvancedSearchResult
-              minRating={minRating}
-              maxRating={maxRating}
-              minVotes={minVotes}
-              maxVotes={maxVotes}
-              searchResults={searchResults}
-            />
-          )}
+                  <div className="Adv-Results">
+                    {emptySearch ? (
+                      <React.Fragment>
+                        <h1>No Results!</h1>
+                      </React.Fragment>
+                    ) : (
+                      <AdvancedSearchResult
+                        // minRating={minRating}
+                        // maxRating={maxRating}
+                        // minVotes={minVotes}
+                        // maxVotes={maxVotes}
+                        searchResults={searchResults}
+                      />
+                    )}
+                  </div>
         </div>
       </div>
     );
