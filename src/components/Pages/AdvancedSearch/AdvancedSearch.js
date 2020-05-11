@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
 import { Form } from "react-bootstrap";
 import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
-// import {GenreFilter} from "./Filters/Genre"
+import {GenreFilter} from  "./searchFilters/Genre"
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
 import {
@@ -14,6 +14,7 @@ import {
 } from "./searchFilters/filtersUtils";
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
+import { YearFilter } from "./searchFilters/YearFilter";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export class AdvancedSearch extends Component {
       maxVotes: null,
       Genre: [],
       Country: [],
+      Year: [],
       Runtime: [],
       searchState: "",
     };
@@ -71,25 +73,28 @@ export class AdvancedSearch extends Component {
       query: event.target.value,
     });
   };
+  checkCountryHandler = (event) =>{
+    console.log(event.target.value);
+    console.log(event.target);
 
-  checkCountryHandler = (event) => {
-    console.log(event.target.name);
     const Country = [...this.state.Country];
 
-    if (Country.includes(event.target.name)) {
+    if(Country.includes(event.target.value)){
       this.setState({
-        Country: Country.filter((element) => element !== event.target.name),
-      });
-    } else {
-      Country.push(event.target.name);
+        Country: Country.filter(element =>( element !== event.target.value))
+      })
+    }
+    else{
+      Country.push(event.target.value);
       this.setState({
         Country,
       });
     }
   };
 
+  }
   CheckBoxChangeHandler = (event) => {
-    console.log(event.target.name);
+    // console.log(event.target.name);
     const Genre = [...this.state.Genre];
     if (Genre.includes(event.target.name)) {
       this.setState({
@@ -102,9 +107,24 @@ export class AdvancedSearch extends Component {
       });
     }
   };
+  YearChangeHandler = (event) =>{
+    console.log(event.target.value);
+    const Year = [...this.state.Year];
+    if (Year.includes(event.target.value)) {
+      this.setState({
+        Year: Year.filter((element) => element !== event.target.value),
+      });
+    } else {
+      Year.push(event.target.value);
+      this.setState({
+        Year,
+      });
+    }
+
+  }
 
   CheckBoxChangeRuntimeHandler = (event) => {
-    console.log(event.target.name);
+    // console.log(event.target);
     const Runtime = [...this.state.Runtime];
     if (Runtime.includes(event.target.name)) {
       this.setState({
@@ -122,7 +142,9 @@ export class AdvancedSearch extends Component {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
     console.log(url);
-    var _ = require("lodash");
+
+    // var _ =  require  ('lodash');
+
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -183,6 +205,7 @@ export class AdvancedSearch extends Component {
       maxVotes,
       searchState,
       Country,
+      Year
     } = this.state;
 
     console.log(searchResults);
@@ -194,152 +217,22 @@ export class AdvancedSearch extends Component {
           <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
             <div className="form-group">
               <div className="Title-SearchBar">
-                <label id="Adv-Search-Title-Label">Title</label>
+                <label id="Adv-Search-Title-Label" className="title-filter">Title</label>
                 <input
                   className="form-control"
                   type="text"
-                  id="filter"
+                  id="title-filterinput"
                   placeholder="Search for a Title"
                   onChange={this.handleInputChange}
                 />
               </div>
-              {/* <GenreFilter sendGenreData = {this.CheckBoxChangeHandler}></GenreFilter> */}
+
+              <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
               <div className="Genre-Filter">
-                {["checkbox"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check
-                      inline
-                      label="Comedy"
-                      name="Comedy"
-                      value="Comedy"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Action"
-                      name="Action"
-                      value="Action"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Adventure"
-                      name="Adventure"
-                      value="Adventure"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Family"
-                      name="Family"
-                      value="Family"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="History"
-                      name="History"
-                      value="History"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Mystery"
-                      name="Mystery"
-                      value="Mystery"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Sci-Fi"
-                      name="Sci-Fi"
-                      value="Sci-Fi"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="War"
-                      name="War"
-                      value="War"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Crime"
-                      name="Crime"
-                      value="Crime"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Fantasy"
-                      name="Fantasy"
-                      value="Fantasy"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Horror"
-                      name="Horror"
-                      value="Horror"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Sport"
-                      name="Sport"
-                      value="Sport"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Western"
-                      name="Western"
-                      value="Western"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Animation"
-                      name="Animation"
-                      value="Animation"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Documentary"
-                      name="Documentary"
-                      value="Documentary"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Drama	"
-                      name="Drama	"
-                      value="Drama	"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Romance"
-                      name="Romance"
-                      value="Romance"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                    <Form.Check
-                      inline
-                      label="Thriller"
-                      name="Thriller"
-                      value="Thriller"
-                      onClick={this.CheckBoxChangeHandler}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {searchState ? (
               <React.Fragment>
+               <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
                 <CountryFilters
                   Country={Country}
                   checkCountryHandler={this.checkCountryHandler}

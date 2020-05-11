@@ -1,9 +1,6 @@
 .cards {
   background-color: thistle;
 }
-#Adv-Search-Title-Label {
-  color: aliceblue;
-}
 .Adv-Results {
   display: flex;
   flex-wrap: wrap;
@@ -19,11 +16,14 @@
 }
 
 .rating-filter,
-.votes-filter {
+.votes-filter,
+.year-filter,
+.title-filterinput {
   padding-bottom: 30px;
 }
 
-.rating-filter {
+.rating-filter,
+.Genre-Filter {
   padding-top: 30px;
 }
 
@@ -38,14 +38,19 @@
 }
 
 .rating-dropdown,
-.votes-dropdown {
+.votes-dropdown,
+.title-filterinput{
   margin-left: 10px;
   margin-right: 10px;
   height: 25px;
 }
 
 .rating-filter label,
-.votes-filter label {
+.votes-filter label,
+.year-filter label,
+.title-filter,
+.Genre-Filter label,
+.Country-filter{
   color: orange;
   font-weight: bold;
 }

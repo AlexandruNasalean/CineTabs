@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import Card from "react-bootstrap/Card";
-import {Row, Col } from "react-bootstrap";
+// import Card from "react-bootstrap/Card";
+// import {Row, Col } from "react-bootstrap";
 import "./AllMovies.css";
 import App from "./Moviesfetch" ;
 
