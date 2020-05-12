@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./MoviesFetch.css";
-import Pagination from './Components/Pagination'
+import "./GenreMovieFetch.css";
 
 export class App extends Component {
   constructor(props) {
@@ -13,48 +12,26 @@ export class App extends Component {
       movieData: [],
       loading: false,
       index: [],
-      totalResults: 0,
-      currentPage: 1,
-      pagination: []
     };
   }
 
   componentDidMount() {
     this.setState({ loading: true });
 
-    fetch(`https://movies-app-siit.herokuapp.com/movies`)
+    fetch(`https://movies-app-siit.herokuapp.com/movies?Genre=Adventure`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
-          pagination: json.pagination,
           loading: false,
           movieData: json.results,
-          totalResults: json.total_Results
         });
       });
   }
 
-  nextPage = (pageNumber) => {
-    fetch(`https://movies-app-siit.herokuapp.com/movies?take=${pageNumber}`)
-    .then((response) => response.json())
-    .then((json) => {
-      this.setState({
-        loading: false,
-        movieData: json.results,
-        currentPage: pageNumber,
-        totalResults: json.total_Results
-        
-      })
-      console.log(this.state.totalResults)
-    });
-  }
-  
-
   render() {
     const { movieData, loading } = this.state;
     console.log(this.state);
-    const numberPages = Math.floor(this.state.totalResults / 10);
-    console.log(this.state.pagination)
+
     return (
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
@@ -86,8 +63,6 @@ export class App extends Component {
             </div>
           </Link>
         ))}
-        
-        {this.state.totalResults > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
       </div>
     );
   }

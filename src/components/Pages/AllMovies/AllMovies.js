@@ -9,7 +9,7 @@ export class AllMovies extends Component {
         return (
 
 <div className = "movie-card-result">
-<p> <App>moviefetch</App></p>
+<App>moviefetch</App>
 </div>
 
 
