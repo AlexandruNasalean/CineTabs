@@ -45,6 +45,7 @@
 
 .year-filter,
 .Country-filter,
+.Language-filter,
 .rating-filter,
 .votes-filter,
 .runtime-filter{
@@ -77,6 +78,7 @@
 .year-filter label,
 .title-filter,
 .Genre-Filter label,
+.Language-filter,
 .Country-filter{
   color: #f88c1f;
   font-weight: bold;

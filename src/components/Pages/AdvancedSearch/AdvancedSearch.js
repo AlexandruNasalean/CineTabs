@@ -15,6 +15,7 @@ import {
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 import { YearFilter } from "./searchFilters/YearFilter";
+import { LanguageFilters} from "./searchFilters/LanguageFilters";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -32,6 +33,7 @@ export class AdvancedSearch extends Component {
       Country: [],
       Year: [],
       Runtime: [],
+      Language:[],
       searchState: "",
     };
   }
@@ -89,6 +91,25 @@ export class AdvancedSearch extends Component {
       Country.push(event.target.value);
       this.setState({
         Country,
+      });
+    }
+  };
+
+  checkLanguageHandler = (event) =>{
+    console.log(event.target.value);
+    console.log(event.target);
+
+    const Language = [...this.state.Language];
+
+    if(Language.includes(event.target.value)){
+      this.setState({
+        Language: Language.filter(element =>( element !== event.target.value))
+      })
+    }
+    else{
+      Language.push(event.target.value);
+      this.setState({
+        Language,
       });
     }
   };
@@ -207,6 +228,7 @@ export class AdvancedSearch extends Component {
       maxVotes,
       searchState,
       Country,
+      Language,
       Year
     } = this.state;
 
@@ -239,6 +261,13 @@ export class AdvancedSearch extends Component {
                   checkCountryHandler={this.checkCountryHandler}
                   searchResults={searchResults}
                 />
+
+                <LanguageFilters
+                  Language={Language}
+                  checkLanguageHandler={this.checkLanguageHandler}
+                  searchResults={searchResults}
+                />
+
                 <RatingFilter
                   minRating={minRating}
                   maxRating={maxRating}
