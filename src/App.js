@@ -10,6 +10,7 @@ import { Footer } from "./components/Footer/Footer";
 import { Login } from "./components/Pages/Login/Login";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
+import { AddMovie } from "./components/Pages/AddMovie/AddMovie";
 import Cookies from "js-cookie";
 import "./App.css";
 
@@ -110,6 +111,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/Contact" component={ContactPage} />
+          <Route exact path="/addmovie" component={AddMovie} />
           <Route
             exact
             path="/login"
