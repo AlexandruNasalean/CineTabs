@@ -214,7 +214,8 @@ export class AdvancedSearch extends Component {
     var _ = require("lodash");
 
     return (
-      <div className="container-lg">
+      <div>
+      <div className="Adv-Results">
         <div className="Advanced-Filter">
           <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
             <div className="form-group">
@@ -229,7 +230,7 @@ export class AdvancedSearch extends Component {
                 />
               </div>
               <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
-              <div className="Genre-Filter">
+              <div className="Extra-Filters">
               {searchState ? (
               <React.Fragment>
                <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
@@ -260,30 +261,32 @@ export class AdvancedSearch extends Component {
                     ) : (
                       ""
                     )}
-
-                <button type="submit" className="btn btn-primary">
+              </div>
+              <div className="AdvSearchButton">
+              <button type="submit" className="btn btn-primary">
                   Submit
                 </button>
-              </div>
+                </div>
             </div>
           </form>
-                  <div className="Adv-Results">
-                    {emptySearch ? (
-                      <React.Fragment>
-                        <h1>No Results!</h1>
-                      </React.Fragment>
-                    ) : (
-                      <AdvancedSearchResult
-                        // minRating={minRating}
-                        // maxRating={maxRating}
-                        // minVotes={minVotes}
-                        // maxVotes={maxVotes}
-                        searchResults={searchResults}
-                      />
-                    )}
-                  </div>
+                  
         </div>
+        {emptySearch ? (
+        <React.Fragment>
+          <h1>No Results!</h1>
+        </React.Fragment>
+      ) : (
+        <AdvancedSearchResult
+          minRating={minRating}
+          maxRating={maxRating}
+          minVotes={minVotes}
+          maxVotes={maxVotes}
+          searchResults={searchResults}
+        />
+      )}
       </div>
+  
+    </div>
     );
   }
 }

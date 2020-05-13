@@ -74,7 +74,8 @@ submitHandler = (e) => {
     const { query} = this.state;
     console.log(this.state)
     return(
-        <div className="searchbarcontainer">
+      <div className="search-container">
+        <div className="container">
        <input
        type="text"
        name="query"
@@ -84,6 +85,7 @@ submitHandler = (e) => {
        onChange={this.handleOnInputChange}
        onKeyDown={this.onKeyDown}
        />
+       </div>
         </div>
     )
   };} 
