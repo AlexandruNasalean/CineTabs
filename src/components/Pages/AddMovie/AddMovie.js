@@ -1,3 +1,12 @@
+import React, { Component } from "react";
+
+export class AddMovie extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+  }
+}
 fetch("https://movies-api-siit.herokuapp.com/auth/login", {
   method: "POST",
   path: "/movies",
