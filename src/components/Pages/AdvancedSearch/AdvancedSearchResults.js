@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import "./AdvSearch.css";
 import { Link } from "react-router-dom";
-// import { filterByRatingOrVotes } from "./AdvanceSearchUtils"
+import { filterByRatingOrVotes } from "./AdvanceSearchUtils"
 
 export class AdvancedSearchResult extends Component {
   constructor(props) {
@@ -21,25 +21,23 @@ export class AdvancedSearchResult extends Component {
 
     return (
       searchResults
-      // .filter((movie) =>
-      //   filterByRatingOrVotes(movie, minRating, maxRating, minVotes, maxVotes)
-      // )
+      .filter((movie) =>
+        filterByRatingOrVotes(movie, minRating, maxRating, minVotes, maxVotes)
+      )
       .map((movie, index) => (
         <Link to={`/MoviePage?id=${movie._id}`} key={index}>
-          <div className="container-cards">
-            <Card style={{ width: "18rem" }}>
-              <Card.Img variant="top" src={movie.Poster} />
-              <Card.Body>
-                <Card.Title>{movie.Title}</Card.Title>
-                <Card.Text>
+                <div className="card" style={{width:"18rem"}}>
+                <img className="card-img-top" src={movie.Poster} alt="{movie.Poster}" />
+                <div className="card-body">
+                  <h3 className="card-title">{movie.Title}</h3>
+                  <p className="card-text"> 
                     <li>Year: {movie.Year}</li>
-                    <li>Genre: {movie.Genre}</li>
-                    <li>Language: {movie.Language}</li>
-                    <li>Country: {movie.Country}</li>
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </div>
+                     <li>Genre: {movie.Genre}</li>
+                     <li>Language: {movie.Language}</li>
+                    <li>Country: {movie.Country}</li></p>
+                </div>
+              </div>   
+       
         </Link>
       ))
     )

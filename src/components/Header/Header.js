@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./Header.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
+
 
 export class Header extends Component {
   render() {
@@ -21,17 +26,17 @@ export class Header extends Component {
           </li>
           <li>
             <Link className="link-header" to="/AllMovies">
-              All Movies
+              <p>All Movies</p>
             </Link>
           </li>
           <li>
             <Link className="link-header" to="/Genres">
-              Genres
+              <p>Genres</p>
             </Link>
           </li>
           <li>
             <Link className="link" to="/AdvancedSearch">
-              Advanced Search
+              <p>Advanced Search</p>
             </Link>
           </li>
         </ul>
@@ -40,21 +45,23 @@ export class Header extends Component {
             {isLoggedIn ? (
               <React.Fragment>
                 <li>
-                  <Link to="/addmovie">Add Movie</Link>
+                  <Link to="/addmovie"><p>Add Movie</p></Link>
                 </li>
-                <li className="username">{username}</li>
-                <Button onClick={onShowLogOutModal}>Log Out</Button>
+                <li className="username"><FontAwesomeIcon icon={faUser} className="usernameIcon"/>
+                  {username}</li>
+                <Button onClick={onShowLogOutModal} className="log-out-Button"><FontAwesomeIcon icon={faSignOutAlt}/>
+                </Button>
               </React.Fragment>
             ) : (
               <React.Fragment>
                 <li>
                   <Link className="login" to="/login">
-                    Login
+                    <p>Login</p>
                   </Link>
                 </li>
                 <li>
                   <Link className="sign-up" to="/sign-up">
-                    Sign-up
+                    <p>Sign-up</p>
                   </Link>
                 </li>
               </React.Fragment>

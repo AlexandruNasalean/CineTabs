@@ -1,10 +1,32 @@
 .searchbarcontainer {
     width: 100%;
     margin-top: 2%;
-
+    color: #f88c1f;
 }
 
-#search-input {
-    width: 500px;
-    margin-left: 35%;
+
+.search-container{
+    background-color: #3b3b3b;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+
+}
+#search-input[type=text] {
+    width: 50%;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('https://img.icons8.com/ios-filled/50/000000/search.png');
+    background-position: 2px 5px;
+    background-size: 35px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    transition: width 0.4s ease-in-out;
+}
+#search-input[type=text]:focus{
+        width: 100%;
+        border:#f88c1f ;
 }

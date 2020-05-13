@@ -33,6 +33,7 @@ export class Carouselu extends Component {
   render() {
     const { movieData, loading } = this.state;
     return (
+      <div className="carousel-wrapper">
       <Carousel
         className={
           "Carousel Carouselu" +
@@ -59,6 +60,7 @@ export class Carouselu extends Component {
           ))
         )}
       </Carousel>
+      </div>
     );
   }
 }
