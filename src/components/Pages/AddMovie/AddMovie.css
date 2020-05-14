@@ -1,0 +1,31 @@
+.add-movie-form {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+.form-container {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.input-fields {
+  margin-top: 20px;
+}
+
+.input-fields label {
+  width: 100px;
+  color: #f88c1f;
+}
+
+.input-fields input {
+  width: 300px;
+}
+
+.submit-btn {
+  background-color: #f88c1f;
+  border: 1px solid black;
+  height: 50px;
+  align-self: center;
+  border-radius: 5px;
+}
