@@ -1,6 +1,6 @@
 import { changeNumberFormat } from "./searchFilters/filtersUtils";
 
-export function generateAdvancedSearchUrl({query,Genre,Country}){
+export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
 
   let baseUrl = "https://movies-app-siit.herokuapp.com/movies";
   const urlQuery = [];
@@ -15,6 +15,10 @@ export function generateAdvancedSearchUrl({query,Genre,Country}){
   
   if(Country && Country.length){
     urlQuery.push(`Country=${Country.join(",")}`)
+  }
+
+  if(Year && Year.length){
+    urlQuery.push(`Year=${Year.join(",")}`)
   }
   
   if(urlQuery.length){

@@ -1,3 +1,4 @@
+
 .Carousel-image,
 .ImgBestMovie2019 {
   width: 150px;
@@ -31,9 +32,7 @@ button {
   border-color: orange;
 }
 
-.Carousel {
-  background-color: teal;
-}
+
 
 .ImgBestMovie2019,
 .DescriptionBestMovie2019 {
@@ -51,7 +50,6 @@ button {
 .MovieRecomandation {
   display: flex;
   width: 100%;
-  background-color: teal;
 }
 
 .MovieCard {
@@ -64,10 +62,18 @@ button {
 }
 
 .SearchBarText{
-margin-left: 40%;
 color: white;
+text-align: center;
 }
 
 .searchsectionStyling{
 width: 100%;
+color: #f88c1f;
+}
+.SearchBarText{
+  color: #f88c1f;
+
+}
+.carouselHome{
+  margin-bottom: 20px;
 }

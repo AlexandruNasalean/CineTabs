@@ -92,6 +92,9 @@ class App extends Component {
     const { isLoggedIn, username } = this.state;
 
     return (
+      <div className="page-container">
+      <div className="content-wrap">
+
       <Router>
         <div className="app">
           <Header
@@ -137,6 +140,8 @@ class App extends Component {
           />
         </div>
       </Router>
+      </div>
+      </div>
     );
   }
 }

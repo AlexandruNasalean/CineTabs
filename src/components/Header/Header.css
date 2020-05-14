@@ -1,5 +1,5 @@
 .header {
-  background: black;
+  background-color: #3b3b3b;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -28,8 +28,32 @@
 .username {
   color: white;
 }
+.usernameIcon{
+  margin-right: 10px;
+}
 
 .signOut {
   color: white;
   font-size: 30px;
+}
+.header p {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header a:hover p{
+  color: #f88c1f;
+  
+
+}
+
+.log-out-Button{
+  background: none;
+  border: none;
+  font-size: 25px;
+}
+.on-login-buttons button:hover{
+  color: #f88c1f;
+  background: none;
 }

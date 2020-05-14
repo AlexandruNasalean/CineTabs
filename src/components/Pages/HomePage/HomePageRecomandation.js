@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./MoviesFetch.css";
-import Pagination from './Components/Pagination'
+import "./HomePageRecomandation.css";
 
-export class App extends Component {
+export class HomePageRecomandation extends Component {
   constructor(props) {
     super(props);
 
@@ -34,35 +33,18 @@ export class App extends Component {
       });
   }
 
-  nextPage = (pageNumber) => {
-    fetch(`https://movies-app-siit.herokuapp.com/movies?take=${pageNumber}`)
-    .then((response) => response.json())
-    .then((json) => {
-      this.setState({
-        loading: false,
-        movieData: json.results,
-        currentPage: pageNumber,
-        totalResults: json.total_Results
-        
-      })
-      console.log(this.state.totalResults)
-    });
-  }
   
-
   render() {
     const { movieData, loading } = this.state;
     console.log(this.state);
-    const numberPages = Math.floor(this.state.totalResults / 10);
-    console.log(this.state.pagination)
     return (
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
             <div>
               <div className="MovieDataCard">
-                <Row>
-                  <Col sm={2}>
+                <Row id="row">
+                  <Col sm={4}>
                     <Card style={{ width: "16rem", marginRight: "10px" }}>
                       <Card.Img
                         top
@@ -71,8 +53,8 @@ export class App extends Component {
                         src={movies.Poster}
                       />
                       <Card.Body>
-                        <Card.Title>{movies.Title}</Card.Title>
-                        <Card.Text>
+                        <Card.Title id="Card-Title">{movies.Title}</Card.Title>
+                        <Card.Text id="Card-Text">
                           <li>Genre: {movies.Genre}</li>
                           <li>Rating: {movies.imdbRating}</li>
 
@@ -87,10 +69,8 @@ export class App extends Component {
           </Link>
         ))}
         
-        {this.state.totalResults > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
       </div>
     );
   }
 }
 
-export default App;

@@ -18,18 +18,12 @@ export function ContactPage() {
   return (
     <div className="contact-container">
       <div className="contact-card">
-        <Card style={{ width: "18rem" }}>
-          <Card.Img variant="top" src="https://i.imgur.com/r3dLpmN.png" />
-          <Card.Body>
-            <Card.Title>Contact Us</Card.Title>
-            <Card.Text></Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroupItem></ListGroupItem>
-            <ListGroupItem>e-mail: info@cinetab.com</ListGroupItem>
-            <ListGroupItem>telephone: 0040 318 555 4598</ListGroupItem>
-          </ListGroup>
-        </Card>
+        <img src="https://i.imgur.com/r3dLpmN.png" id="contact-logo" />
+        <h4>Contact Us</h4>
+        <ul>
+          <li>e-mail: info@cinetab.com</li>
+          <li>telephone: 0040 318 555 4598</li>
+        </ul>
       </div>
       <div className="contact-form">
         <h2 id="greeting">We'd love to hear from you!</h2>
@@ -79,7 +73,7 @@ export function ContactPage() {
               feedback="You must agree before submitting."
             />
           </Form.Group>
-          <Button variant="primary" type="submit" block>
+          <Button variant="primary" type="submit" id="contact-submit" block>
             Submit
           </Button>
         </Form>

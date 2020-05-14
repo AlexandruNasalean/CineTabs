@@ -45,7 +45,7 @@ export class MoviePage extends Component {
               isLoaded: false,
               movie: json,
             });
-            localStorage.setItem(`movie_${id}`, JSON.stringify(json));
+            localStorage.setItem(`movieID`, JSON.stringify(id));
           });
       }
     }
@@ -53,7 +53,7 @@ export class MoviePage extends Component {
 
   handleDeleteMovie = () => {
     const logInToken = Cookies.get("token");
-    const movieLocalID = localStorage.getItem("movieID");
+    const movieLocalID = localStorage.getItem("movieID").replace(/["']/g, "");
     const urlDelete = `https://movies-app-siit.herokuapp.com/movies/${movieLocalID}`;
     console.log(urlDelete);
     console.log(logInToken);
@@ -69,6 +69,7 @@ export class MoviePage extends Component {
       referrerPolicy: "no-referrer",
     }).then(() => {
       this.props.history.push("/AllMovies");
+      localStorage.removeItem("id");
     });
   };
 

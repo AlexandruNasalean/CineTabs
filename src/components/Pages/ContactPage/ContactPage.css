@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
 }
 
 .contact-card,
@@ -15,10 +16,22 @@
   margin-top: 80px;
 }
 
+.contact-card h4 {
+  margin-top: 80px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #f88c1f;
+}
+
 .contact-card img {
-  background-color: black;
+  width: 250px;
 }
 
 #greeting {
   color: white;
+}
+
+#contact-submit {
+  background-color: #f88c1f;
+  border: none;
 }
