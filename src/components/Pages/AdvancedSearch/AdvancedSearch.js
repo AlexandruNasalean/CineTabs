@@ -35,6 +35,7 @@ export class AdvancedSearch extends Component {
       Runtime: [],
       Language:[],
       searchState: "",
+      selected: false,
     };
   }
 
@@ -133,17 +134,11 @@ export class AdvancedSearch extends Component {
   YearChangeHandler = (event) =>{
     console.log(event.target.value);
     const Year = [...this.state.Year];
-    if (Year.includes(event.target.value)) {
-      this.setState({
-        Year: Year.filter((element) => element !== event.target.value),
-      });
-    } else {
       Year.push(event.target.value);
       this.setState({
         Year,
+        selected: true,
       });
-    }
-
   }
 
   CheckBoxChangeRuntimeHandler = (event) => {
@@ -196,6 +191,12 @@ export class AdvancedSearch extends Component {
       });
   };
 
+  handleDeleteFilterQuerryYear = (event) =>{
+      this.setState({
+        Year: [],
+      })
+      this.submitHandler(event);
+  }
   handleMinRatingChange = (minRating) => {
     this.setState({ minRating });
   };
@@ -229,11 +230,13 @@ export class AdvancedSearch extends Component {
       searchState,
       Country,
       Language,
-      Year
+      Year,
+      selected
     } = this.state;
 
     console.log(searchResults);
     var _ = require("lodash");
+   
 
     return (
       <div>
@@ -255,7 +258,14 @@ export class AdvancedSearch extends Component {
               <div className="Extra-Filters">
               {searchState ? (
               <React.Fragment>
-               <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
+               <YearFilter 
+               YearChangeHandler={this.YearChangeHandler} 
+               searchResults={searchResults} 
+               Year={Year}
+               selected={selected}
+               handleDeleteFilterQuerryYear={this.handleDeleteFilterQuerryYear}
+
+               ></YearFilter>
                 <CountryFilters
                   Country={Country}
                   checkCountryHandler={this.checkCountryHandler}

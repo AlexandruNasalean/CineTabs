@@ -10,7 +10,7 @@ export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
   }
   
   if (Genre && Genre.length) {
-    urlQuery.push(`Genre=${Genre.join(", ")}`);
+    urlQuery.push(`Genre=${Genre.join(",")}`);
   }
   
   if(Country && Country.length){
