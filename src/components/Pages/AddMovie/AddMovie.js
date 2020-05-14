@@ -1,205 +1,289 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+import Cookies from "js-cookie";
+import "./AddMovie.css";
 
 export class AddMovie extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      _id: "",
-      Title: "",
-      Year: "",
-      Runtime: "",
-      Genre: "",
-      Language: "",
-      Country: "",
-      Poster: "",
-      imdbRating: "",
-      imdbVotes: "",
-      imdbID: "",
-      Type: "",
-    };
+  addNewMovie(newMovie) {
+    const logInToken = Cookies.get("token");
+    fetch("https://movies-app-siit.herokuapp.com/movies", {
+      method: "POST",
+      mode: "cors",
+      cache: "no-cache",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": logInToken,
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(newMovie),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        this.props.history.push("/AllMovies");
+      });
   }
+
+  handleAddButton = (e) => {
+    console.log("works");
+    const newMovie = {
+      Title: this.refs.title.value,
+      Year: this.refs.year.value,
+      Runtime: this.refs.runtime.value,
+      Genre: this.refs.genre.value,
+      Language: this.refs.language.value,
+      Country: this.refs.country.value,
+      Poster: this.refs.poster.value,
+      imdbRating: this.refs.imdbRating.value,
+      imdbVotes: this.refs.imdbVotes.value,
+      imdbID: this.refs.imdbID.value,
+      Type: this.refs.type.value,
+    };
+
+    this.addNewMovie(newMovie);
+
+    e.preventDefault();
+  };
 
   render() {
     return (
-      <div>
-        <div className="Title-SearchBar">
-          <label id="Adv-Search-Title-Label">Title</label>
-          <input
-            className="form-control"
-            type="text"
-            id="filter"
-            placeholder="Search for a Title"
-            onChange={this.handleInputChange}
-          />
-        </div>
-        <div className="Genre-Filter">
-          {["checkbox"].map((type) => (
-            <div key={`inline-${type}`} className="mb-3">
-              <Form.Check
-                inline
-                label="Comedy"
-                name="Comedy"
-                value="Comedy"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Action"
-                name="Action"
-                value="Action"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Adventure"
-                name="Adventure"
-                value="Adventure"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Family"
-                name="Family"
-                value="Family"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="History"
-                name="History"
-                value="History"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Mystery"
-                name="Mystery"
-                value="Mystery"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Sci-Fi"
-                name="Sci-Fi"
-                value="Sci-Fi"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="War"
-                name="War"
-                value="War"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Crime"
-                name="Crime"
-                value="Crime"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Fantasy"
-                name="Fantasy"
-                value="Fantasy"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Horror"
-                name="Horror"
-                value="Horror"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Sport"
-                name="Sport"
-                value="Sport"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Western"
-                name="Western"
-                value="Western"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Animation"
-                name="Animation"
-                value="Animation"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Documentary"
-                name="Documentary"
-                value="Documentary"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Drama	"
-                name="Drama	"
-                value="Drama	"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Romance"
-                name="Romance"
-                value="Romance"
-                onClick={this.CheckBoxChangeHandler}
-              />
-              <Form.Check
-                inline
-                label="Thriller"
-                name="Thriller"
-                value="Thriller"
-                onClick={this.CheckBoxChangeHandler}
-              />
+      <div className="form-container">
+        <form className="add-movie-form" onSubmit={this.handleAddButton}>
+          <div className="first-group">
+            <div className="input-fields">
+              <label htmlFor="title">Title</label>
+              <input type="text" name="title" ref="title" />
             </div>
-          ))}
-        </div>
+            <div className="input-fields">
+              <label htmlFor="year">Year</label>
+              <input type="number" name="year" ref="year" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="runtime">Runtime</label>
+              <input type="text" name="runtime" ref="runtime" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="genre">Genre</label>
+              <input type="text" name="genre" ref="genre" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="language">Language</label>
+              <input type="text" name="language" ref="language" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="country">Country</label>
+              <input type="text" name="country" ref="country" />
+            </div>
+          </div>
+          <div className="second-group">
+            <div className="input-fields">
+              <label htmlFor="poster">Poster</label>
+              <input type="text" name="poster" ref="poster" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="imdbRating">imdbRating</label>
+              <input type="text" name="imdbRating" ref="imdbRating" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="imdbVotes">imdbVotes</label>
+              <input type="text" name="imdbVotes" ref="imdbVotes" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="imdbID">imdbID</label>
+              <input type="text" name="imdbID" ref="imdbID" />
+            </div>
+            <div className="input-fields">
+              <label htmlFor="type">Type</label>
+              <input type="text" name="type" ref="type" />
+            </div>
+          </div>
+          <input type="submit" value="AddMovie" className="submit-btn" />
+        </form>
       </div>
     );
   }
 }
 
-fetch("https://movies-app-siit.herokuapp.com/movies", {
-  method: "POST",
-  mode: "cors",
-  cache: "no-cache",
-  credentials: "same-origin",
-  headers: {
-    "Content-Type": "application/json",
-    "X-Auth-Token": "token",
-  },
-  redirect: "follow",
-  referrerPolicy: "no-referrer",
-  body: JSON.stringify({
-    _id: this.state._id,
-    Title: this.state.Title,
-    Year: this.state.Year,
-    Runtime: this.state.Runtime,
-    Genre: this.state.Genre,
-    Language: this.state.Language,
-    Country: this.state.Country,
-    Poster: this.state.Poster,
-    imdbRating: this.state.imdbRating,
-    imdbVotes: this.state.imdbVotes,
-    imdbID: this.state.imdbID,
-    Type: this.state.Type,
-  }),
-})
-  .then((response) => response.json())
-  .then((json) => {
-    console.log(json);
+// export class AddMovie extends Component {
+//   constructor(props) {
+//     super(props);
 
-    document.cookie = `token=${json.accessToken}`;
-  });
+//     this.state = {
+//       Title: "",
+//       Year: "",
+//       Runtime: "",
+//       Genre: "",
+//       Language: "",
+//       Country: "",
+//       Poster: "",
+//       imdbRating: "",
+//       imdbVotes: "",
+//       imdbID: "",
+//       Type: "",
+//     };
+//   }
+
+//   addNewMovie(newMovie) {
+//     const logInToken = Cookies.get("token");
+//     fetch("https://movies-app-siit.herokuapp.com/movies", {
+//       method: "POST",
+//       mode: "cors",
+//       cache: "no-cache",
+//       credentials: "same-origin",
+//       headers: {
+//         "Content-Type": "application/json",
+//         "x-auth-token": logInToken,
+//       },
+//       redirect: "follow",
+//       referrerPolicy: "no-referrer",
+//       body: JSON.stringify(newMovie),
+//     })
+//       .then((response) => response.json())
+//       .then((json) => {
+//         console.log(json);
+//         this.props.history.push("/AllMovies");
+//       });
+//   }
+
+//   handleAddButton = (e) => {
+//     const newMovie = { [e.target.name]: e.target.value };
+//     this.addNewMovie(newMovie);
+
+//     e.preventDefault();
+//   };
+
+//   updateInputValue(e) {
+//     const newMovie = this.setState({
+//       [e.target.name]: e.target.value,
+//     });
+//     this.addNewMovie(newMovie);
+//   }
+
+//   render() {
+//     const {
+//       Title,
+//       Year,
+//       Runtime,
+//       Genre,
+//       Language,
+//       Country,
+//       imdbID,
+//       imdbRating,
+//       imdbVotes,
+//       Poster,
+//       Type,
+//     } = this.state;
+
+//     return (
+//       <div className="form-container">
+//         <form className="add-movie-form" onSubmit={this.handleAddButton}>
+//           <div className="first-group">
+//             <div className="input-fields">
+//               <label htmlFor="title">Title</label>
+//               <input
+//                 type="text"
+//                 name="Title"
+//                 value={Title}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="year">Year</label>
+//               <input
+//                 type="number"
+//                 name="Year"
+//                 value={Year}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="runtime">Runtime</label>
+//               <input
+//                 type="text"
+//                 name="Runtime"
+//                 value={Runtime}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="genre">Genre</label>
+//               <input
+//                 type="text"
+//                 name="Genre"
+//                 value={Genre}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="language">Language</label>
+//               <input
+//                 type="text"
+//                 name="Language"
+//                 value={Language}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="country">Country</label>
+//               <input
+//                 type="text"
+//                 name="Country"
+//                 value={Country}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//           </div>
+//           <div className="second-group">
+//             <div className="input-fields">
+//               <label htmlFor="poster">Poster</label>
+//               <input
+//                 type="text"
+//                 name="Poster"
+//                 value={Poster}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="imdbRating">imdbRating</label>
+//               <input
+//                 type="text"
+//                 name="imdbRating"
+//                 value={imdbRating}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="imdbVotes">imdbVotes</label>
+//               <input
+//                 type="text"
+//                 name="imdbVotes"
+//                 value={imdbVotes}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="imdbID">imdbID</label>
+//               <input
+//                 type="text"
+//                 name="imdbID"
+//                 value={imdbID}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//             <div className="input-fields">
+//               <label htmlFor="type">Type</label>
+//               <input
+//                 type="text"
+//                 name="Type"
+//                 value={Type}
+//                 onChange={(e) => this.updateInputValue(e)}
+//               />
+//             </div>
+//           </div>
+//           <input type="submit" value="AddMovie" className="submit-btn" />
+//         </form>
+//       </div>
+//     );
+//   }
+// }

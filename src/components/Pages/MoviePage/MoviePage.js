@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from "js-cookie";
@@ -9,6 +10,7 @@ import {
   faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
+import { EditMovie } from "../EditMovie/EditMovie";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -75,6 +77,10 @@ export class MoviePage extends Component {
     console.log("click");
   };
 
+  goToEditMovie = () => {
+    this.props.history.push("/editmovie");
+  };
+
   render() {
     const { isLoggedIn } = this.props;
     const { movie, isLoaded } = this.state;
@@ -105,7 +111,7 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button>
+                    <Button onClick={this.goToEditMovie}>
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
                     <Button onClick={this.handleDeleteMovie}>
