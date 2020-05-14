@@ -56,7 +56,8 @@
 
 .movie-votes,
 .movie-rating,
-.runtime-filter {
+.movie-runtime
+{
   display: flex;
 }
 
@@ -67,7 +68,8 @@
 
 .rating-dropdown,
 .votes-dropdown,
-.title-filterinput{
+.title-filterinput,
+.runtime-dropdown{
   margin-left: 10px;
   margin-right: 10px;
   height: 25px;
@@ -79,7 +81,8 @@
 .title-filter,
 .Genre-Filter label,
 .Language-filter,
-.Country-filter{
+.Country-filter,
+.runtime-filter label{
   color: #f88c1f;
   font-weight: bold;
 }
