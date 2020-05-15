@@ -192,10 +192,11 @@ export class AdvancedSearch extends Component {
   };
 
   handleDeleteFilterQuerryYear = (event) =>{
-      this.setState({
+      
+  this.setState({
         Year: [],
       })
-      this.submitHandler(event);
+  console.log(this.state.Year)
   }
   handleMinRatingChange = (minRating) => {
     this.setState({ minRating });
@@ -266,6 +267,7 @@ export class AdvancedSearch extends Component {
                handleDeleteFilterQuerryYear={this.handleDeleteFilterQuerryYear}
 
                ></YearFilter>
+
                 <CountryFilters
                   Country={Country}
                   checkCountryHandler={this.checkCountryHandler}

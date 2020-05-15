@@ -10,15 +10,13 @@ import {
 
 
 export class YearFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
-  }
+
 
   render() { 
-    const {YearChangeHandler, searchResults,selected,handleDeleteFilterQuerryYear} =this.props;
+    const {YearChangeHandler, searchResults,selected,handleDeleteFilterQuerryYear,Year} =this.props;
     const YearFiltered = uniqBy(searchResults, 'Year')
     const OrderYear = convertToNumbersYears(YearFiltered);
+    const YearQuerry= Year.join(",");
     console.log(YearFiltered)
     return (
       <div className="year-filter">
@@ -30,7 +28,7 @@ export class YearFilter extends Component {
           ))}
         </select>
        {selected ?(
-         <Button onClick={handleDeleteFilterQuerryYear}><FontAwesomeIcon icon={faTimes}></FontAwesomeIcon></Button>
+         <Button onClick={handleDeleteFilterQuerryYear} className="Year-Querry">{YearQuerry}<FontAwesomeIcon icon={faTimes}></FontAwesomeIcon></Button>
           
        ) : (
          ""
