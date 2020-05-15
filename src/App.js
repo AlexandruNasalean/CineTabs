@@ -10,6 +10,8 @@ import { Footer } from "./components/Footer/Footer";
 import { Login } from "./components/Pages/Login/Login";
 import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
+import { AddMovie } from "./components/Pages/AddMovie/AddMovie";
+import { EditMovie } from "./components/Pages/EditMovie/EditMovie";
 import Cookies from "js-cookie";
 import "./App.css";
 
@@ -105,6 +107,7 @@ class App extends Component {
           <Route exact path="/Genres" component={Genres} />
           <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
 
+          <Route exact path="/addmovie" component={AddMovie} />
           <Route
             exact
             path="/MoviePage"
@@ -113,6 +116,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/Contact" component={ContactPage} />
+          <Route exact path="/editmovie" component={EditMovie} />
           <Route
             exact
             path="/login"
