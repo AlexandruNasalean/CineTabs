@@ -35,7 +35,9 @@ export class AdvancedSearch extends Component {
       Runtime: [],
       Language:[],
       searchState: "",
-      selected: false,
+      YearSelected: false,
+      CountrySelected: false,
+      LanguageSelected: false,
     };
   }
 
@@ -83,36 +85,24 @@ export class AdvancedSearch extends Component {
 
     const Country = [...this.state.Country];
 
-    if(Country.includes(event.target.value)){
-      this.setState({
-        Country: Country.filter(element =>( element !== event.target.value))
-      })
-    }
-    else{
       Country.push(event.target.value);
       this.setState({
         Country,
+        CountrySelected: true,
+        
       });
-    }
   };
 
   checkLanguageHandler = (event) =>{
     console.log(event.target.value);
-    console.log(event.target);
+    // console.log(event.target);
 
     const Language = [...this.state.Language];
-
-    if(Language.includes(event.target.value)){
-      this.setState({
-        Language: Language.filter(element =>( element !== event.target.value))
-      })
-    }
-    else{
       Language.push(event.target.value);
       this.setState({
         Language,
+        LanguageSelected: true,
       });
-    }
   };
 
   
@@ -137,7 +127,7 @@ export class AdvancedSearch extends Component {
       Year.push(event.target.value);
       this.setState({
         Year,
-        selected: true,
+        YearSelected: true,
       });
   }
 
@@ -196,7 +186,16 @@ export class AdvancedSearch extends Component {
   this.setState({
         Year: [],
       })
-  console.log(this.state.Year)
+  }
+  handleDeleteFilterQuerryCountry =(event) =>{
+    this.setState({
+      Country: [],
+    })
+  }
+  handleDeleteFilterQuerryLanguage =(event) =>{
+    this.setState({
+      Language: [],
+    })
   }
   handleMinRatingChange = (minRating) => {
     this.setState({ minRating });
@@ -232,10 +231,12 @@ export class AdvancedSearch extends Component {
       Country,
       Language,
       Year,
-      selected
+      YearSelected,
+      CountrySelected,
+      LanguageSelected,
     } = this.state;
 
-    console.log(searchResults);
+    console.log(Language);
     var _ = require("lodash");
    
 
@@ -263,7 +264,7 @@ export class AdvancedSearch extends Component {
                YearChangeHandler={this.YearChangeHandler} 
                searchResults={searchResults} 
                Year={Year}
-               selected={selected}
+               YearSelected={YearSelected}
                handleDeleteFilterQuerryYear={this.handleDeleteFilterQuerryYear}
 
                ></YearFilter>
@@ -272,12 +273,17 @@ export class AdvancedSearch extends Component {
                   Country={Country}
                   checkCountryHandler={this.checkCountryHandler}
                   searchResults={searchResults}
+                  CountrySelected={CountrySelected}
+                  handleDeleteFilterQuerryCountry={this.handleDeleteFilterQuerryCountry}
                 />
 
                 <LanguageFilters
                   Language={Language}
                   checkLanguageHandler={this.checkLanguageHandler}
                   searchResults={searchResults}
+                  LanguageSelected={LanguageSelected}
+                  Language={Language}
+                  handleDeleteFilterQuerryLanguage={this.handleDeleteFilterQuerryLanguage}
                 />
 
                 <RatingFilter

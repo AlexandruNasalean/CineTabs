@@ -3,26 +3,34 @@ import React, { Component } from "react";
 // import {Form} from "react-bootstrap";
 import {Dropdown} from "react-bootstrap"
 import { uniqBy } from "lodash";
-import "./LanguageFilters.css"
+import "../AdvSearch.css"
+import Button from "react-bootstrap/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 
 export class LanguageFilters extends Component {
 
   render() {
-    const {searchResults, checkLanguageHandler, Language}= this.props;
+    const {searchResults, checkLanguageHandler, Language, handleDeleteFilterQuerryLanguage,LanguageSelected}= this.props;
     const LanguageFiltered = uniqBy(searchResults, 'Language')
     console.log(LanguageFiltered)
     return ( 
 
-  <div className="Language-filter">
+  <div className="language-filter">
   <label> Language </label>
-<div className="language-filter">
   <select className="language-dropdown" onChange={checkLanguageHandler}>
     { LanguageFiltered?.map((movie, index) =>(
         <option key={index} value={movie.Language}>{movie.Language}</option>
     ))}
   </select>
-</div>
+  {LanguageSelected ?(
+         <Button onClick={handleDeleteFilterQuerryLanguage} className="QuerryButton">{Language}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon"></FontAwesomeIcon></Button>
+          
+       ) : (
+         ""
+       )
+      }
 </div>
   // </div>
      );

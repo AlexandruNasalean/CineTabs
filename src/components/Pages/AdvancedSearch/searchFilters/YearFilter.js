@@ -13,7 +13,7 @@ export class YearFilter extends Component {
 
 
   render() { 
-    const {YearChangeHandler, searchResults,selected,handleDeleteFilterQuerryYear,Year} =this.props;
+    const {YearChangeHandler, searchResults,YearSelected,handleDeleteFilterQuerryYear,Year} =this.props;
     const YearFiltered = uniqBy(searchResults, 'Year')
     const OrderYear = convertToNumbersYears(YearFiltered);
     const YearQuerry= Year.join(",");
@@ -21,20 +21,18 @@ export class YearFilter extends Component {
     return (
       <div className="year-filter">
         <label> Year of Release </label>
-      <div className="year-filter">
         <select className="year-dropdown" onChange={YearChangeHandler}>
           { OrderYear.map((movie, index) =>(
               <option key={index} value={movie}>{movie}</option>
           ))}
         </select>
-       {selected ?(
-         <Button onClick={handleDeleteFilterQuerryYear} className="Year-Querry">{YearQuerry}<FontAwesomeIcon icon={faTimes}></FontAwesomeIcon></Button>
+       {YearSelected ?(
+         <Button onClick={handleDeleteFilterQuerryYear} className="QuerryButton">{YearQuerry}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon"></FontAwesomeIcon></Button>
           
        ) : (
          ""
        )
       }
-      </div>
       </div>
     );
   }

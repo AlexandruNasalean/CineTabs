@@ -44,12 +44,12 @@
 } */
 
 .year-filter,
-.Country-filter,
-.Language-filter,
+.country-filter,
+.language-filter,
 .rating-filter,
 .votes-filter,
 .runtime-filter{
-  margin-right: 12%;
+  margin-right: 50px;
   margin-bottom: 5%;
 }
 
@@ -78,8 +78,8 @@
 .year-filter label,
 .title-filter,
 .Genre-Filter label,
-.Language-filter,
-.Country-filter{
+.language-filter,
+.country-filter{
   color: #f88c1f;
   font-weight: bold;
 }
@@ -90,6 +90,6 @@
   font-weight: bold;
 
 }
-.Year-Querry{
-  word-spacing: 30px;
+.QuerryButton{
+  word-spacing: 5px;
 }
