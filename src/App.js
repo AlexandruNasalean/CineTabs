@@ -93,54 +93,53 @@ class App extends Component {
 
     return (
       <div className="page-container">
-      <div className="content-wrap">
+        <div className="content-wrap">
+          <Router>
+            <div className="app">
+              <Header
+                isLoggedIn={isLoggedIn}
+                username={username}
+                onShowLogOutModal={this.handleLogOutShowModal}
+              />
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/AllMovies" component={AllMovies} />
+              <Route exact path="/Genres" component={Genres} />
+              <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
 
-      <Router>
-        <div className="app">
-          <Header
-            isLoggedIn={isLoggedIn}
-            username={username}
-            onShowLogOutModal={this.handleLogOutShowModal}
-          />
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/AllMovies" component={AllMovies} />
-          <Route exact path="/Genres" component={Genres} />
-          <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-
-          <Route exact path="/addmovie" component={AddMovie} />
-          <Route
-            exact
-            path="/MoviePage"
-            component={(props) => (
-              <MoviePage {...props} isLoggedIn={isLoggedIn} />
-            )}
-          />
-          <Route exact path="/Contact" component={ContactPage} />
-          <Route exact path="/editmovie" component={EditMovie} />
-          <Route
-            exact
-            path="/login"
-            component={(props) => (
-              <Login {...props} onLogin={this.handleLogin} />
-            )}
-          />
-          <Route
-            exact
-            path="/sign-up"
-            component={(props) => (
-              <Login {...props} onLogin={this.handleLogin} />
-            )}
-            onLogin={this.handleLogin}
-          />
-          <Footer />
-          <LogOffModal
-            show={this.state.showLogOutModal}
-            hideModal={this.handleHideLogOutModal}
-            removeCookies={this.handleLogOut}
-          />
+              <Route exact path="/addmovie" component={AddMovie} />
+              <Route exact path="/editmovie" component={EditMovie} />
+              <Route
+                exact
+                path="/MoviePage"
+                component={(props) => (
+                  <MoviePage {...props} isLoggedIn={isLoggedIn} />
+                )}
+              />
+              <Route exact path="/Contact" component={ContactPage} />
+              <Route
+                exact
+                path="/login"
+                component={(props) => (
+                  <Login {...props} onLogin={this.handleLogin} />
+                )}
+              />
+              <Route
+                exact
+                path="/sign-up"
+                component={(props) => (
+                  <Login {...props} onLogin={this.handleLogin} />
+                )}
+                onLogin={this.handleLogin}
+              />
+              <Footer />
+              <LogOffModal
+                show={this.state.showLogOutModal}
+                hideModal={this.handleHideLogOutModal}
+                removeCookies={this.handleLogOut}
+              />
+            </div>
+          </Router>
         </div>
-      </Router>
-      </div>
       </div>
     );
   }

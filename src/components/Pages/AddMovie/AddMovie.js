@@ -51,52 +51,109 @@ export class AddMovie extends Component {
     return (
       <div className="form-container">
         <form className="add-movie-form" onSubmit={this.handleAddButton}>
-          <div className="first-group">
-            <div className="input-fields">
-              <label htmlFor="title">Title</label>
-              <input type="text" name="title" ref="title" />
+          <div className="add-inputs-container">
+            <div className="first-group">
+              <div className="input-fields">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  ref="title"
+                  placeholder="eg. The Godfather"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="year">Year</label>
+                <input
+                  type="number"
+                  name="year"
+                  ref="year"
+                  placeholder="Movie's year here"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="runtime">Runtime</label>
+                <input
+                  type="text"
+                  name="runtime"
+                  ref="runtime"
+                  placeholder="eg. 90 min"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="genre">Genre</label>
+                <input
+                  type="text"
+                  name="genre"
+                  ref="genre"
+                  placeholder="eg. Action, Drama, etc."
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="language">Language</label>
+                <input
+                  type="text"
+                  name="language"
+                  ref="language"
+                  placeholder="eg. English"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="country">Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  ref="country"
+                  placeholder="eg. UK"
+                />
+              </div>
             </div>
-            <div className="input-fields">
-              <label htmlFor="year">Year</label>
-              <input type="number" name="year" ref="year" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="runtime">Runtime</label>
-              <input type="text" name="runtime" ref="runtime" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="genre">Genre</label>
-              <input type="text" name="genre" ref="genre" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="language">Language</label>
-              <input type="text" name="language" ref="language" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="country">Country</label>
-              <input type="text" name="country" ref="country" />
-            </div>
-          </div>
-          <div className="second-group">
-            <div className="input-fields">
-              <label htmlFor="poster">Poster</label>
-              <input type="text" name="poster" ref="poster" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbRating">imdbRating</label>
-              <input type="text" name="imdbRating" ref="imdbRating" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbVotes">imdbVotes</label>
-              <input type="text" name="imdbVotes" ref="imdbVotes" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbID">imdbID</label>
-              <input type="text" name="imdbID" ref="imdbID" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="type">Type</label>
-              <input type="text" name="type" ref="type" />
+            <div className="second-group">
+              <div className="input-fields">
+                <label htmlFor="poster">Poster</label>
+                <input
+                  type="text"
+                  name="poster"
+                  ref="poster"
+                  placeholder="URL here"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbRating">imdbRating</label>
+                <input
+                  type="text"
+                  name="imdbRating"
+                  ref="imdbRating"
+                  placeholder="Between 0 and 10"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbVotes">imdbVotes</label>
+                <input
+                  type="text"
+                  name="imdbVotes"
+                  ref="imdbVotes"
+                  placeholder="Number of Votes"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbID">imdbID</label>
+                <input
+                  type="text"
+                  name="imdbID"
+                  ref="imdbID"
+                  placeholder="alpha-numerical"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="type">Type</label>
+                <input
+                  type="text"
+                  name="type"
+                  ref="type"
+                  placeholder="Movie or TV-series"
+                />
+              </div>
             </div>
           </div>
           <input type="submit" value="AddMovie" className="submit-btn" />
