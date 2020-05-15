@@ -1,7 +1,8 @@
-.add-movie-form {
+.add-inputs-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-bottom: 40px;
+  padding-top: 20px;
 }
 
 .form-container {
@@ -26,7 +27,9 @@
 .submit-btn {
   background-color: #f88c1f;
   border: 1px solid black;
-  height: 50px;
+  height: 40px;
+  width: 100px;
   align-self: center;
   border-radius: 5px;
+  margin-top: 20px;
 }

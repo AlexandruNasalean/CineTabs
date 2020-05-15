@@ -21,6 +21,7 @@ export class AddMovie extends Component {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
+        alert("Your movie has been added to the Cinetab database!");
         this.props.history.push("/AllMovies");
       });
   }
@@ -50,52 +51,109 @@ export class AddMovie extends Component {
     return (
       <div className="form-container">
         <form className="add-movie-form" onSubmit={this.handleAddButton}>
-          <div className="first-group">
-            <div className="input-fields">
-              <label htmlFor="title">Title</label>
-              <input type="text" name="title" ref="title" />
+          <div className="add-inputs-container">
+            <div className="first-group">
+              <div className="input-fields">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  ref="title"
+                  placeholder="eg. The Godfather"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="year">Year</label>
+                <input
+                  type="number"
+                  name="year"
+                  ref="year"
+                  placeholder="Movie's year here"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="runtime">Runtime</label>
+                <input
+                  type="text"
+                  name="runtime"
+                  ref="runtime"
+                  placeholder="eg. 90 min"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="genre">Genre</label>
+                <input
+                  type="text"
+                  name="genre"
+                  ref="genre"
+                  placeholder="eg. Action, Drama, etc."
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="language">Language</label>
+                <input
+                  type="text"
+                  name="language"
+                  ref="language"
+                  placeholder="eg. English"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="country">Country</label>
+                <input
+                  type="text"
+                  name="country"
+                  ref="country"
+                  placeholder="eg. UK"
+                />
+              </div>
             </div>
-            <div className="input-fields">
-              <label htmlFor="year">Year</label>
-              <input type="number" name="year" ref="year" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="runtime">Runtime</label>
-              <input type="text" name="runtime" ref="runtime" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="genre">Genre</label>
-              <input type="text" name="genre" ref="genre" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="language">Language</label>
-              <input type="text" name="language" ref="language" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="country">Country</label>
-              <input type="text" name="country" ref="country" />
-            </div>
-          </div>
-          <div className="second-group">
-            <div className="input-fields">
-              <label htmlFor="poster">Poster</label>
-              <input type="text" name="poster" ref="poster" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbRating">imdbRating</label>
-              <input type="text" name="imdbRating" ref="imdbRating" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbVotes">imdbVotes</label>
-              <input type="text" name="imdbVotes" ref="imdbVotes" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="imdbID">imdbID</label>
-              <input type="text" name="imdbID" ref="imdbID" />
-            </div>
-            <div className="input-fields">
-              <label htmlFor="type">Type</label>
-              <input type="text" name="type" ref="type" />
+            <div className="second-group">
+              <div className="input-fields">
+                <label htmlFor="poster">Poster</label>
+                <input
+                  type="text"
+                  name="poster"
+                  ref="poster"
+                  placeholder="URL here"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbRating">imdbRating</label>
+                <input
+                  type="text"
+                  name="imdbRating"
+                  ref="imdbRating"
+                  placeholder="Between 0 and 10"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbVotes">imdbVotes</label>
+                <input
+                  type="text"
+                  name="imdbVotes"
+                  ref="imdbVotes"
+                  placeholder="Number of Votes"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="imdbID">imdbID</label>
+                <input
+                  type="text"
+                  name="imdbID"
+                  ref="imdbID"
+                  placeholder="alpha-numerical"
+                />
+              </div>
+              <div className="input-fields">
+                <label htmlFor="type">Type</label>
+                <input
+                  type="text"
+                  name="type"
+                  ref="type"
+                  placeholder="Movie or TV-series"
+                />
+              </div>
             </div>
           </div>
           <input type="submit" value="AddMovie" className="submit-btn" />
@@ -124,7 +182,11 @@ export class AddMovie extends Component {
 //     };
 //   }
 
-//   addNewMovie(newMovie) {
+//   handleAddMovie = (e) => {
+//     e.preventDefault();
+//     const newMovie = { [e.target.name]: e.target.value };
+//     console.log(newMovie);
+
 //     const logInToken = Cookies.get("token");
 //     fetch("https://movies-app-siit.herokuapp.com/movies", {
 //       method: "POST",
@@ -144,21 +206,14 @@ export class AddMovie extends Component {
 //         console.log(json);
 //         this.props.history.push("/AllMovies");
 //       });
-//   }
-
-//   handleAddButton = (e) => {
-//     const newMovie = { [e.target.name]: e.target.value };
-//     this.addNewMovie(newMovie);
-
-//     e.preventDefault();
 //   };
 
-//   updateInputValue(e) {
+//   updateInputValue = (e) => {
 //     const newMovie = this.setState({
 //       [e.target.name]: e.target.value,
 //     });
-//     this.addNewMovie(newMovie);
-//   }
+//     return newMovie;
+//   };
 
 //   render() {
 //     const {
@@ -177,7 +232,7 @@ export class AddMovie extends Component {
 
 //     return (
 //       <div className="form-container">
-//         <form className="add-movie-form" onSubmit={this.handleAddButton}>
+//         <form className="add-movie-form" onSubmit={this.handleAddMovie}>
 //           <div className="first-group">
 //             <div className="input-fields">
 //               <label htmlFor="title">Title</label>
@@ -185,7 +240,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Title"
 //                 value={Title}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="eg. The Godfather"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -194,7 +250,8 @@ export class AddMovie extends Component {
 //                 type="number"
 //                 name="Year"
 //                 value={Year}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="Movie's year here"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -203,7 +260,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Runtime"
 //                 value={Runtime}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="eg. 90 min"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -212,7 +270,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Genre"
 //                 value={Genre}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="eg. Action, Drama, etc."
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -221,7 +280,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Language"
 //                 value={Language}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="eg. English"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -230,7 +290,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Country"
 //                 value={Country}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="eg. UK"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //           </div>
@@ -241,7 +302,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Poster"
 //                 value={Poster}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="URL here"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -250,7 +312,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="imdbRating"
 //                 value={imdbRating}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="Between 0 and 10"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -259,7 +322,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="imdbVotes"
 //                 value={imdbVotes}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="Number of Votes"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -268,7 +332,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="imdbID"
 //                 value={imdbID}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="alpha-numerical"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //             <div className="input-fields">
@@ -277,7 +342,8 @@ export class AddMovie extends Component {
 //                 type="text"
 //                 name="Type"
 //                 value={Type}
-//                 onChange={(e) => this.updateInputValue(e)}
+//                 placeholder="Movie or TV-series"
+//                 onChange={this.updateInputValue}
 //               />
 //             </div>
 //           </div>

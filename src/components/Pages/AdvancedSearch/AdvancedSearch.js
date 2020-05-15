@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
 import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
-import { Form } from "react-bootstrap";
 import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
-import {GenreFilter} from  "./searchFilters/Genre"
+import { GenreFilter } from "./searchFilters/Genre";
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
 import {
@@ -15,7 +14,7 @@ import {
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 import { YearFilter } from "./searchFilters/YearFilter";
-import { LanguageFilters} from "./searchFilters/LanguageFilters";
+import { LanguageFilters } from "./searchFilters/LanguageFilters";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -33,7 +32,7 @@ export class AdvancedSearch extends Component {
       Country: [],
       Year: [],
       Runtime: [],
-      Language:[],
+      Language: [],
       searchState: "",
     };
   }
@@ -76,18 +75,17 @@ export class AdvancedSearch extends Component {
     });
   };
 
-  checkCountryHandler = (event) =>{
+  checkCountryHandler = (event) => {
     console.log(event.target.value);
     console.log(event.target);
 
     const Country = [...this.state.Country];
 
-    if(Country.includes(event.target.value)){
+    if (Country.includes(event.target.value)) {
       this.setState({
-        Country: Country.filter(element =>( element !== event.target.value))
-      })
-    }
-    else{
+        Country: Country.filter((element) => element !== event.target.value),
+      });
+    } else {
       Country.push(event.target.value);
       this.setState({
         Country,
@@ -95,18 +93,17 @@ export class AdvancedSearch extends Component {
     }
   };
 
-  checkLanguageHandler = (event) =>{
+  checkLanguageHandler = (event) => {
     console.log(event.target.value);
     console.log(event.target);
 
     const Language = [...this.state.Language];
 
-    if(Language.includes(event.target.value)){
+    if (Language.includes(event.target.value)) {
       this.setState({
-        Language: Language.filter(element =>( element !== event.target.value))
-      })
-    }
-    else{
+        Language: Language.filter((element) => element !== event.target.value),
+      });
+    } else {
       Language.push(event.target.value);
       this.setState({
         Language,
@@ -114,7 +111,6 @@ export class AdvancedSearch extends Component {
     }
   };
 
-  
   CheckBoxChangeHandler = (event) => {
     // console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -129,8 +125,8 @@ export class AdvancedSearch extends Component {
       });
     }
   };
-  
-  YearChangeHandler = (event) =>{
+
+  YearChangeHandler = (event) => {
     console.log(event.target.value);
     const Year = [...this.state.Year];
     if (Year.includes(event.target.value)) {
@@ -143,8 +139,7 @@ export class AdvancedSearch extends Component {
         Year,
       });
     }
-
-  }
+  };
 
   CheckBoxChangeRuntimeHandler = (event) => {
     // console.log(event.target);
@@ -164,9 +159,6 @@ export class AdvancedSearch extends Component {
   submitHandler = (e) => {
     e.preventDefault();
     const url = generateAdvancedSearchUrl(this.state);
-    console.log(url);
-
-    // var _ =  require  ('lodash');
 
     fetch(url)
       .then((response) => response.json())
@@ -229,7 +221,7 @@ export class AdvancedSearch extends Component {
       searchState,
       Country,
       Language,
-      Year
+      Year,
     } = this.state;
 
     console.log(searchResults);
@@ -237,85 +229,94 @@ export class AdvancedSearch extends Component {
 
     return (
       <div>
-      <div className="Adv-Results">
-        <div className="Advanced-Filter">
-          <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
-            <div className="form-group">
-              <div className="Title-SearchBar">
-                <label id="Adv-Search-Title-Label" className="title-filter">Title</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  id="title-filterinput"
-                  placeholder="Search for a Title"
-                  onChange={this.handleInputChange}
-                />
-              </div>
-              <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
-              <div className="Extra-Filters">
-              {searchState ? (
-              <React.Fragment>
-               <YearFilter YearChangeHandler={this.YearChangeHandler} searchResults={searchResults} Year={Year}></YearFilter>
-                <CountryFilters
-                  Country={Country}
-                  checkCountryHandler={this.checkCountryHandler}
-                  searchResults={searchResults}
-                />
-
-                <LanguageFilters
-                  Language={Language}
-                  checkLanguageHandler={this.checkLanguageHandler}
-                  searchResults={searchResults}
-                />
-
-                <RatingFilter
-                  minRating={minRating}
-                  maxRating={maxRating}
-                  onMinRatingChange={this.handleMinRatingChange}
-                  onMaxRatingChange={this.handleMaxRatingChange}
-                  searchResults={searchResults}
-                />
-                <VotesFilter
-                  minVotes={minVotes}
-                  maxVotes={maxVotes}
-                  onMinVotesChange={this.handleMinVotesChange}
-                  onMaxVotesChange={this.handleMaxVotesChange}
-                  searchResults={searchResults}
-                />
-                <RuntimeFilter
-                  searchResults={searchResults}
-                  filterByRuntime={this.filterByRuntime}
-                />
-              </React.Fragment>
-                    ) : (
-                      ""
-                    )}
-              </div>
-              <div className="AdvSearchButton">
-              <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
+        <div className="Adv-Results">
+          <div className="Advanced-Filter">
+            <form
+              className="col-lg-6 offset-lg-0"
+              onSubmit={this.submitHandler}
+            >
+              <div className="form-group">
+                <div className="Title-SearchBar">
+                  <label id="Adv-Search-Title-Label" className="title-filter">
+                    Title
+                  </label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    id="title-filterinput"
+                    placeholder="Search for a Title"
+                    onChange={this.handleInputChange}
+                  />
                 </div>
-            </div>
-          </form>
-                  
+                <GenreFilter
+                  CheckBoxChangeHandler={this.CheckBoxChangeHandler}
+                ></GenreFilter>
+                <div className="Extra-Filters">
+                  {searchState ? (
+                    <React.Fragment>
+                      <YearFilter
+                        YearChangeHandler={this.YearChangeHandler}
+                        searchResults={searchResults}
+                        Year={Year}
+                      ></YearFilter>
+                      <CountryFilters
+                        Country={Country}
+                        checkCountryHandler={this.checkCountryHandler}
+                        searchResults={searchResults}
+                      />
+
+                      <LanguageFilters
+                        Language={Language}
+                        checkLanguageHandler={this.checkLanguageHandler}
+                        searchResults={searchResults}
+                      />
+
+                      <RatingFilter
+                        minRating={minRating}
+                        maxRating={maxRating}
+                        onMinRatingChange={this.handleMinRatingChange}
+                        onMaxRatingChange={this.handleMaxRatingChange}
+                        searchResults={searchResults}
+                      />
+                      <VotesFilter
+                        minVotes={minVotes}
+                        maxVotes={maxVotes}
+                        onMinVotesChange={this.handleMinVotesChange}
+                        onMaxVotesChange={this.handleMaxVotesChange}
+                        searchResults={searchResults}
+                      />
+                      <RuntimeFilter
+                        searchResults={searchResults}
+                        filterByRuntime={this.filterByRuntime}
+                      />
+                    </React.Fragment>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="AdvSearchButton">
+                  <button type="submit" className="btn btn-primary">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          {emptySearch ? (
+            <React.Fragment>
+              <h1>No Results!</h1>
+            </React.Fragment>
+          ) : (
+            <AdvancedSearchResult
+              minRating={minRating}
+              maxRating={maxRating}
+              minVotes={minVotes}
+              maxVotes={maxVotes}
+              searchResults={searchResults}
+            />
+          )}
         </div>
-        {emptySearch ? (
-        <React.Fragment>
-          <h1>No Results!</h1>
-        </React.Fragment>
-      ) : (
-        <AdvancedSearchResult
-          minRating={minRating}
-          maxRating={maxRating}
-          minVotes={minVotes}
-          maxVotes={maxVotes}
-          searchResults={searchResults}
-        />
-      )}
       </div>
-  
-    </div>
     );
   }
 }
