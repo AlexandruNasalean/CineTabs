@@ -42,22 +42,15 @@ export class App extends Component {
         loading: false,
         movieData: json.results,
         currentPage: pageNumber,
-        totalResults: json.total_Results
-        
       })
-      
-      // console.log(this.state.totalResults)
+
     });
   }
   
 
   render() {
-    const { movieData, loading } = this.state;
-    console.log(this.state.movieData)
-    // console.log(this.state);
-    const numberPages = Math.floor(this.state.movieData.length + 10);  //Math.floor(this.state.totalResults / 10);// 
-    // console.log(this.state.totalResults)
-    // console.log(this.state.pagination.numberOfPages)
+    const { movieData, loading, currentPage } = this.state;
+    const numberPages = Math.floor(this.state.movieData.length);
     console.log(numberPages)
     return (
       <div className="MovieCard-Container">
@@ -92,7 +85,8 @@ export class App extends Component {
         ))}
 
         <div className='PaginationNumbering'>
-        {this.state.movieData > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+        {this.state.movieData.length >= 10 ? <Pagination pages={numberPages} 
+        nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
        </div>
       </div>
     );
