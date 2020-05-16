@@ -10,7 +10,10 @@ import {
 
 
 export class YearFilter extends Component {
+      componentDidMount(){
+      const {YearChangeHandler} =this.props;
 
+      }
 
   render() { 
     const {YearChangeHandler, searchResults,YearSelected,handleDeleteFilterQuerryYear,Year} =this.props;

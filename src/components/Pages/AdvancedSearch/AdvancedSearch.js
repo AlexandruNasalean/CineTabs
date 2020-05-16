@@ -125,6 +125,7 @@ export class AdvancedSearch extends Component {
   YearChangeHandler = (event) =>{
     console.log(event.target.value);
     const Year = [...this.state.Year];
+        
       Year.push(event.target.value);
       this.setState({
         Year,
@@ -311,7 +312,7 @@ export class AdvancedSearch extends Component {
                     )}
               </div>
               <div className="AdvSearchButton">
-              <Button type="submit" className="btn-primary">
+              <Button type="submit" className="Adv-Search-Button">
                   Submit
                 </Button>
                 </div>

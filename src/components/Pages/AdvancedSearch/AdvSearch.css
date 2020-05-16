@@ -37,8 +37,8 @@
 .rating-filter,
 .votes-filter,
 .runtime-filter{
-  margin-right: 20px;
-  margin-bottom: 10px;
+  margin-right: 40px;
+  margin-bottom: 20px;
 
 }
 
@@ -83,21 +83,31 @@
 }
 .QuerryButton{
   word-spacing: 2px;
+  background-color: #f88c1f;
+  border: #f88c1f;
+  margin-left: 30px;
+  margin-bottom: 5px;
 }
 .QuerryListIcon{
   margin-left: 10px;
 }
-.btn-primary:hover{
-  background-color: #ca7118;
-  border: #f88c1f;
-}
-.active, .btn-primary:hover{
-  background-color: #ca7118;
-  border: #f88c1f;
-}
-.btn-primary:focus{
+.Adv-Search-Button:hover{
   background-color: #ca7118;
   border: #f88c1f;
 }
 
-/*  */
+.Adv-Search-Button:focus{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+.QuerryButton:hover{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+.QuerryButton:focus{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+
