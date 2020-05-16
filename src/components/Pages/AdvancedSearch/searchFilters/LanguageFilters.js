@@ -14,25 +14,30 @@ export class LanguageFilters extends Component {
   render() {
     const {searchResults, checkLanguageHandler, Language, handleDeleteFilterQuerryLanguage,LanguageSelected}= this.props;
     const LanguageFiltered = uniqBy(searchResults, 'Language')
+    const LanguageDeleteQuerry= Language.join(", ");
     console.log(LanguageFiltered)
     return ( 
 
-  <div className="language-filter">
+  <div className="Language-filter">
   <label> Language </label>
+  <div className="language-filter">
   <select className="language-dropdown" onChange={checkLanguageHandler}>
     { LanguageFiltered?.map((movie, index) =>(
         <option key={index} value={movie.Language}>{movie.Language}</option>
     ))}
   </select>
   {LanguageSelected ?(
-         <Button onClick={handleDeleteFilterQuerryLanguage} className="QuerryButton">{Language}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon"></FontAwesomeIcon></Button>
+         <Button onClick={handleDeleteFilterQuerryLanguage} className="QuerryButton"
+         style={ LanguageDeleteQuerry ? ({ display:'inline-block'}) : {display : 'none'} }>
+           {LanguageDeleteQuerry}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon">
+             </FontAwesomeIcon></Button>
           
        ) : (
          ""
        )
       }
 </div>
-  // </div>
+  </div>
      );
   }
 }

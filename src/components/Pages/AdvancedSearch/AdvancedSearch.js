@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./AdvSearch.css";
 import Cookies from "js-cookie";
+import Button from "react-bootstrap/Button";
 import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
 import { Form } from "react-bootstrap";
 import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
@@ -310,9 +311,9 @@ export class AdvancedSearch extends Component {
                     )}
               </div>
               <div className="AdvSearchButton">
-              <button type="submit" className="btn btn-primary">
+              <Button type="submit" className="btn-primary">
                   Submit
-                </button>
+                </Button>
                 </div>
             </div>
           </form>

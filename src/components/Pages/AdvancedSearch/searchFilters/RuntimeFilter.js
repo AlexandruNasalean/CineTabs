@@ -20,7 +20,7 @@ console.log(event.target.value);
     return (
       <div className="runtime-filter">
         <label>Runtime</label>
-        <div className="movie-runtime">
+        <div className="movie-votes">
           <p>From</p>
           <select className="runtime-dropdown" name="movie-runtime-drop-down">
             {searchResults.map((movie, index) => (

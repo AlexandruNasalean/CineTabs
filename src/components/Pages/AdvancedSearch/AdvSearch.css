@@ -31,32 +31,21 @@
 
 }
 
-/* .rating-filter,
-.votes-filter,
 .year-filter,
-.title-filterinput {
-  padding-bottom: 30px;
-}
-
-.rating-filter,
-.Genre-Filter {
-  padding-top: 30px;
-} */
-
-.year-filter,
-.country-filter,
-.language-filter,
+.Country-filter,
+.Language-filter,
 .rating-filter,
 .votes-filter,
 .runtime-filter{
-  margin-right: 50px;
-  margin-bottom: 5%;
+  margin-right: 20px;
+  margin-bottom: 10px;
+
 }
 
 
 .movie-votes,
 .movie-rating,
-.runtime-filter {
+.movie-runtime {
   display: flex;
 }
 
@@ -67,7 +56,8 @@
 
 .rating-dropdown,
 .votes-dropdown,
-.title-filterinput{
+.title-filterinput,
+.runtime-dropdown{
   margin-left: 10px;
   margin-right: 10px;
   height: 25px;
@@ -78,8 +68,9 @@
 .year-filter label,
 .title-filter,
 .Genre-Filter label,
-.language-filter,
-.country-filter{
+.Language-filter,
+.Country-filter,
+.runtime-filter label{
   color: #f88c1f;
   font-weight: bold;
 }
@@ -91,5 +82,22 @@
 
 }
 .QuerryButton{
-  word-spacing: 5px;
+  word-spacing: 2px;
 }
+.QuerryListIcon{
+  margin-left: 10px;
+}
+.btn-primary:hover{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+.active, .btn-primary:hover{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+.btn-primary:focus{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+/*  */

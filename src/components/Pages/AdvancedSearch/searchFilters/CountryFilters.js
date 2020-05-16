@@ -16,24 +16,31 @@ export class CountryFilters extends Component {
     const {searchResults, checkCountryHandler, Country, CountrySelected,handleDeleteFilterQuerryCountry}= this.props;
     const CountryFiltered = uniqBy(searchResults, 'Country')
     console.log(CountryFiltered)
+    const CountryDeleteQuerry= Country.join(", ");
+
     return ( 
 
-  <div className="country-filter">
+  <div className="Country-filter">
   <label> Country </label>
+  <div className="country-filter">
   <select className="country-dropdown" onChange={checkCountryHandler}>
     { CountryFiltered?.map((movie, index) =>(
         <option key={index} value={movie.Country}>{movie.Country}</option>
     ))}
   </select>
   {CountrySelected ?(
-         <Button onClick={handleDeleteFilterQuerryCountry} className="QuerryButton">{Country}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon"></FontAwesomeIcon></Button>
+         <Button onClick={handleDeleteFilterQuerryCountry} 
+         className="QuerryButton"
+         style={ CountryDeleteQuerry ? ({ display:'inline-block'}) : {display : 'none'} }>
+           {CountryDeleteQuerry}<FontAwesomeIcon icon={faTimes} className="QuerryListIcon">
+             </FontAwesomeIcon></Button>
           
        ) : (
          ""
        )
       }
 </div>
-  // </div>
+  </div>
      );
   }
 }
