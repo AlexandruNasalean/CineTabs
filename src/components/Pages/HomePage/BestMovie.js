@@ -28,8 +28,6 @@ export class BestMovie extends Component {
   render() {
     const { movie } = this.state;
 
-    console.log(movie);
-
     return (
       <div className="BestMovie2019">
         <div className="DescriptionBestMovie2019">
