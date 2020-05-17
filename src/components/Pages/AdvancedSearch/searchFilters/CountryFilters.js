@@ -23,7 +23,7 @@ export class CountryFilters extends Component {
   <div className="Country-filter">
   <label> Country </label>
   <div className="country-filter">
-  <select className="country-dropdown" onChange={checkCountryHandler}>
+  <select className="country-dropdown" onClick={checkCountryHandler}>
     { CountryFiltered?.map((movie, index) =>(
         <option key={index} value={movie.Country}>{movie.Country}</option>
     ))}

@@ -1,4 +1,9 @@
-
+.Advanced-Filter{
+  margin-left: 35px;
+}
+.empty-search{
+  margin-left: 40px;
+}
 .Adv-Results{
   display: flex;
   width: 100%;
@@ -79,7 +84,12 @@
   background-color: #f88c1f;
   border: #f88c1f;
   font-weight: bold;
-
+}
+.Search-History-Delete{
+  background-color: #f88c1f;
+  border: #f88c1f;
+  font-weight: bold;
+  margin-left: 10px;
 }
 .QuerryButton{
   word-spacing: 2px;
@@ -91,12 +101,14 @@
 .QuerryListIcon{
   margin-left: 10px;
 }
-.Adv-Search-Button:hover{
+.Adv-Search-Button:hover,
+.Search-History-Delete:hover{
   background-color: #ca7118;
   border: #f88c1f;
 }
 
-.Adv-Search-Button:focus{
+.Adv-Search-Button:focus
+.Search-History-Delete:focus{
   background-color: #ca7118;
   border: #f88c1f;
 }

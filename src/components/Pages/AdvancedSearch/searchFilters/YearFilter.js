@@ -25,7 +25,7 @@ export class YearFilter extends Component {
       <div className="year-filter">
         <label> Year of Release </label>
         <div className="year-filter">
-        <select className="year-dropdown" onChange={YearChangeHandler}>
+        <select className="year-dropdown" onClick={YearChangeHandler}>
           { OrderYear.map((movie, index) =>(
               <option key={index} value={movie}>{movie}</option>
           ))}

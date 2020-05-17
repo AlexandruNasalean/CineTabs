@@ -21,7 +21,7 @@ export class LanguageFilters extends Component {
   <div className="Language-filter">
   <label> Language </label>
   <div className="language-filter">
-  <select className="language-dropdown" onChange={checkLanguageHandler}>
+  <select className="language-dropdown" onClick={checkLanguageHandler}>
     { LanguageFiltered?.map((movie, index) =>(
         <option key={index} value={movie.Language}>{movie.Language}</option>
     ))}

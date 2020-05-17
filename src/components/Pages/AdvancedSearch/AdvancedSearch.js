@@ -39,6 +39,7 @@ export class AdvancedSearch extends Component {
       YearSelected: false,
       CountrySelected: false,
       LanguageSelected: false,
+      setStatess: [],
     };
   }
 
@@ -83,8 +84,8 @@ export class AdvancedSearch extends Component {
   checkCountryHandler = (event) =>{
     console.log(event.target.value);
     console.log(event.target);
-
-    const Country = [...this.state.Country];
+    if(! this.state.Country.includes(event.target.value)){
+      const Country = [...this.state.Country];
 
       Country.push(event.target.value);
       this.setState({
@@ -92,18 +93,21 @@ export class AdvancedSearch extends Component {
         CountrySelected: true,
         
       });
+    }
   };
 
   checkLanguageHandler = (event) =>{
     console.log(event.target.value);
     // console.log(event.target);
-
-    const Language = [...this.state.Language];
+    if(! this.state.Language.includes(event.target.value)){
+      const Language = [...this.state.Language];
       Language.push(event.target.value);
       this.setState({
         Language,
         LanguageSelected: true,
       });
+    }
+
   };
 
   
@@ -124,13 +128,18 @@ export class AdvancedSearch extends Component {
   
   YearChangeHandler = (event) =>{
     console.log(event.target.value);
-    const Year = [...this.state.Year];
-        
+    if(! this.state.Year.includes(event.target.value))
+    {
+      const Year = [...this.state.Year];
       Year.push(event.target.value);
       this.setState({
         Year,
         YearSelected: true,
       });
+      
+    }
+   
+ 
   }
 
   CheckBoxChangeRuntimeHandler = (event) => {
@@ -183,6 +192,30 @@ export class AdvancedSearch extends Component {
       });
   };
 
+  handleDeleteSearchQuerry =(event) =>{
+    Cookies.remove('CookieSearchQuery');
+
+      this.setState({
+        query: "",
+        data: [],
+        searchResults: [],
+        emptySearch: "",
+        minRating: null,
+        maxRating: null,
+        minVotes: null,
+        maxVotes: null,
+        Genre: [],
+        Country: [],
+        Year: [],
+        Runtime: [],
+        Language:[],
+        searchState: "",
+        YearSelected: false,
+        CountrySelected: false,
+        LanguageSelected: false,
+        setStatess: [],
+      })
+  }
   handleDeleteFilterQuerryYear = (event) =>{
       
   this.setState({
@@ -244,7 +277,6 @@ export class AdvancedSearch extends Component {
 
     return (
       <div>
-      <div className="Adv-Results">
         <div className="Advanced-Filter">
           <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
             <div className="form-group">
@@ -321,10 +353,14 @@ export class AdvancedSearch extends Component {
                   
         </div>
         {emptySearch ? (
+          <div className="empty-search">
         <React.Fragment>
+        <Button onClick={this.handleDeleteSearchQuerry} className="Search-History-Delete">Delete the search history</Button>
           <h1>No Results!</h1>
         </React.Fragment>
+        </div>
       ) : (
+        <div className="Adv-Results">
         <AdvancedSearchResult
           minRating={minRating}
           maxRating={maxRating}
@@ -332,8 +368,9 @@ export class AdvancedSearch extends Component {
           maxVotes={maxVotes}
           searchResults={searchResults}
         />
+        </div>
       )}
-      </div>
+      
   
     </div>
     );
