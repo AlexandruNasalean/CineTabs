@@ -15,7 +15,10 @@ export class App extends Component {
       index: [],
       totalResults: 0,
       currentPage: 1,
-      pagination: []
+      pagination: [],
+      numberOfPages: [],
+      paginationLinkNext: [],
+      currentPages: []
     };
   }
 
@@ -29,29 +32,39 @@ export class App extends Component {
           pagination: json.pagination,
           loading: false,
           movieData: json.results,
-          totalResults: json.total_Results
+          totalResults: json.total_Results,
+          numberOfPages: json.pagination.numberOfPages,
+          paginationLinkNext: json.pagination.links.next,
         });
+        console.log(this.state.movieData)
       });
   }
 
-  nextPage = (pageNumber) => {
-    fetch(`https://movies-app-siit.herokuapp.com/movies?take=10&skip=${pageNumber}`)
+  nextPage = () => {
+    const Url = this.state.paginationLinkNext
+    fetch(Url)
     .then((response) => response.json())
     .then((json) => {
       this.setState({
         loading: false,
         movieData: json.results,
-        currentPage: pageNumber,
-      })
+        currentPage: this.state.pagination.currentPage + 1 
 
+      })
+      console.log(Url)
     });
   }
-  
+      // increasePageNumber = () => {
+      //   Increase = Math.floor(this.state.pagination.currentPage + 1 )
+
+      // }  
 
   render() {
-    const { movieData, loading, currentPage } = this.state;
-    const numberPages = Math.floor(this.state.movieData.length);
+    const { movieData, loading, currentPage, currentPages, pagination } = this.state;
+    const numberPages = this.state.pagination.numberOfPages;
     console.log(numberPages)
+    console.log(currentPages)
+    console.log(pagination)
     return (
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
@@ -85,7 +98,7 @@ export class App extends Component {
         ))}
 
         <div className='PaginationNumbering'>
-        {this.state.movieData.length >= 10 ? <Pagination pages={numberPages} 
+        {this.state.movieData.length >= 10 ? <Pagination movieData={this.state.movieData} pagination={this.state.pagination} pages={numberPages} 
         nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
        </div>
       </div>
