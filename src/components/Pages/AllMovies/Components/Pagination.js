@@ -1,34 +1,49 @@
-import React from "react";
+import React, {Component} from "react";
 import "./Pagination.css";
 
-const Pagination = (props) => {
-    const pageLinks = []
+// function pagination = (props) => {
+//     const pageLinks = []
 
-    for(let i = 1; i <= props.pages + 1; i++) {
+//     for(let i = 1; i <= props.pages + 1; i++) {
 
-        let active = props.currentPage == i ? 'active' : '';
+//         let active = props.currentPage == i ? 'active' : '';
 
-    pageLinks.push(<li className={`waves-effect ${active}`} key={i} 
-    onClick={() => props.nextPage(i)}><a href="#">{i}</a></li>)
-    }
+//     pageLinks.push(<li className={`waves-effect ${active}`} key={i} 
+//     onClick={() => props.nextPage(i)}><a href="#">{i}</a></li>)
+//     }
 
-return (
-    <div className = "pagination_container">
+
+class Pagination extends Component {
+
+
+
+    
+    render() { 
+        const {pagination, currentPage, nextPage, movieData} = this.props;
+        
+        return ( 
+<div className = "pagination_container">
         <div className = "row">
             <ul className = "pagination">
-                { props.currentPage > 1 ? <li className={`waves-effect`} 
-                onClick={() => props.nextPage(props.currentPage - 1)}><a href="#">Prev</a></li> : ''}
+                { currentPage > 1 ? <li className={`waves-effect`} 
+                onClick={() => nextPage(currentPage - 1)}><a href={pagination.links.prev}>Prev</a></li> : ''}
             
-                { pageLinks }
+                {movieData.map((pageNumber, index) => (
+                    <button> {pageNumber.numberOfPages}</button>
 
-                { props.currentPage < props.pages + 1 ? <li className={`waves-effect`} 
-                onClick={() => props.nextPage(props.currentPage + 1)}><a href="#">Next</a></li> : ''}
+                )) }
+
+                <button onClick={nextPage}>next</button>
+
+                { currentPage < pagination.pages + 1 ? <li className={`waves-effect`} 
+                onClick={() => nextPage(currentPage + 1)}><a href={pagination.links.next}>Next</a></li> : ''}
                 </ul>
 
         </div>
     </div>
-)
 
+         );
+    }
 }
-
+ 
 export default Pagination;
