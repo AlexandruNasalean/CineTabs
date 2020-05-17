@@ -1,4 +1,9 @@
-
+.Advanced-Filter{
+  margin-left: 35px;
+}
+.empty-search{
+  margin-left: 40px;
+}
 .Adv-Results{
   display: flex;
   width: 100%;
@@ -31,33 +36,21 @@
 
 }
 
-/* .rating-filter,
-.votes-filter,
-.year-filter,
-.title-filterinput {
-  padding-bottom: 30px;
-}
-
-.rating-filter,
-.Genre-Filter {
-  padding-top: 30px;
-} */
-
 .year-filter,
 .Country-filter,
 .Language-filter,
 .rating-filter,
 .votes-filter,
 .runtime-filter{
-  margin-right: 12%;
-  margin-bottom: 5%;
+  margin-right: 40px;
+  margin-bottom: 20px;
+
 }
 
 
 .movie-votes,
 .movie-rating,
-.movie-runtime
-{
+.movie-runtime {
   display: flex;
 }
 
@@ -91,5 +84,42 @@
   background-color: #f88c1f;
   border: #f88c1f;
   font-weight: bold;
-
 }
+.Search-History-Delete{
+  background-color: #f88c1f;
+  border: #f88c1f;
+  font-weight: bold;
+  margin-left: 10px;
+}
+.QuerryButton{
+  word-spacing: 2px;
+  background-color: #f88c1f;
+  border: #f88c1f;
+  margin-left: 30px;
+  margin-bottom: 5px;
+}
+.QuerryListIcon{
+  margin-left: 10px;
+}
+.Adv-Search-Button:hover,
+.Search-History-Delete:hover{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+.Adv-Search-Button:focus
+.Search-History-Delete:focus{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+.QuerryButton:hover{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+.QuerryButton:focus{
+  background-color: #ca7118;
+  border: #f88c1f;
+}
+
+

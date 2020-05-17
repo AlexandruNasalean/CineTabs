@@ -1,6 +1,6 @@
 import { changeNumberFormat } from "./searchFilters/filtersUtils";
 
-export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
+export function generateAdvancedSearchUrl({query,Genre,Country,Year,Language}){
 
   let baseUrl = "https://movies-app-siit.herokuapp.com/movies";
   const urlQuery = [];
@@ -10,7 +10,7 @@ export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
   }
   
   if (Genre && Genre.length) {
-    urlQuery.push(`Genre=${Genre.join(", ")}`);
+    urlQuery.push(`Genre=${Genre.join(",")}`);
   }
   
   if(Country && Country.length){
@@ -20,7 +20,9 @@ export function generateAdvancedSearchUrl({query,Genre,Country,Year}){
   if(Year && Year.length){
     urlQuery.push(`Year=${Year.join(",")}`)
   }
-  
+  if(Language && Language.length){
+    urlQuery.push(`Language=${Language.join(",")}`)
+  }
   if(urlQuery.length){
     return baseUrl + `?${urlQuery.join("&")}`
   }

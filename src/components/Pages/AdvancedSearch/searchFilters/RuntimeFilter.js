@@ -16,10 +16,21 @@ export class RuntimeFilter extends Component {
     return (
       <div className="runtime-filter">
         <label>Runtime</label>
-        <div className="movie-runtime">
-          <select className="runtime-dropdown" onChange={RuntimeHandler}>
-            {RuntimeFiltered?.map((movie, index) => (
-              <option key={index} value={movie.Runtime}>{movie.Runtime}</option>
+        <div className="movie-votes">
+          <p>From</p>
+          <select className="runtime-dropdown" name="movie-runtime-drop-down">
+            {searchResults.map((movie, index) => (
+              <option key={index} value={movie.imdbRuntime}>
+                {movie.imdbRuntime}
+              </option>
+            ))}
+          </select>
+          <p>to</p>
+          <select className="runtime-dropdown" name="movie-runtime-drop-down">
+            {searchResults.map((movie, index) => (
+              <option key={index} value={movie.imdbRuntime}>
+                {movie.imdbRuntime}
+              </option>
             ))}
           </select>
         </div>
