@@ -19,3 +19,8 @@ export function extractUniqueRatings(movies) {
   const movieRatings = movies.map((movie) => movie.imdbRating);
   return uniq(movieRatings).sort();
 }
+
+export function convertToNumbersYears(movies) {
+  const movieYear = movies.map((movie) => movie.Year);
+  return uniq(movieYear).sort();
+}
