@@ -1,0 +1,14 @@
+.pagination li {
+    border: solid 1px orange;
+    border-radius: 4px;
+    align-items: center;
+    margin: 3px;
+    align-self: center;
+    font-size: 20px;
+    background-color: orange;
+}
+
+.pagination li.active{
+    background-color: orchid;
+    opacity: 0.5;
+}

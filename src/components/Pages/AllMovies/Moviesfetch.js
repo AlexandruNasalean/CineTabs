@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./MoviesFetch.css";
-import Pagination from './Components/Pagination'
+import Pagination from "./Components/Pagination"
 
 export class App extends Component {
   constructor(props) {
@@ -35,26 +35,23 @@ export class App extends Component {
   }
 
   nextPage = (pageNumber) => {
-    fetch(`https://movies-app-siit.herokuapp.com/movies?take=${pageNumber}`)
+    fetch(`https://movies-app-siit.herokuapp.com/movies?take=10&skip=${pageNumber}`)
     .then((response) => response.json())
     .then((json) => {
       this.setState({
         loading: false,
         movieData: json.results,
         currentPage: pageNumber,
-        totalResults: json.total_Results
-        
       })
-      console.log(this.state.totalResults)
+
     });
   }
   
 
   render() {
-    const { movieData, loading } = this.state;
-    console.log(this.state);
-    const numberPages = Math.floor(this.state.totalResults / 10);
-    console.log(this.state.pagination)
+    const { movieData, loading, currentPage } = this.state;
+    const numberPages = Math.floor(this.state.movieData.length);
+    console.log(numberPages)
     return (
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
@@ -86,8 +83,11 @@ export class App extends Component {
             </div>
           </Link>
         ))}
-        
-        {this.state.totalResults > 10 ? <Pagination pages={numberPages} nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+
+        <div className='PaginationNumbering'>
+        {this.state.movieData.length >= 10 ? <Pagination pages={numberPages} 
+        nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+       </div>
       </div>
     );
   }

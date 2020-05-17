@@ -1,22 +1,18 @@
 import React, { Component } from "react";
+import { uniqBy } from "lodash";
 import "../AdvSearch.css";
-// import { uniq } from "lodash";
+
 
 export class RuntimeFilter extends Component {
-  state = {
-    minRuntime: null,
-    maxRuntime: null,
-  };
-
-  handleOnChange = (event) => {
-    const {minRuntime, maxRuntime} = this.state;
-    this.props.filterByRuntime(minRuntime, maxRuntime);
-console.log(event.target.value);  
-  };
+  constructor(props) {
+    super(props);
+    this.state = {  }
+  }
 
   render() {
-    const { searchResults } = this.props;
-
+    const { RuntimeHandler, searchResults } =this.props;
+    const RuntimeFiltered = uniqBy(searchResults, 'Runtime')
+    console.log(RuntimeFiltered)
     return (
       <div className="runtime-filter">
         <label>Runtime</label>

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Cookies from "js-cookie";
@@ -7,10 +6,8 @@ import {
   faEdit,
   faTrash,
   faArrowLeft,
-  faLessThanEqual,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import { EditMovie } from "../EditMovie/EditMovie";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -75,7 +72,6 @@ export class MoviePage extends Component {
 
   goBack = () => {
     this.props.history.goBack();
-    console.log("click");
   };
 
   goToEditMovie = () => {
