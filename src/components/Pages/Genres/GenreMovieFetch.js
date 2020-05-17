@@ -18,6 +18,7 @@ export class App extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
+    //selectGenre = (GenreDropdownItem) => 
     fetch(`https://movies-app-siit.herokuapp.com/movies?Genre=Adventure`)
       .then((response) => response.json())
       .then((json) => {
