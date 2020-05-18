@@ -54,12 +54,7 @@ export class AdvancedSearch extends Component {
   }
 
   componentDidMount() {
-    if(this.props.history.location.state.homePageQuerry){
-      this.setState({
-        homePageQuerry: this.props.history.location.state.homePageQuerry,
-      })
-      console.log(this.state)
-    }
+
     const url = Cookies.get("CookieSearchQuery");
     if (url) {
       fetch(url)
