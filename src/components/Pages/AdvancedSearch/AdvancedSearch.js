@@ -172,8 +172,6 @@ export class AdvancedSearch extends Component {
     const url = generateAdvancedSearchUrl(this.state,pageNumber);
     console.log(url);
 
-    // var _ =  require  ('lodash');
-
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -187,6 +185,7 @@ export class AdvancedSearch extends Component {
           minVotes: uniqueVotes[0],
           maxVotes: uniqueVotes[uniqueVotes.length - 1],
           paginationLinkNext: json.pagination.links.next,
+          paginationLinkPrev: json.pagination.links.prev,
           numberOfPages: json.pagination.numberOfPages,
           currentPage: json.pagination.currentPage,
           selfPage: json.pagination.links.self,
@@ -351,6 +350,13 @@ export class AdvancedSearch extends Component {
         CountrySelected: false,
         LanguageSelected: false,
         setStatess: [],
+        pagination: [],
+        paginationLinkNext: [],
+        paginationLinkPrev: [],
+        numberOfPages: [],
+        selfPage: [],
+        paginationSelfLinks: [],
+  
       })
   }
   handleDeleteFilterQuerryYear = (event) =>{
@@ -492,7 +498,7 @@ export class AdvancedSearch extends Component {
         {emptySearch ? (
           <div className="empty-search">
         <React.Fragment>
-        <Button onClick={this.handleDeleteSearchQuerry} className="Search-History-Delete">Delete the search history</Button>
+        {/* <Button onClick={this.handleDeleteSearchQuerry} className="Search-History-Delete">Delete the search history</Button> */}
           <h1>No Results!</h1>
         </React.Fragment>
         </div>
@@ -512,7 +518,7 @@ export class AdvancedSearch extends Component {
                 <div class="col-sm">
                 <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
         nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} 
-        numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>
+        numberOfPages={this.state.numberOfPages} selfPage={this.selfPage} emptySearch={emptySearch}/>
                 </div>
                 <div class="col-sm">
                 </div>

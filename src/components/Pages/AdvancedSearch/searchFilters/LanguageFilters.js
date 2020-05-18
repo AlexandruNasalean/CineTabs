@@ -15,7 +15,7 @@ export class LanguageFilters extends Component {
     const {searchResults, checkLanguageHandler, Language, handleDeleteFilterQuerryLanguage,LanguageSelected}= this.props;
     const LanguageFiltered = uniqBy(searchResults, 'Language')
     const LanguageDeleteQuerry= Language.join(", ");
-    console.log(LanguageFiltered)
+    // console.log(LanguageFiltered)
     return ( 
 
   <div className="Language-filter">

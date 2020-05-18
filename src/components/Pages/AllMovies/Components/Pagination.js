@@ -17,7 +17,7 @@ import Pagination from 'react-bootstrap/Pagination'
 class Paginations extends Component {
     
     render() { 
-        const {pagination, currentPage, nextPage, movieData, prevPage,numberOfPages, selfPage} = this.props;
+        const {pagination, currentPage, nextPage, movieData, prevPage,numberOfPages, selfPage,emptySearch} = this.props;
         console.log(currentPage)
                 let CurrentnumberOfPages= numberOfPages;
                 let active = currentPage;
@@ -34,10 +34,11 @@ class Paginations extends Component {
                 }
 
                 const paginationBasic = (
+                
                     <Pagination>
-                    <Pagination.Prev onClick={prevPage} />
+                    <Pagination.Prev onClick={prevPage}/>
                     <Pagination>{items}</Pagination>
-                    <Pagination.Next onClick={nextPage} />
+                    <Pagination.Next onClick={nextPage}/>
                     </Pagination>
                 );
 

@@ -20,7 +20,7 @@ export class YearFilter extends Component {
     const YearFiltered = uniqBy(searchResults, 'Year')
     const OrderYear = convertToNumbersYears(YearFiltered);
     const YearDeleteQuerry= Year.join(", ");
-    console.log(YearFiltered)
+    // console.log(YearFiltered)
     return (
       <div className="year-filter">
         <label> Year of Release </label>
