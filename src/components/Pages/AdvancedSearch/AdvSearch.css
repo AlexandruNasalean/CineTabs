@@ -132,3 +132,9 @@
   display: flex;
   justify-content: center;
 }
+
+.back-btn-Search{
+  font-weight: bold;
+  color: rgb(255, 145, 0);
+  margin-left: 50px;
+}

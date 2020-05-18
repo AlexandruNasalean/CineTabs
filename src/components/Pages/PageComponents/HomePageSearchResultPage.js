@@ -3,6 +3,12 @@ import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Paginations from "../AllMovies/Components/Pagination"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import { Button } from "react-bootstrap";
+import "./searchbar.css";
 
 export class HomePageResults extends Component {
   constructor(props) {
@@ -20,13 +26,13 @@ export class HomePageResults extends Component {
       numberOfPages: [],
       selfPage: [],
       paginationSelfLinks: [],
+      emptySearch: "",
     };
   }
 
   componentDidMount() {
     const UrlQuerry= this.props.history.location.state.homePageQuerry;
-    
-    this.setState({ loading: true });
+    if (UrlQuerry){  this.setState({ loading: true });
     fetch(`https://movies-app-siit.herokuapp.com/movies?Title=${UrlQuerry}`)
       .then((response) => response.json())
       .then((json) => {
@@ -41,6 +47,12 @@ export class HomePageResults extends Component {
           selfPage: json.pagination.links.self,
         });
       });
+    }else{
+      this.setState({
+        emptySearch: true,
+      })
+    }
+  
   }
 
   nextPage = () => {
@@ -98,19 +110,28 @@ export class HomePageResults extends Component {
     });
   }
 
-      // increasePageNumber = () => {
-      //   Increase = Math.floor(this.state.pagination.currentPage + 1 )
 
-      // }  
+      goBack = () => {
+        this.props.history.goBack();
+      };
+    
 
   render() {
-    const { movieData, loading,currentPage, pagination } = this.state;
+    const { movieData, loading,currentPage, pagination,emptySearch } = this.state;
 
 
     return (
       <div className="AllMovie-Wrap">
-      <div className="MovieCard-Container">
-        {this.state.movieData.map((movies, index) => (
+         <h5 className="back-btn-Search" onClick={this.goBack}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </h5>
+        <div className="MovieCard-Container">
+      <div>
+        {movieData?(
+            <h1>No Results!</h1>
+        ):("")}
+      </div>
+        {movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
             <div>
               <div className="MovieDataCard">
@@ -140,10 +161,20 @@ export class HomePageResults extends Component {
           </Link>
         ))}
       </div>
-          <div className='PaginationBox'>
-        <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
-        nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>
+      {movieData ? ("") : (
+             <div class="PaginationBox">
+             <Paginations
+               movieData={this.state.movieData}
+               pagination={this.state.pagination}
+               nextPage={this.nextPage}
+               prevPage={this.PreviousPage}
+               currentPage={this.state.currentPage}
+               numberOfPages={this.state.numberOfPages}
+               selfPage={this.selfPage}
+               emptySearch={emptySearch}
+             />
        </div>
+          )}
       </div>
     );
   }
