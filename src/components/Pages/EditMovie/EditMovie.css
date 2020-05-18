@@ -1,3 +1,9 @@
+.form-container {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 30px;
+}
+
 .edit-inputs-container {
   display: flex;
   justify-content: space-evenly;
@@ -5,9 +11,8 @@
   padding-top: 20px;
 }
 
-.form-container {
-  text-align: center;
-  margin-bottom: 50px;
+#edit-movie-heading {
+  color: lightgrey;
 }
 
 .input-fields {
@@ -21,7 +26,10 @@
 
 .input-fields input {
   width: 300px;
-  border-radius: 5px;
+  background: none;
+  border: none;
+  border-bottom: solid 2px #474544;
+  color: white;
 }
 
 .submit-btn {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./MoviePage.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import {
   faEdit,
@@ -22,7 +23,7 @@ export class MoviePage extends Component {
     this.setState({ isLoaded: true });
 
     const search = this.props.location.search;
-    // console.log(search);
+    console.log(search);
     if (search) {
       const [_, id] = search.split("=");
       const localStorageData = localStorage.getItem(`movie_${id}`);
@@ -74,10 +75,6 @@ export class MoviePage extends Component {
     this.props.history.goBack();
   };
 
-  goToEditMovie = () => {
-    this.props.history.push("/editmovie");
-  };
-
   render() {
     const { isLoggedIn } = this.props;
     const { movie, isLoaded } = this.state;
@@ -108,8 +105,13 @@ export class MoviePage extends Component {
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
-                    <Button onClick={this.goToEditMovie}>
-                      <FontAwesomeIcon icon={faEdit} />
+                    <Button>
+                      <Link
+                        to={`/editmovie?id=${movie._id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </Link>
                     </Button>
                     <Button onClick={this.handleDeleteMovie}>
                       <FontAwesomeIcon icon={faTrash} />

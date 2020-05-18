@@ -5,30 +5,35 @@
 
 } */
 
-.background{
+.background {
   background-color: #5e5e5e;
   width: 100%;
   margin-top: auto;
 }
-.background h5{
+.background h5 {
   color: #f88c1f;
   margin-top: 10px;
 }
-#About-us{
+#About-us {
   background-color: #5e5e5e;
   color: white;
 }
-#About-us h5{
+#About-us h5 {
   color: #f88c1f;
 }
 
-.contact-envelope{
+#About-us p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.contact-envelope {
   font-size: 40px;
 }
-.contact-phone{
+.contact-phone {
   font-size: 40px;
 }
-.contact-info p{
+.contact-info p {
   display: inline-block;
   color: aliceblue;
   font-size: 20px;
@@ -36,7 +41,6 @@
   bottom: 10px;
   left: 20px;
 }
-#signup{
+#signup {
   border: 0px;
 }
-
