@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import Spinner from "react-bootstrap/Spinner";
+import { Link } from "react-router-dom";
 import "./Carousel.css";
 import { randomNumber } from "./utils";
 
@@ -34,32 +35,35 @@ export class Carouselu extends Component {
     const { movieData, loading } = this.state;
     return (
       <div className="carousel-wrapper">
-      <Carousel
-        className={
-          "Carousel Carouselu" +
-          (movieData.length === 0 ? " hide-indicator" : "")
-        }
-      >
-        {loading ? (
-          <Spinner animation="border" />
-        ) : (
-          movieData.map((movie, index) => (
-            <Carousel.Item key={index}>
-              <img
-                className="Carousel-image"
-                src={movie.Poster}
-                alt="First slide"
-              />
-              <Carousel.Caption className="carousel-second-half">
-                <h3>{movie.Title}</h3>
-                <p>
-          {movie.Year}, {movie.Language}, {movie.Runtime}, {movie.Genre}
-                </p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))
-        )}
-      </Carousel>
+        <Carousel
+          className={
+            "Carousel Carouselu" +
+            (movieData.length === 0 ? " hide-indicator" : "")
+          }
+        >
+          {loading ? (
+            <Spinner animation="border" />
+          ) : (
+            movieData.map((movie, index) => (
+              <Carousel.Item key={index}>
+                <img
+                  className="Carousel-image"
+                  src={movie.Poster}
+                  alt="First slide"
+                />
+                <Carousel.Caption className="carousel-second-half">
+                  <Link to={`/MoviePage?id=${movie._id}`} key={index}>
+                    <h3>{movie.Title}</h3>
+                  </Link>
+                  <p>
+                    {movie.Year}, {movie.Language}, {movie.Runtime},{" "}
+                    {movie.Genre}
+                  </p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            ))
+          )}
+        </Carousel>
       </div>
     );
   }
