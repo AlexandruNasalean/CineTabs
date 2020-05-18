@@ -10,18 +10,19 @@ export function Footer() {
     <div className="background">
       <div className="container">
         <div className="row">
-          <div className="col-md no-gutters" id="About-us">
+          <div className="col-lg-6 no-gutters" id="About-us">
             <h5> About us</h5>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget
-              enim eleifend, luctus nisi eget, pretium odio. Quisque id tellus
-              ex.
+              Cinetab is the world’s most trusted recommendation resource for
+              quality entertainment. As the leading online aggregator of movie
+              and TV show reviews from critics, we provide fans with a
+              comprehensive guide to what’s fresh in theaters and at home.
               <br />
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget
-              enim eleifend, luctus nisi eget,
+              If you’re an entertainment fan looking for a recommendation, or to
+              share an opinion, you’ve come to the right place.
             </p>
           </div>
-          <div className="col-6"></div>
+          <div className="col-3"></div>
           <div className="col-md no-gutters" id="Contact">
             <Link className="link" to="/Contact">
               <h5>Contact</h5>
