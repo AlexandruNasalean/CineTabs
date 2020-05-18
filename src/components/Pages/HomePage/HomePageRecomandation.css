@@ -1,8 +1,12 @@
 .MovieCard-Container{
+  width: 100%;
     font-size: 1.15em;
     font-weight: 900;
     margin: 0 0 0.5em;
     color:orange;
+    justify-content: center;
+    display: flex;
+    align-items: center;
     }
     
 .card:hover {
@@ -12,11 +16,20 @@
     height: auto;
     background-color:#161616;
     display: flex;
+    
+}
+
+.movieDataCardContainer{
+  display: flex;
+  text-align: center;
+  align-items: flex-start;
+ 
 }
 
 .MovieDataCard {
     display: flex;
     text-align: center;
+    
 }
 
 .card-content {

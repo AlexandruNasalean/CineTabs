@@ -77,3 +77,9 @@ color: #f88c1f;
 .carouselHome{
   margin-bottom: 20px;
 }
+
+
+.HomePageFullContainer{
+  height: 100%;
+  width: 100%;
+}
