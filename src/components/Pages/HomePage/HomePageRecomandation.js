@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./HomePageRecomandation.css";
+import { randomNumber } from "../PageComponents/utils";
 
 export class HomePageRecomandation extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export class HomePageRecomandation extends Component {
   componentDidMount() {
     this.setState({ loading: true });
 
-    fetch(`https://movies-app-siit.herokuapp.com/movies`)
+    fetch(`https://movies-app-siit.herokuapp.com/movies?take=4&skip=${randomNumber()}`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
@@ -41,7 +42,7 @@ export class HomePageRecomandation extends Component {
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
-            <div>
+            <div className='movieDataCardContainer'>
               <div className="MovieDataCard">
                 <Row id="row">
                   <Col sm={4}>
