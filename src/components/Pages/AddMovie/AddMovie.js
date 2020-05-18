@@ -215,7 +215,7 @@ export class AddMovie extends Component {
                       type="text"
                       name="imdbID"
                       value={imdbID}
-                      placeholder="alpha-numerical"
+                      placeholder="eg. tt9839146"
                       onChange={this.updateInputValue}
                     />
                   </div>
@@ -226,7 +226,7 @@ export class AddMovie extends Component {
                       type="text"
                       name="Type"
                       value={Type}
-                      placeholder="Movie or TV-series"
+                      placeholder="eg. Movie, TV-series, Game"
                       onChange={this.updateInputValue}
                     />
                   </div>
