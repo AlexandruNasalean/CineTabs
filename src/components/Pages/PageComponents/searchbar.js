@@ -32,7 +32,7 @@ fetchSearchResults = (query) => {
 }
 onKeyDown = (event) => {
   const {history} = this.props
-  if (event.key === "Enter") {
+  if (event.key === "Enter" && this.state.query !==	 "") {
     this.fetchSearchResults ( this.state.query)
     history.push({
       pathname: '/HomePageSearchResults',
