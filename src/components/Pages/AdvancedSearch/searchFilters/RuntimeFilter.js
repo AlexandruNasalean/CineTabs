@@ -12,7 +12,7 @@ export class RuntimeFilter extends Component {
   render() {
     const { RuntimeHandler, searchResults } =this.props;
     const RuntimeFiltered = uniqBy(searchResults, 'Runtime')
-    console.log(RuntimeFiltered)
+    // console.log(RuntimeFiltered)
     return (
       <div className="runtime-filter">
         <label>Runtime</label>

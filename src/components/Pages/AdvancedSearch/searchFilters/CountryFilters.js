@@ -15,7 +15,7 @@ export class CountryFilters extends Component {
   render() {
     const {searchResults, checkCountryHandler, Country, CountrySelected,handleDeleteFilterQuerryCountry}= this.props;
     const CountryFiltered = uniqBy(searchResults, 'Country')
-    console.log(CountryFiltered)
+    // console.log(CountryFiltered)
     const CountryDeleteQuerry= Country.join(", ");
 
     return ( 

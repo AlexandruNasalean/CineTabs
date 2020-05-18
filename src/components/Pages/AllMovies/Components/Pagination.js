@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "./Pagination.css";
+import Pagination from 'react-bootstrap/Pagination'
 
 // function pagination = (props) => {
 //     const pageLinks = []
@@ -13,37 +14,38 @@ import "./Pagination.css";
 //     }
 
 
-class Pagination extends Component {
-
-
-
+class Paginations extends Component {
     
     render() { 
-        const {pagination, currentPage, nextPage, movieData} = this.props;
-        
+        const {pagination, currentPage, nextPage, movieData, prevPage,numberOfPages, selfPage,emptySearch} = this.props;
+        console.log(currentPage)
+                let CurrentnumberOfPages= numberOfPages;
+                let active = currentPage;
+                let items = [];
+                for (let number = 1; number <= CurrentnumberOfPages; number++) {
+                   
+                items.push(
+                    <Pagination.Item key={number} active={number === active}  onClick={() =>{
+                        selfPage(number)
+                    }}>
+                    {number}
+                    </Pagination.Item>,
+                );
+                }
+
+                const paginationBasic = (
+                
+                    <Pagination>
+                    <Pagination.Prev onClick={prevPage}/>
+                    <Pagination>{items}</Pagination>
+                    <Pagination.Next onClick={nextPage}/>
+                    </Pagination>
+                );
+
         return ( 
-<div className = "pagination_container">
-        <div className = "row">
-            <ul className = "pagination">
-                { currentPage > 1 ? <li className={`waves-effect`} 
-                onClick={() => nextPage(currentPage - 1)}><a href={pagination.links.prev}>Prev</a></li> : ''}
-            
-                {movieData.map((pageNumber, index) => (
-                    <button> {pageNumber.numberOfPages}</button>
-
-                )) }
-
-                <button onClick={nextPage}>next</button>
-
-                { currentPage < pagination.pages + 1 ? <li className={`waves-effect`} 
-                onClick={() => nextPage(currentPage + 1)}><a href={pagination.links.next}>Next</a></li> : ''}
-                </ul>
-
-        </div>
-    </div>
-
+            <div className="Pagination-container">{paginationBasic}</div>
          );
     }
 }
  
-export default Pagination;
+export default Paginations;
