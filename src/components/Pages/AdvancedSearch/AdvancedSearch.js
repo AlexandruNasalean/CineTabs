@@ -539,26 +539,22 @@ export class AdvancedSearch extends Component {
               maxRuntime={maxRuntime}
               searchResults={searchResults}
             />
-            <div class="container">
-              <div class="row">
-                <div class="col-sm"></div>
-                <div class="col-sm">
-                  <Paginations
-                    movieData={this.state.movieData}
-                    pagination={this.state.pagination}
-                    nextPage={this.nextPage}
-                    prevPage={this.PreviousPage}
-                    currentPage={this.state.currentPage}
-                    numberOfPages={this.state.numberOfPages}
-                    selfPage={this.selfPage}
-                    emptySearch={emptySearch}
-                  />
-                </div>
-                <div class="col-sm"></div>
-              </div>
-            </div>
           </div>
         )}
+          {emptySearch ? ("") : (
+             <div class="PaginationBox">
+             <Paginations
+               movieData={this.state.movieData}
+               pagination={this.state.pagination}
+               nextPage={this.nextPage}
+               prevPage={this.PreviousPage}
+               currentPage={this.state.currentPage}
+               numberOfPages={this.state.numberOfPages}
+               selfPage={this.selfPage}
+               emptySearch={emptySearch}
+             />
+       </div>
+          )}
       </div>
     );
   }

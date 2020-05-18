@@ -24,3 +24,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.PaginationBox{
+    display: flex;
+    justify-content: center;
+}

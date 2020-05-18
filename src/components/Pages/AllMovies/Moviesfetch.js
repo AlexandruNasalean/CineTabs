@@ -139,7 +139,7 @@ export class App extends Component {
           </Link>
         ))}
       </div>
-          <div className='PaginationNumbering'>
+          <div className='PaginationBox'>
         <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
         nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>
        </div>

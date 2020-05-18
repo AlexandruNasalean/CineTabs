@@ -199,9 +199,12 @@ export class Genres extends Component {
           </Link>
         ))}
       </div>
+      <div className="PaginationBox">
       {emptySearch ?("") : (<Paginations movieData={this.state.movieData} pagination={this.state.pagination}
         nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} 
         numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>)}
+      </div>
+      
       
     </div>
 
