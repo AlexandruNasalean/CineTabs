@@ -3,6 +3,9 @@ import {Form, Row, Col} from "react-bootstrap";
 import { generateAdvancedSearchUrl } from "../AdvancedSearch/AdvanceSearchUtils";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
+import "./Genres.css";
+import Button from "react-bootstrap/Button";
+
 
 export class Genres extends Component {
     constructor(props) {
@@ -78,7 +81,7 @@ export class Genres extends Component {
           <Form.Check inline label="Thriller" name="Thriller" value="Thriller" onClick={this.CheckBoxChangeHandler}/>
       </div>
       ))}
-        <button type="submit" className="GenreFilter--Button">Submit</button>
+        <Button type="submit" className="GenreFilterButton">Submit</Button>
         
 
         </div>
@@ -115,7 +118,6 @@ export class Genres extends Component {
           </Link>
         ))}
       </div>
- ))
     </div>
 
     </div>

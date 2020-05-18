@@ -14,3 +14,9 @@
 .movie-card-result{
     align-self: auto;
 }
+.GenreFilterButton{
+    background-color: #f88c1f;
+    border: #f88c1f;
+    font-weight: bold;
+    color: white;
+  }

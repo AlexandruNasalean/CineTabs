@@ -17,6 +17,8 @@ import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 import { YearFilter } from "./searchFilters/YearFilter";
 import { LanguageFilters} from "./searchFilters/LanguageFilters";
+import Paginations from "../AllMovies/Components/Pagination"
+
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -40,6 +42,13 @@ export class AdvancedSearch extends Component {
       CountrySelected: false,
       LanguageSelected: false,
       setStatess: [],
+      pagination: [],
+      paginationLinkNext: [],
+      paginationLinkPrev: [],
+      numberOfPages: [],
+      selfPage: [],
+      paginationSelfLinks: [],
+
     };
   }
 
@@ -60,6 +69,11 @@ export class AdvancedSearch extends Component {
             maxRating: uniqueRatings[uniqueRatings.length - 1],
             minVotes: uniqueVotes[0],
             maxVotes: uniqueVotes[uniqueVotes.length - 1],
+            pagination: json.pagination,
+            paginationLinkNext: json.pagination.links.next,
+            paginationLinkPrev: json.pagination.links.prev,
+            numberOfPages: json.pagination.numberOfPages,
+            currentPage: json.pagination.currentPage,
           });
 
           if (json.results.length === 0) {
@@ -73,6 +87,124 @@ export class AdvancedSearch extends Component {
           }
         });
     }
+  }
+
+
+  
+  nextPage = (event) => {
+    // const url = generateAdvancedSearchUrl(this.state,null,this.state.paginationLinkNext);
+    // console.log(url);
+
+    // var _ =  require  ('lodash');
+    const url= this.state.paginationLinkNext;
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        const uniqueRatings = extractUniqueRatings(json.results);
+        const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
+
+        this.setState({
+          searchResults: json.results,
+          minRating: uniqueRatings[0],
+          maxRating: uniqueRatings[uniqueRatings.length - 1],
+          minVotes: uniqueVotes[0],
+          maxVotes: uniqueVotes[uniqueVotes.length - 1],
+          paginationLinkNext: json.pagination.links.next,
+          paginationLinkPrev: json.pagination.links.prev,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
+          pagination: json.pagination,
+        });
+        Cookies.set("CookieSearchQuery", url);
+        if (json.results.length === 0) {
+          this.setState({
+            emptySearch: true,
+            searchState: false,
+          });
+        } else {
+          this.setState({
+            emptySearch: false,
+            searchState: true,
+          });
+        }
+      });
+  }
+
+  PreviousPage = (event) => {
+    const url= this.state.paginationLinkPrev;
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        const uniqueRatings = extractUniqueRatings(json.results);
+        const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
+
+        this.setState({
+          searchResults: json.results,
+          minRating: uniqueRatings[0],
+          maxRating: uniqueRatings[uniqueRatings.length - 1],
+          minVotes: uniqueVotes[0],
+          maxVotes: uniqueVotes[uniqueVotes.length - 1],
+          paginationLinkNext: json.pagination.links.next,
+          paginationLinkPrev: json.pagination.links.prev,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
+          pagination: json.pagination,
+        });
+        Cookies.set("CookieSearchQuery", url);
+        if (json.results.length === 0) {
+          this.setState({
+            emptySearch: true,
+            searchState: false,
+          });
+        } else {
+          this.setState({
+            emptySearch: false,
+            searchState: true,
+          });
+        }
+      });
+    }
+
+
+  selfPage = (pageNumber) => {
+    const url = generateAdvancedSearchUrl(this.state,pageNumber);
+    console.log(url);
+
+    // var _ =  require  ('lodash');
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((json) => {
+        const uniqueRatings = extractUniqueRatings(json.results);
+        const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
+
+        this.setState({
+          searchResults: json.results,
+          minRating: uniqueRatings[0],
+          maxRating: uniqueRatings[uniqueRatings.length - 1],
+          minVotes: uniqueVotes[0],
+          maxVotes: uniqueVotes[uniqueVotes.length - 1],
+          paginationLinkNext: json.pagination.links.next,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
+          pagination: json.pagination,
+        });
+        Cookies.set("CookieSearchQuery", url);
+        if (json.results.length === 0) {
+          this.setState({
+            emptySearch: true,
+            searchState: false,
+          });
+        } else {
+          this.setState({
+            emptySearch: false,
+            searchState: true,
+          });
+        }
+      });
   }
 
   handleInputChange = (event) => {
@@ -159,7 +291,7 @@ export class AdvancedSearch extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    const url = generateAdvancedSearchUrl(this.state);
+    const url = generateAdvancedSearchUrl(this.state,1);
     console.log(url);
 
     // var _ =  require  ('lodash');
@@ -176,6 +308,11 @@ export class AdvancedSearch extends Component {
           maxRating: uniqueRatings[uniqueRatings.length - 1],
           minVotes: uniqueVotes[0],
           maxVotes: uniqueVotes[uniqueVotes.length - 1],
+          paginationLinkNext: json.pagination.links.next,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
+          pagination: json.pagination,
         });
         Cookies.set("CookieSearchQuery", url);
         if (json.results.length === 0) {
@@ -368,10 +505,24 @@ export class AdvancedSearch extends Component {
           maxVotes={maxVotes}
           searchResults={searchResults}
         />
+                <div class="container">
+              <div class="row">
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
+        nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} 
+        numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>
+                </div>
+                <div class="col-sm">
+                </div>
+              </div>
+            </div>
         </div>
+        
       )}
-      
-  
+    
+
     </div>
     );
   }

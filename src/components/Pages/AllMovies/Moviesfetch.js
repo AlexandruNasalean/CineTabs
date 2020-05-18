@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./MoviesFetch.css";
-import Pagination from "./Components/Pagination"
+import Paginations from "./Components/Pagination"
 
 export class App extends Component {
   constructor(props) {
@@ -14,17 +14,18 @@ export class App extends Component {
       loading: false,
       index: [],
       totalResults: 0,
-      currentPage: 1,
       pagination: [],
-      numberOfPages: [],
       paginationLinkNext: [],
-      currentPages: []
+      currentPage: [],
+      paginationLinkPrev: [],
+      numberOfPages: [],
+      selfPage: [],
+      paginationSelfLinks: [],
     };
   }
 
   componentDidMount() {
     this.setState({ loading: true });
-
     fetch(`https://movies-app-siit.herokuapp.com/movies`)
       .then((response) => response.json())
       .then((json) => {
@@ -33,39 +34,80 @@ export class App extends Component {
           loading: false,
           movieData: json.results,
           totalResults: json.total_Results,
-          numberOfPages: json.pagination.numberOfPages,
           paginationLinkNext: json.pagination.links.next,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
         });
-        console.log(this.state.movieData)
       });
   }
 
   nextPage = () => {
     const Url = this.state.paginationLinkNext
+    console.log(Url)
     fetch(Url)
     .then((response) => response.json())
     .then((json) => {
       this.setState({
         loading: false,
         movieData: json.results,
-        currentPage: this.state.pagination.currentPage + 1 
+        pagination: json.pagination,
+        currentPage: json.pagination.currentPage,
+        paginationLinkNext: json.pagination.links.next,
+        paginationLinkPrev: json.pagination.links.prev,
+        numberOfPages: json.pagination.numberOfPages,
+        selfPage: json.pagination.links.self,
 
       })
-      console.log(Url)
+    });
+    console.log(this.state.currentPage)
+  }
+  selfPage = (pageNumber) => {
+    const Url = `	https://movies-app-siit.herokuapp.com/movies?take=10&skip=${(pageNumber - 1) * 10}`
+    console.log(Url)
+    fetch(Url)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        selfPage: json.pagination.links.self,
+        movieData: json.results,
+        paginationLinkNext: json.pagination.links.next,
+        paginationLinkPrev: json.pagination.links.prev,
+        selfPage: json.pagination.links.self,
+
+      })
+    });
+    console.log(this.state.currentPage)
+  }
+  PreviousPage = () => {
+    const Url = this.state.paginationLinkPrev
+    fetch(Url)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        loading: false,
+        pagination: json.pagination,
+        movieData: json.results,
+        currentPage: json.pagination.currentPage,
+        paginationLinkNext: json.pagination.links.next,
+        paginationLinkPrev: json.pagination.links.prev,
+        numberOfPages: json.pagination.numberOfPages,
+        selfPage: json.pagination.links.self,
+      })
     });
   }
+
       // increasePageNumber = () => {
       //   Increase = Math.floor(this.state.pagination.currentPage + 1 )
 
       // }  
 
   render() {
-    const { movieData, loading, currentPage, currentPages, pagination } = this.state;
-    const numberPages = this.state.pagination.numberOfPages;
-    console.log(numberPages)
-    console.log(currentPages)
-    console.log(pagination)
+    const { movieData, loading,currentPage, pagination } = this.state;
+
+
     return (
+      <div className="AllMovie-Wrap">
       <div className="MovieCard-Container">
         {this.state.movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
@@ -96,10 +138,10 @@ export class App extends Component {
             </div>
           </Link>
         ))}
-
-        <div className='PaginationNumbering'>
-        {this.state.movieData.length >= 10 ? <Pagination movieData={this.state.movieData} pagination={this.state.pagination} pages={numberPages} 
-        nextPage={this.nextPage} currentPage={this.state.currentPage}/> : ''}
+      </div>
+          <div className='PaginationNumbering'>
+        <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
+        nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>
        </div>
       </div>
     );

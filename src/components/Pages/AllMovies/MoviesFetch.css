@@ -20,3 +20,7 @@
         margin-right: auto;
 
 }
+.AllMovie-Wrap{
+    display: flex;
+    flex-direction: column;
+}
