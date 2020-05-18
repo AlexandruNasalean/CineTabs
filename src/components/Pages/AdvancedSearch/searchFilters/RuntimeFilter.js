@@ -1,35 +1,50 @@
 import React, { Component } from "react";
-import { uniqBy } from "lodash";
+import { extractUniqueRuntime, convertToNumbers } from "./filtersUtils";
 import "../AdvSearch.css";
 
-
 export class RuntimeFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {  }
-  }
-
   render() {
-    const { RuntimeHandler, searchResults } =this.props;
-    const RuntimeFiltered = uniqBy(searchResults, 'Runtime')
-    console.log(RuntimeFiltered)
+    const {
+      searchResults,
+      onMinRuntimeChange,
+      onMaxRuntimeChange,
+      minRuntime,
+      maxRuntime,
+    } = this.props;
+
+    const uniqueRuntime = convertToNumbers(extractUniqueRuntime(searchResults));
+
     return (
       <div className="runtime-filter">
         <label>Runtime</label>
         <div className="movie-votes">
           <p>From</p>
-          <select className="runtime-dropdown" name="movie-runtime-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRuntime}>
-                {movie.imdbRuntime}
+          <select
+            className="runtime-dropdown"
+            name="movie-runtime-drop-down"
+            onChange={(event) => {
+              onMinRuntimeChange(event.target.value);
+            }}
+            value={minRuntime || ""}
+          >
+            {uniqueRuntime.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>
           <p>to</p>
-          <select className="runtime-dropdown" name="movie-runtime-drop-down">
-            {searchResults.map((movie, index) => (
-              <option key={index} value={movie.imdbRuntime}>
-                {movie.imdbRuntime}
+          <select
+            className="runtime-dropdown"
+            name="movie-runtime-drop-down"
+            onChange={(event) => {
+              onMaxRuntimeChange(event.target.value);
+            }}
+            value={maxRuntime || ""}
+          >
+            {uniqueRuntime.map((movie, index) => (
+              <option key={index} value={movie}>
+                {movie}
               </option>
             ))}
           </select>

@@ -24,3 +24,12 @@ export function convertToNumbersYears(movies) {
   const movieYear = movies.map((movie) => movie.Year);
   return uniq(movieYear).sort();
 }
+
+export function extractUniqueRuntime(movies) {
+  const movieRuntime = movies.map((movie) => movie.Runtime);
+  return uniq(movieRuntime).sort();
+}
+
+export function changeRatingFormat(movie) {
+  return parseFloat(movie.replace(" ", "").replace("min", ""));
+}
