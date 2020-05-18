@@ -31,8 +31,13 @@ fetchSearchResults = (query) => {
 
 }
 onKeyDown = (event) => {
+  const {history} = this.props
   if (event.key === "Enter") {
     this.fetchSearchResults ( this.state.query)
+    history.push({
+      pathname: '/AdvancedSearch',
+      state: { homePageQuerry: this.state.query }
+    })
   }
 }
 

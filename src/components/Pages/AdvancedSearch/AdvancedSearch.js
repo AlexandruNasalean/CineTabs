@@ -49,10 +49,17 @@ export class AdvancedSearch extends Component {
       numberOfPages: [],
       selfPage: [],
       paginationSelfLinks: [],
+      homePageQuerry: [],
     };
   }
 
   componentDidMount() {
+    if(this.props.history.location.state.homePageQuerry){
+      this.setState({
+        homePageQuerry: this.props.history.location.state.homePageQuerry,
+      })
+      console.log(this.state)
+    }
     const url = Cookies.get("CookieSearchQuery");
     if (url) {
       fetch(url)
@@ -430,7 +437,10 @@ export class AdvancedSearch extends Component {
       LanguageSelected,
     } = this.state;
 
-    console.log(Language);
+
+
+    console.log(this.props.history);
+
     var _ = require("lodash");
 
     return (
@@ -448,6 +458,7 @@ export class AdvancedSearch extends Component {
                   id="title-filterinput"
                   placeholder="Search for a Title"
                   onChange={this.handleInputChange}
+                 
                 />
               </div>
               <GenreFilter
