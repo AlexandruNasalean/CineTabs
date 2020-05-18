@@ -24,8 +24,10 @@ export class HomePageResults extends Component {
   }
 
   componentDidMount() {
+    const UrlQuerry= this.props.history.location.state.homePageQuerry;
+    
     this.setState({ loading: true });
-    fetch(`https://movies-app-siit.herokuapp.com/movies`)
+    fetch(`https://movies-app-siit.herokuapp.com/movies?Title=${UrlQuerry}`)
       .then((response) => response.json())
       .then((json) => {
         this.setState({
