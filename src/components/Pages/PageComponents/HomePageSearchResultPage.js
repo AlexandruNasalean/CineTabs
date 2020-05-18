@@ -32,7 +32,8 @@ export class HomePageResults extends Component {
 
   componentDidMount() {
     const UrlQuerry= this.props.history.location.state.homePageQuerry;
-    if (UrlQuerry){  this.setState({ loading: true });
+    if (UrlQuerry)
+    {
     fetch(`https://movies-app-siit.herokuapp.com/movies?Title=${UrlQuerry}`)
       .then((response) => response.json())
       .then((json) => {
@@ -47,11 +48,18 @@ export class HomePageResults extends Component {
           selfPage: json.pagination.links.self,
         });
       });
-    }else{
-      this.setState({
-        emptySearch: true,
-      })
+      
+      if (this.state.movieData.length === 0) {
+        this.setState({
+          emptySearch: true,
+        });
+      } else {
+        this.setState({
+          emptySearch: false,
+        });
+      }
     }
+    
   
   }
 
@@ -117,7 +125,7 @@ export class HomePageResults extends Component {
     
 
   render() {
-    const { movieData, loading,currentPage, pagination,emptySearch } = this.state;
+    const { movieData, loading,currentPage, pagination,emptySearch, } = this.state;
 
 
     return (
@@ -127,9 +135,9 @@ export class HomePageResults extends Component {
         </h5>
         <div className="MovieCard-Container">
       <div>
-        {movieData?(
-            <h1>No Results!</h1>
-        ):("")}
+        {emptySearch ? (
+            ""
+        ):(<h1>No Results!</h1>)}
       </div>
         {movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
@@ -161,8 +169,7 @@ export class HomePageResults extends Component {
           </Link>
         ))}
       </div>
-      {movieData ? ("") : (
-             <div class="PaginationBox">
+      {emptySearch ? (<div class="PaginationBox">
              <Paginations
                movieData={this.state.movieData}
                pagination={this.state.pagination}
@@ -173,7 +180,8 @@ export class HomePageResults extends Component {
                selfPage={this.selfPage}
                emptySearch={emptySearch}
              />
-       </div>
+       </div>) : (
+             ""
           )}
       </div>
     );
