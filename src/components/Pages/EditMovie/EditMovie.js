@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import "./EditMovie.css";
 
 export class EditMovie extends Component {
@@ -18,6 +20,7 @@ export class EditMovie extends Component {
       imdbVotes: "",
       imdbID: "",
       Type: "",
+      show: false,
     };
   }
 
@@ -102,9 +105,19 @@ export class EditMovie extends Component {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        alert("Your changes have been saved to the Cinetab database!");
-        this.props.history.push("/AllMovies");
       });
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
+  redirectPage = () => {
+    this.props.history.push("/AllMovies");
   };
 
   render() {
@@ -238,8 +251,32 @@ export class EditMovie extends Component {
                   </div>
                 </div>
               </div>
-              <input type="submit" value="Save" className="submit-btn" />
+              <input
+                type="submit"
+                value="Save"
+                className="submit-btn"
+                onClick={this.showModal}
+              />
             </form>
+            <Modal
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              show={this.state.show}
+              handleClose={this.hideModal}
+            >
+              <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter">
+                  Success!
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>Your modifications have been saved successfully.</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.redirectPage}>OK</Button>
+              </Modal.Footer>
+            </Modal>
           </React.Fragment>
         ) : (
           <React.Fragment>
