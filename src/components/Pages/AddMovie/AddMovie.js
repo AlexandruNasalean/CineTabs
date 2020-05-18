@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Cookies from "js-cookie";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
 import "./AddMovie.css";
 
 export class AddMovie extends Component {
@@ -18,6 +20,7 @@ export class AddMovie extends Component {
       imdbVotes: "",
       imdbID: "",
       Type: "",
+      show: false,
     };
   }
 
@@ -68,8 +71,6 @@ export class AddMovie extends Component {
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
-        alert("Your movie has been added to the Cinetab database!");
-        this.props.history.push("/AllMovies");
       });
   };
 
@@ -77,6 +78,18 @@ export class AddMovie extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
+  };
+
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
+  redirectPage = () => {
+    this.props.history.push("/AllMovies");
   };
 
   render() {
@@ -232,8 +245,32 @@ export class AddMovie extends Component {
                   </div>
                 </div>
               </div>
-              <input type="submit" value="Add Movie" className="submit-btn" />
+              <input
+                type="submit"
+                value="Add Movie"
+                className="submit-btn"
+                onClick={this.showModal}
+              />
             </form>
+            <Modal
+              size="lg"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+              show={this.state.show}
+              handleClose={this.hideModal}
+            >
+              <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter">
+                  Success!
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <p>Your movie has been added to the Cinetab database.</p>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.redirectPage}>OK</Button>
+              </Modal.Footer>
+            </Modal>
           </React.Fragment>
         ) : (
           <React.Fragment>

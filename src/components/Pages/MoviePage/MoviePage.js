@@ -9,6 +9,7 @@ import {
   faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 
 export class MoviePage extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class MoviePage extends Component {
     this.state = {
       movie: {},
       isLoaded: false,
+      show: false,
     };
   }
 
@@ -75,6 +77,14 @@ export class MoviePage extends Component {
     this.props.history.goBack();
   };
 
+  showModal = () => {
+    this.setState({ show: true });
+  };
+
+  hideModal = () => {
+    this.setState({ show: false });
+  };
+
   render() {
     const { isLoggedIn } = this.props;
     const { movie, isLoaded } = this.state;
@@ -113,9 +123,28 @@ export class MoviePage extends Component {
                         <FontAwesomeIcon icon={faEdit} />
                       </Link>
                     </Button>
-                    <Button onClick={this.handleDeleteMovie}>
+                    <Button onClick={this.showModal}>
                       <FontAwesomeIcon icon={faTrash} />
                     </Button>
+                    <Modal
+                      size="lg"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                      show={this.state.show}
+                      handleClose={this.hideModal}
+                    >
+                      <Modal.Header>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                          DELETE
+                        </Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <p>Are you sure?</p>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <Button onClick={this.handleDeleteMovie}>OK</Button>
+                      </Modal.Footer>
+                    </Modal>
                   </div>
                 ) : (
                   ""
