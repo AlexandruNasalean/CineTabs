@@ -122,4 +122,8 @@
   border: #f88c1f;
 }
 
-
+.Adv-Pagination{
+  display: flex;
+  align-items: center;
+  margin-left: 500px;
+}
