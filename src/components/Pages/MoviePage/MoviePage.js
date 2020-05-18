@@ -143,6 +143,9 @@ export class MoviePage extends Component {
                       </Modal.Body>
                       <Modal.Footer>
                         <Button onClick={this.handleDeleteMovie}>OK</Button>
+                        <Button onClick={this.hideModal}>
+                          No, just kidding.
+                        </Button>
                       </Modal.Footer>
                     </Modal>
                   </div>
