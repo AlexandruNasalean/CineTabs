@@ -112,10 +112,6 @@ export class EditMovie extends Component {
     this.setState({ show: true });
   };
 
-  hideModal = () => {
-    this.setState({ show: false });
-  };
-
   redirectPage = () => {
     this.props.history.push("/AllMovies");
   };
@@ -263,7 +259,6 @@ export class EditMovie extends Component {
               aria-labelledby="contained-modal-title-vcenter"
               centered
               show={this.state.show}
-              handleClose={this.hideModal}
             >
               <Modal.Header>
                 <Modal.Title id="contained-modal-title-vcenter">
