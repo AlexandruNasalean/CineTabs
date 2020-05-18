@@ -9,7 +9,7 @@ import { HomePageRecomandation } from "./HomePageRecomandation.js";
 export class HomePage extends Component {
   render() {
     return (
-      <div>
+      <div className="HomePageFullContainer">
         <div className="container">
           <h4 className="SearchBarText" id="search-bar" onClick={carouselFetch}>
             All the good movies are here:
