@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import "./Genres.css";
 import Button from "react-bootstrap/Button";
+import Paginations from "../AllMovies/Components/Pagination"
+
+
+
 
 
 export class Genres extends Component {
@@ -13,10 +17,23 @@ export class Genres extends Component {
         this.state = {
             Genre:[],
             movieData: [],
+            pagination: [],
+            paginationLinkNext: [],
+            paginationLinkPrev: [],
+            numberOfPages: [],
+            selfPage: [],
+            paginationSelfLinks: [],
+            currentPage: [],
+            emptySearch: true,
+            
         };
 
       }
-
+    componentDidMount(){
+      this.setState({
+        emptySearch: true,
+      })
+    }
     CheckBoxChangeHandler = (event) => {
         // console.log(event.target.name);
         const Genre = [...this.state.Genre];
@@ -43,9 +60,73 @@ export class Genres extends Component {
               this.setState({
                 loading: false,
                 movieData: json.results,
+                paginationLinkNext: json.pagination.links.next,
+                numberOfPages: json.pagination.numberOfPages,
+                currentPage: json.pagination.currentPage,
+                selfPage: json.pagination.links.self,
+                emptySearch: false,
               });
             });
         }
+     nextPage = () => {
+    const Url = this.state.paginationLinkNext
+    console.log(Url)
+    fetch(Url)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        loading: false,
+        movieData: json.results,
+        pagination: json.pagination,
+        currentPage: json.pagination.currentPage,
+        paginationLinkNext: json.pagination.links.next,
+        paginationLinkPrev: json.pagination.links.prev,
+        numberOfPages: json.pagination.numberOfPages,
+        selfPage: json.pagination.links.self,
+
+      })
+    });
+    console.log(this.state.currentPage)
+  }
+  selfPage = (pageNumber) => {
+    const genre = this.state.Genre
+    const Url = generateAdvancedSearchUrl(this.state,pageNumber);
+    console.log(Url)
+    fetch(Url)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        selfPage: json.pagination.links.self,
+        movieData: json.results,
+        paginationLinkNext: json.pagination.links.next,
+          paginationLinkPrev: json.pagination.links.prev,
+          numberOfPages: json.pagination.numberOfPages,
+          currentPage: json.pagination.currentPage,
+          selfPage: json.pagination.links.self,
+          pagination: json.pagination,
+        
+
+      })
+    });
+    console.log(this.state.currentPage)
+  }
+  PreviousPage = () => {
+    const Url = this.state.paginationLinkPrev
+    fetch(Url)
+    .then((response) => response.json())
+    .then((json) => {
+      this.setState({
+        loading: false,
+        pagination: json.pagination,
+        movieData: json.results,
+        currentPage: json.pagination.currentPage,
+        paginationLinkNext: json.pagination.links.next,
+        paginationLinkPrev: json.pagination.links.prev,
+        numberOfPages: json.pagination.numberOfPages,
+        selfPage: json.pagination.links.self,
+      })
+    });
+  }
 
   render() { 
     const {
@@ -53,7 +134,7 @@ export class Genres extends Component {
         index,
         movieData
       } = this.props;
-  
+      const {emptySearch} = this.state;
     return (  
         <div>
             <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
@@ -118,6 +199,10 @@ export class Genres extends Component {
           </Link>
         ))}
       </div>
+      {emptySearch ?("") : (<Paginations movieData={this.state.movieData} pagination={this.state.pagination}
+        nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} 
+        numberOfPages={this.state.numberOfPages} selfPage={this.selfPage}/>)}
+      
     </div>
 
     </div>
