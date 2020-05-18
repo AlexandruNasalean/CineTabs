@@ -61,3 +61,7 @@
   border: none;
   font-size: 30px;
 }
+
+.Movie-Page-Buttons a {
+  color: white;
+}
