@@ -12,6 +12,7 @@ import { MoviePage } from "./components/Pages/MoviePage/MoviePage";
 import { LogOffModal } from "./components/Pages/LogOut/LogOutModal";
 import { AddMovie } from "./components/Pages/AddMovie/AddMovie";
 import { EditMovie } from "./components/Pages/EditMovie/EditMovie";
+import { HomePageResults } from "./components/Pages/PageComponents/HomePageSearchResultPage";
 import Cookies from "js-cookie";
 import "./App.css";
 
@@ -105,7 +106,7 @@ class App extends Component {
               <Route exact path="/AllMovies" component={AllMovies} />
               <Route exact path="/Genres" component={Genres} />
               <Route exact path="/AdvancedSearch" component={AdvancedSearch} />
-
+              <Route exact path="/HomePageSearchResults" component={HomePageResults}/>
               <Route exact path="/addmovie" component={AddMovie} />
               <Route exact path="/editmovie" component={EditMovie} />
               <Route
