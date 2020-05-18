@@ -14,7 +14,7 @@ export class HomePage extends Component {
           <h4 className="SearchBarText" id="search-bar" onClick={carouselFetch}>
             All the good movies are here:
           </h4>
-          <SearchBar>SearchBar</SearchBar>
+          <SearchBar history={this.props.history}>SearchBar</SearchBar>
         </div>
         <Carouselu></Carouselu>
         <BestMovie />
