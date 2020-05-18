@@ -3,22 +3,21 @@ import "./AdvSearch.css";
 import Cookies from "js-cookie";
 import Button from "react-bootstrap/Button";
 import { AdvancedSearchResult } from "./AdvancedSearchResults.js";
-import { Form } from "react-bootstrap";
 import { generateAdvancedSearchUrl } from "./AdvanceSearchUtils";
-import {GenreFilter} from  "./searchFilters/Genre"
+import { GenreFilter } from "./searchFilters/Genre";
 import { RatingFilter } from "./searchFilters/RatingFilter";
 import { VotesFilter } from "./searchFilters/VotesFilter";
 import {
   extractUniqueRatings,
   extractUniqueVotes,
+  extractUniqueRuntime,
   convertToNumbers,
 } from "./searchFilters/filtersUtils";
 import { CountryFilters } from "./searchFilters/CountryFilters";
 import { RuntimeFilter } from "./searchFilters/RuntimeFilter";
 import { YearFilter } from "./searchFilters/YearFilter";
-import { LanguageFilters} from "./searchFilters/LanguageFilters";
-import Paginations from "../AllMovies/Components/Pagination"
-
+import { LanguageFilters } from "./searchFilters/LanguageFilters";
+import Paginations from "../AllMovies/Components/Pagination";
 
 export class AdvancedSearch extends Component {
   constructor(props) {
@@ -32,11 +31,13 @@ export class AdvancedSearch extends Component {
       maxRating: null,
       minVotes: null,
       maxVotes: null,
+      minRuntime: null,
+      maxRuntime: null,
       Genre: [],
       Country: [],
       Year: [],
       Runtime: [],
-      Language:[],
+      Language: [],
       searchState: "",
       YearSelected: false,
       CountrySelected: false,
@@ -48,7 +49,6 @@ export class AdvancedSearch extends Component {
       numberOfPages: [],
       selfPage: [],
       paginationSelfLinks: [],
-
     };
   }
 
@@ -62,6 +62,9 @@ export class AdvancedSearch extends Component {
           const uniqueVotes = convertToNumbers(
             extractUniqueVotes(json.results)
           );
+          const uniqueRuntime = convertToNumbers(
+            extractUniqueRuntime(json.results)
+          );
 
           this.setState({
             searchResults: json.results,
@@ -69,6 +72,8 @@ export class AdvancedSearch extends Component {
             maxRating: uniqueRatings[uniqueRatings.length - 1],
             minVotes: uniqueVotes[0],
             maxVotes: uniqueVotes[uniqueVotes.length - 1],
+            minRuntime: uniqueRuntime[0],
+            maxRuntime: uniqueRuntime[uniqueRuntime.length - 1],
             pagination: json.pagination,
             paginationLinkNext: json.pagination.links.next,
             paginationLinkPrev: json.pagination.links.prev,
@@ -89,14 +94,12 @@ export class AdvancedSearch extends Component {
     }
   }
 
-
-  
   nextPage = (event) => {
     // const url = generateAdvancedSearchUrl(this.state,null,this.state.paginationLinkNext);
     // console.log(url);
 
     // var _ =  require  ('lodash');
-    const url= this.state.paginationLinkNext;
+    const url = this.state.paginationLinkNext;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -129,10 +132,10 @@ export class AdvancedSearch extends Component {
           });
         }
       });
-  }
+  };
 
   PreviousPage = (event) => {
-    const url= this.state.paginationLinkPrev;
+    const url = this.state.paginationLinkPrev;
     fetch(url)
       .then((response) => response.json())
       .then((json) => {
@@ -165,11 +168,10 @@ export class AdvancedSearch extends Component {
           });
         }
       });
-    }
-
+  };
 
   selfPage = (pageNumber) => {
-    const url = generateAdvancedSearchUrl(this.state,pageNumber);
+    const url = generateAdvancedSearchUrl(this.state, pageNumber);
     console.log(url);
 
     fetch(url)
@@ -204,7 +206,7 @@ export class AdvancedSearch extends Component {
           });
         }
       });
-  }
+  };
 
   handleInputChange = (event) => {
     this.setState({
@@ -212,25 +214,24 @@ export class AdvancedSearch extends Component {
     });
   };
 
-  checkCountryHandler = (event) =>{
+  checkCountryHandler = (event) => {
     console.log(event.target.value);
     console.log(event.target);
-    if(! this.state.Country.includes(event.target.value)){
+    if (!this.state.Country.includes(event.target.value)) {
       const Country = [...this.state.Country];
 
       Country.push(event.target.value);
       this.setState({
         Country,
         CountrySelected: true,
-        
       });
     }
   };
 
-  checkLanguageHandler = (event) =>{
+  checkLanguageHandler = (event) => {
     console.log(event.target.value);
     // console.log(event.target);
-    if(! this.state.Language.includes(event.target.value)){
+    if (!this.state.Language.includes(event.target.value)) {
       const Language = [...this.state.Language];
       Language.push(event.target.value);
       this.setState({
@@ -238,10 +239,8 @@ export class AdvancedSearch extends Component {
         LanguageSelected: true,
       });
     }
-
   };
 
-  
   CheckBoxChangeHandler = (event) => {
     // console.log(event.target.name);
     const Genre = [...this.state.Genre];
@@ -256,41 +255,22 @@ export class AdvancedSearch extends Component {
       });
     }
   };
-  
-  YearChangeHandler = (event) =>{
+
+  YearChangeHandler = (event) => {
     console.log(event.target.value);
-    if(! this.state.Year.includes(event.target.value))
-    {
+    if (!this.state.Year.includes(event.target.value)) {
       const Year = [...this.state.Year];
       Year.push(event.target.value);
       this.setState({
         Year,
         YearSelected: true,
       });
-      
-    }
-   
- 
-  }
-
-  CheckBoxChangeRuntimeHandler = (event) => {
-    // console.log(event.target);
-    const Runtime = [...this.state.Runtime];
-    if (Runtime.includes(event.target.name)) {
-      this.setState({
-        Runtime: Runtime.filter((element) => element !== event.target.name),
-      });
-    } else {
-      Runtime.push(event.target.name);
-      this.setState({
-        Runtime,
-      });
     }
   };
 
   submitHandler = (e) => {
     e.preventDefault();
-    const url = generateAdvancedSearchUrl(this.state,1);
+    const url = generateAdvancedSearchUrl(this.state, 1);
     console.log(url);
 
     // var _ =  require  ('lodash');
@@ -300,6 +280,9 @@ export class AdvancedSearch extends Component {
       .then((json) => {
         const uniqueRatings = extractUniqueRatings(json.results);
         const uniqueVotes = convertToNumbers(extractUniqueVotes(json.results));
+        const uniqueRuntime = convertToNumbers(
+          extractUniqueRuntime(json.results)
+        );
 
         this.setState({
           searchResults: json.results,
@@ -307,6 +290,8 @@ export class AdvancedSearch extends Component {
           maxRating: uniqueRatings[uniqueRatings.length - 1],
           minVotes: uniqueVotes[0],
           maxVotes: uniqueVotes[uniqueVotes.length - 1],
+          minRuntime: uniqueRuntime[0],
+          maxRuntime: uniqueRuntime[uniqueRuntime.length - 1],
           paginationLinkNext: json.pagination.links.next,
           numberOfPages: json.pagination.numberOfPages,
           currentPage: json.pagination.currentPage,
@@ -328,53 +313,80 @@ export class AdvancedSearch extends Component {
       });
   };
 
-  handleDeleteSearchQuerry =(event) =>{
-    Cookies.remove('CookieSearchQuery');
+  handleDeleteSearchQuerry = (event) => {
+    Cookies.remove("CookieSearchQuery");
 
-      this.setState({
-        query: "",
-        data: [],
-        searchResults: [],
-        emptySearch: "",
-        minRating: null,
-        maxRating: null,
-        minVotes: null,
-        maxVotes: null,
-        Genre: [],
-        Country: [],
-        Year: [],
-        Runtime: [],
-        Language:[],
-        searchState: "",
-        YearSelected: false,
-        CountrySelected: false,
-        LanguageSelected: false,
-        setStatess: [],
-        pagination: [],
-        paginationLinkNext: [],
-        paginationLinkPrev: [],
-        numberOfPages: [],
-        selfPage: [],
-        paginationSelfLinks: [],
-  
-      })
-  }
-  handleDeleteFilterQuerryYear = (event) =>{
-      
-  this.setState({
-        Year: [],
-      })
-  }
-  handleDeleteFilterQuerryCountry =(event) =>{
+    this.setState({
+      query: "",
+      data: [],
+      searchResults: [],
+      emptySearch: "",
+      minRating: null,
+      maxRating: null,
+      minVotes: null,
+      maxVotes: null,
+      Genre: [],
+      Country: [],
+      Year: [],
+      Runtime: [],
+      Language: [],
+      searchState: "",
+      YearSelected: false,
+      CountrySelected: false,
+      LanguageSelected: false,
+      setStatess: [],
+      pagination: [],
+      paginationLinkNext: [],
+      paginationLinkPrev: [],
+      numberOfPages: [],
+      selfPage: [],
+      paginationSelfLinks: [],
+    });
+  };
+  handleDeleteFilterQuerryYear = (event) => {
+    this.setState({
+      Year: [],
+    });
+  };
+  handleDeleteFilterQuerryCountry = (event) => {
+    this.setState({
+      query: "",
+      data: [],
+      searchResults: [],
+      emptySearch: "",
+      minRating: null,
+      maxRating: null,
+      minVotes: null,
+      maxVotes: null,
+      minRuntime: null,
+      maxRuntime: null,
+      Genre: [],
+      Country: [],
+      Year: [],
+      Runtime: [],
+      Language: [],
+      searchState: "",
+      YearSelected: false,
+      CountrySelected: false,
+      LanguageSelected: false,
+      setStatess: [],
+    });
+  };
+  handleDeleteFilterQuerryYear = (event) => {
+    this.setState({
+      Year: [],
+    });
+  };
+  handleDeleteFilterQuerryCountry = (event) => {
     this.setState({
       Country: [],
-    })
-  }
-  handleDeleteFilterQuerryLanguage =(event) =>{
+    });
+  };
+  handleDeleteFilterQuerryLanguage = (event) => {
     this.setState({
       Language: [],
-    })
-  }
+    });
+  };
   handleMinRatingChange = (minRating) => {
     this.setState({ minRating });
   };
@@ -391,11 +403,13 @@ export class AdvancedSearch extends Component {
     this.setState({ maxVotes });
   };
 
-  filterByRuntime(minRuntime, maxRuntime) {
-    this.setState({
-      searchResults: this.state.searchResults.filter((movie) => {}),
-    });
-  }
+  handleMinRuntimeChange = (minRuntime) => {
+    this.setState({ minRuntime });
+  };
+
+  handleMaxRuntimeChange = (maxRuntime) => {
+    this.setState({ maxRuntime });
+  };
 
   render() {
     const {
@@ -405,6 +419,8 @@ export class AdvancedSearch extends Component {
       maxRating,
       minVotes,
       maxVotes,
+      minRuntime,
+      maxRuntime,
       searchState,
       Country,
       Language,
@@ -416,7 +432,6 @@ export class AdvancedSearch extends Component {
 
     console.log(Language);
     var _ = require("lodash");
-   
 
     return (
       <div>
@@ -424,7 +439,9 @@ export class AdvancedSearch extends Component {
           <form className="col-lg-6 offset-lg-0" onSubmit={this.submitHandler}>
             <div className="form-group">
               <div className="Title-SearchBar">
-                <label id="Adv-Search-Title-Label" className="title-filter">Title</label>
+                <label id="Adv-Search-Title-Label" className="title-filter">
+                  Title
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -433,103 +450,116 @@ export class AdvancedSearch extends Component {
                   onChange={this.handleInputChange}
                 />
               </div>
-              <GenreFilter CheckBoxChangeHandler = {this.CheckBoxChangeHandler}></GenreFilter>
+              <GenreFilter
+                CheckBoxChangeHandler={this.CheckBoxChangeHandler}
+              ></GenreFilter>
               <div className="Extra-Filters">
-              {searchState ? (
-              <React.Fragment>
-               <YearFilter 
-               YearChangeHandler={this.YearChangeHandler} 
-               searchResults={searchResults} 
-               Year={Year}
-               YearSelected={YearSelected}
-               handleDeleteFilterQuerryYear={this.handleDeleteFilterQuerryYear}
+                {searchState ? (
+                  <React.Fragment>
+                    <YearFilter
+                      YearChangeHandler={this.YearChangeHandler}
+                      searchResults={searchResults}
+                      Year={Year}
+                      YearSelected={YearSelected}
+                      handleDeleteFilterQuerryYear={
+                        this.handleDeleteFilterQuerryYear
+                      }
+                    ></YearFilter>
 
-               ></YearFilter>
+                    <CountryFilters
+                      Country={Country}
+                      checkCountryHandler={this.checkCountryHandler}
+                      searchResults={searchResults}
+                      CountrySelected={CountrySelected}
+                      handleDeleteFilterQuerryCountry={
+                        this.handleDeleteFilterQuerryCountry
+                      }
+                    />
 
-                <CountryFilters
-                  Country={Country}
-                  checkCountryHandler={this.checkCountryHandler}
-                  searchResults={searchResults}
-                  CountrySelected={CountrySelected}
-                  handleDeleteFilterQuerryCountry={this.handleDeleteFilterQuerryCountry}
-                />
+                    <LanguageFilters
+                      Language={Language}
+                      checkLanguageHandler={this.checkLanguageHandler}
+                      searchResults={searchResults}
+                      LanguageSelected={LanguageSelected}
+                      Language={Language}
+                      handleDeleteFilterQuerryLanguage={
+                        this.handleDeleteFilterQuerryLanguage
+                      }
+                    />
 
-                <LanguageFilters
-                  Language={Language}
-                  checkLanguageHandler={this.checkLanguageHandler}
-                  searchResults={searchResults}
-                  LanguageSelected={LanguageSelected}
-                  Language={Language}
-                  handleDeleteFilterQuerryLanguage={this.handleDeleteFilterQuerryLanguage}
-                />
-
-                <RatingFilter
-                  minRating={minRating}
-                  maxRating={maxRating}
-                  onMinRatingChange={this.handleMinRatingChange}
-                  onMaxRatingChange={this.handleMaxRatingChange}
-                  searchResults={searchResults}
-                />
-                <VotesFilter
-                  minVotes={minVotes}
-                  maxVotes={maxVotes}
-                  onMinVotesChange={this.handleMinVotesChange}
-                  onMaxVotesChange={this.handleMaxVotesChange}
-                  searchResults={searchResults}
-                />
-                <RuntimeFilter
-                  searchResults={searchResults}
-                  filterByRuntime={this.filterByRuntime}
-                />
-              </React.Fragment>
-                    ) : (
-                      ""
-                    )}
+                    <RatingFilter
+                      minRating={minRating}
+                      maxRating={maxRating}
+                      onMinRatingChange={this.handleMinRatingChange}
+                      onMaxRatingChange={this.handleMaxRatingChange}
+                      searchResults={searchResults}
+                    />
+                    <VotesFilter
+                      minVotes={minVotes}
+                      maxVotes={maxVotes}
+                      onMinVotesChange={this.handleMinVotesChange}
+                      onMaxVotesChange={this.handleMaxVotesChange}
+                      searchResults={searchResults}
+                    />
+                    <RuntimeFilter
+                      searchResults={searchResults}
+                      minRuntime={minRuntime}
+                      maxRuntime={maxRuntime}
+                      onMinRuntimeChange={this.handleMinRuntimeChange}
+                      onMaxRuntimeChange={this.handleMaxRuntimeChange}
+                    />
+                  </React.Fragment>
+                ) : (
+                  ""
+                )}
               </div>
               <div className="AdvSearchButton">
-              <Button type="submit" className="Adv-Search-Button">
+                <Button type="submit" className="Adv-Search-Button">
                   Submit
                 </Button>
-                </div>
+              </div>
             </div>
           </form>
-                  
         </div>
         {emptySearch ? (
           <div className="empty-search">
-        <React.Fragment>
-        {/* <Button onClick={this.handleDeleteSearchQuerry} className="Search-History-Delete">Delete the search history</Button> */}
-          <h1>No Results!</h1>
-        </React.Fragment>
-        </div>
-      ) : (
-        <div className="Adv-Results">
-        <AdvancedSearchResult
-          minRating={minRating}
-          maxRating={maxRating}
-          minVotes={minVotes}
-          maxVotes={maxVotes}
-          searchResults={searchResults}
-        />
-                <div class="container">
+            <React.Fragment>
+              {/* <Button onClick={this.handleDeleteSearchQuerry} className="Search-History-Delete">Delete the search history</Button> */}
+              <h1>No Results!</h1>
+            </React.Fragment>
+          </div>
+        ) : (
+          <div className="Adv-Results">
+            <AdvancedSearchResult
+              minRating={minRating}
+              maxRating={maxRating}
+              minVotes={minVotes}
+              maxVotes={maxVotes}
+              minRuntime={minRuntime}
+              maxRuntime={maxRuntime}
+              searchResults={searchResults}
+            />
+            <div class="container">
               <div class="row">
+                <div class="col-sm"></div>
                 <div class="col-sm">
+                  <Paginations
+                    movieData={this.state.movieData}
+                    pagination={this.state.pagination}
+                    nextPage={this.nextPage}
+                    prevPage={this.PreviousPage}
+                    currentPage={this.state.currentPage}
+                    numberOfPages={this.state.numberOfPages}
+                    selfPage={this.selfPage}
+                    emptySearch={emptySearch}
+                  />
                 </div>
-                <div class="col-sm">
-                <Paginations movieData={this.state.movieData} pagination={this.state.pagination}
-        nextPage={this.nextPage} prevPage={this.PreviousPage} currentPage={this.state.currentPage} 
-        numberOfPages={this.state.numberOfPages} selfPage={this.selfPage} emptySearch={emptySearch}/>
-                </div>
-                <div class="col-sm">
-                </div>
+                <div class="col-sm"></div>
               </div>
             </div>
-        </div>
-        
-      )}
-    
-
-    </div>
+          </div>
+        )}
+      </div>
     );
   }
 }
