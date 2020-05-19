@@ -28,18 +28,18 @@ export function generateAdvancedSearchUrl(
   }
 
   if (Genre && Genre.length) {
-    urlQuery.push(`Genre=${Genre.join(",")}`);
+    urlQuery.push(`Genre=${Genre.join(", ")}`);
   }
 
   if (Country && Country.length) {
-    urlQuery.push(`Country=${Country.join(",")}`);
+    urlQuery.push(`Country=${Country.join(", ")}`);
   }
 
   if (Year && Year.length) {
-    urlQuery.push(`Year=${Year.join(",")}`);
+    urlQuery.push(`Year=${Year.join(", ")}`);
   }
   if (Language && Language.length) {
-    urlQuery.push(`Language=${Language.join(",")}`);
+    urlQuery.push(`Language=${Language.join(", ")}`);
   }
   if (paginationLinkNext) {
     urlQuery.push(``);
@@ -57,20 +57,18 @@ export function filterByRatingOrVotes(
   maxRating,
   minVotes,
   maxVotes,
-  minRuntime,
-  maxRuntime
+  // minRuntime,
+  // maxRuntime
 ) {
   const { imdbRating, imdbVotes, Runtime } = movie;
   const imdbVotesNumber = changeNumberFormat(imdbVotes);
-  const movieRuntime = changeRatingFormat(Runtime);
+  // const movieRuntime = changeRatingFormat(Runtime);
 
   if (
     imdbRating >= minRating &&
     imdbRating <= maxRating &&
     imdbVotesNumber >= minVotes &&
-    imdbVotesNumber <= maxVotes &&
-    movieRuntime >= minRuntime &&
-    movieRuntime <= maxRuntime
+    imdbVotesNumber <= maxVotes 
   )
     return true;
 

@@ -18,7 +18,6 @@ class Paginations extends Component {
     
     render() { 
         const {pagination, currentPage, nextPage, movieData, prevPage,numberOfPages, selfPage,emptySearch} = this.props;
-        console.log(currentPage)
                 let CurrentnumberOfPages= numberOfPages;
                 let active = currentPage;
                 let items = [];

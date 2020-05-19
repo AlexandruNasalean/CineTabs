@@ -506,13 +506,13 @@ export class AdvancedSearch extends Component {
                       onMaxVotesChange={this.handleMaxVotesChange}
                       searchResults={searchResults}
                     />
-                    <RuntimeFilter
+                    {/* <RuntimeFilter
                       searchResults={searchResults}
                       minRuntime={minRuntime}
                       maxRuntime={maxRuntime}
                       onMinRuntimeChange={this.handleMinRuntimeChange}
                       onMaxRuntimeChange={this.handleMaxRuntimeChange}
-                    />
+                    /> */}
                   </React.Fragment>
                 ) : (
                   ""
@@ -540,8 +540,8 @@ export class AdvancedSearch extends Component {
               maxRating={maxRating}
               minVotes={minVotes}
               maxVotes={maxVotes}
-              minRuntime={minRuntime}
-              maxRuntime={maxRuntime}
+              // minRuntime={minRuntime}
+              // maxRuntime={maxRuntime}
               searchResults={searchResults}
             />
           </div>
