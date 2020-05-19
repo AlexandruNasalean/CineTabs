@@ -50,9 +50,10 @@ export class Genres extends Component {
       };
 
       submitHandler = (e) => {
+
         e.preventDefault();
         const genre = this.state.Genre
-        const url = `https://movies-api-siit.herokuapp.com/movies?Genre=${genre}`
+        const url = generateAdvancedSearchUrl(this.state, 1);
         console.log(url)
         fetch(url)
             .then((response) => response.json())
@@ -129,6 +130,7 @@ export class Genres extends Component {
   }
 
   render() { 
+    console.log(this.state.movieData)
     const {
         movies,
         index,
@@ -169,6 +171,7 @@ export class Genres extends Component {
         </form>
     <div>
     <div className="MovieCard-Container">
+      
         {this.state.movieData.map((movies, index) => (
           <Link to={`/MoviePage?id=${movies._id}`} key={index}>
             <div>

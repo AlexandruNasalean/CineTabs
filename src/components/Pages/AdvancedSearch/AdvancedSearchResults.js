@@ -10,17 +10,19 @@ export class AdvancedSearchResult extends Component {
   }
 
   render() {
+    
     const {
       searchResults,
       minRating,
       maxRating,
       minVotes,
       maxVotes,
-      minRuntime,
-      maxRuntime,
+      // minRuntime,
+      // maxRuntime,
     } = this.props;
 
-    return searchResults
+    return (
+      searchResults
       .filter((movie) =>
         filterByRatingOrVotes(
           movie,
@@ -28,8 +30,8 @@ export class AdvancedSearchResult extends Component {
           maxRating,
           minVotes,
           maxVotes,
-          minRuntime,
-          maxRuntime
+          // minRuntime,
+          // maxRuntime
         )
       )
       .map((movie, index) => (
@@ -51,6 +53,7 @@ export class AdvancedSearchResult extends Component {
             </div>
           </div>
         </Link>
-      ));
+      ))
+    )
   }
 }
