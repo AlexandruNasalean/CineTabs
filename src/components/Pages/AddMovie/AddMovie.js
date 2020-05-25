@@ -247,11 +247,7 @@ export class AddMovie extends Component {
                       placeholder="Number of Votes"
                       onChange={this.updateInputValue}
                     />
-                    {this.validator.message(
-                      "imdbVotes",
-                      imdbVotes,
-                      "required|alpha_num_dash_space"
-                    )}
+                    {this.validator.message("imdbVotes", imdbVotes, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbID">imdbID</label>
@@ -279,11 +275,7 @@ export class AddMovie extends Component {
                       placeholder="eg. Movie, TV-series, Game"
                       onChange={this.updateInputValue}
                     />
-                    {this.validator.message(
-                      "Type",
-                      Type,
-                      "required|alpha_num_dash_space"
-                    )}
+                    {this.validator.message("Type", Type, "required")}
                   </div>
                 </div>
               </div>

@@ -257,11 +257,7 @@ export class EditMovie extends Component {
                       value={imdbVotes}
                       onChange={this.handleInputChange}
                     />
-                    {this.validator.message(
-                      "imdbVotes",
-                      imdbVotes,
-                      "required|alpha_num_dash_space"
-                    )}
+                    {this.validator.message("imdbVotes", imdbVotes, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbID">imdbID</label>
@@ -285,11 +281,7 @@ export class EditMovie extends Component {
                       value={Type}
                       onChange={this.handleInputChange}
                     />
-                    {this.validator.message(
-                      "Type",
-                      Type,
-                      "required|alpha_num_dash_space"
-                    )}
+                    {this.validator.message("Type", Type, "required")}
                   </div>
                 </div>
               </div>
