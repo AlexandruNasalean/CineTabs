@@ -105,13 +105,23 @@ export class MoviePage extends Component {
               </div>
               <div className="movie-details">
                 <ul>
-                  <li>Year: {movie.Year}</li>
-                  <li>Runtime: {movie.Runtime}</li>
-                  <li>Genre: {movie.Genre}</li>
-                  <li>Language: {movie.Language}</li>
-                  <li>Country: {movie.Country}</li>
-                  <li>Cinetab rating: {movie.imdbRating}</li>
-                  <li>Cinetab votes: {movie.imdbVotes}</li>
+                  <li className="movie-information">Year: {movie.Year}</li>
+                  <li className="movie-information">
+                    Runtime: {movie.Runtime}
+                  </li>
+                  <li className="movie-information">Genre: {movie.Genre}</li>
+                  <li className="movie-information">
+                    Language: {movie.Language}
+                  </li>
+                  <li className="movie-information">
+                    Country: {movie.Country}
+                  </li>
+                  <li className="movie-information">
+                    Cinetab rating: {movie.imdbRating}
+                  </li>
+                  <li className="movie-information">
+                    Cinetab votes: {movie.imdbVotes}
+                  </li>
                 </ul>
                 {isLoggedIn ? (
                   <div className="Movie-Page-Buttons">
