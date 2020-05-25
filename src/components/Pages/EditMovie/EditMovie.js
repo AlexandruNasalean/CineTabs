@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import Cookies from "js-cookie";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import SimpleReactValidator from "simple-react-validator";
 import "./EditMovie.css";
 
 export class EditMovie extends Component {
   constructor(props) {
     super(props);
+    this.validator = new SimpleReactValidator({ autoForceUpdate: this });
 
     this.state = {
       Title: "",
@@ -89,23 +91,28 @@ export class EditMovie extends Component {
     };
     console.log(editedMovie);
 
-    fetch(urlEdit, {
-      method: "PUT",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": logInToken,
-      },
-      body: JSON.stringify(editedMovie),
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-      });
+    if (this.validator.allValid()) {
+      fetch(urlEdit, {
+        method: "PUT",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": logInToken,
+        },
+        body: JSON.stringify(editedMovie),
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        });
+      this.showModal();
+    } else {
+      this.validator.showMessages();
+    }
   };
 
   showModal = () => {
@@ -152,6 +159,7 @@ export class EditMovie extends Component {
                       value={Title}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message("Title", Title, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="year">Year</label>
@@ -161,6 +169,7 @@ export class EditMovie extends Component {
                       value={Year}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message("Year", Year, "required|integer")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="runtime">Runtime</label>
@@ -170,6 +179,11 @@ export class EditMovie extends Component {
                       value={Runtime}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "Runtime",
+                      Runtime,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="genre">Genre</label>
@@ -179,6 +193,7 @@ export class EditMovie extends Component {
                       value={Genre}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message("Genre", Genre, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="language">Language</label>
@@ -188,6 +203,11 @@ export class EditMovie extends Component {
                       value={Language}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "Language",
+                      Language,
+                      "required|alpha"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="country">Country</label>
@@ -197,6 +217,11 @@ export class EditMovie extends Component {
                       value={Country}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "Country",
+                      Country,
+                      "required|alpha"
+                    )}
                   </div>
                 </div>
                 <div className="second-group">
@@ -208,6 +233,7 @@ export class EditMovie extends Component {
                       value={Poster}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message("Poster", Poster, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbRating">imdbRating</label>
@@ -217,6 +243,11 @@ export class EditMovie extends Component {
                       value={imdbRating}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "imdbRating",
+                      imdbRating,
+                      "required|numeric|min:0,num"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbVotes">imdbVotes</label>
@@ -226,6 +257,11 @@ export class EditMovie extends Component {
                       value={imdbVotes}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "imdbVotes",
+                      imdbVotes,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbID">imdbID</label>
@@ -235,6 +271,11 @@ export class EditMovie extends Component {
                       value={imdbID}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "imdbID",
+                      imdbID,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="type">Type</label>
@@ -244,15 +285,15 @@ export class EditMovie extends Component {
                       value={Type}
                       onChange={this.handleInputChange}
                     />
+                    {this.validator.message(
+                      "Type",
+                      Type,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                 </div>
               </div>
-              <input
-                type="submit"
-                value="Save"
-                className="submit-btn"
-                onClick={this.showModal}
-              />
+              <input type="submit" value="Save" className="submit-btn" />
             </form>
             <Modal
               size="lg"

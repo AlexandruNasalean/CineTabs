@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import Cookies from "js-cookie";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import SimpleReactValidator from "simple-react-validator";
 import "./AddMovie.css";
 
 export class AddMovie extends Component {
   constructor(props) {
     super(props);
+    this.validator = new SimpleReactValidator({ autoForceUpdate: this });
 
     this.state = {
       Title: "",
@@ -52,26 +54,31 @@ export class AddMovie extends Component {
       imdbID,
       Type,
     };
-    console.log(newMovie);
 
     const logInToken = Cookies.get("token");
-    fetch("https://movies-app-siit.herokuapp.com/movies", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-        "x-auth-token": logInToken,
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(newMovie),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
-      });
+
+    if (this.validator.allValid()) {
+      fetch("https://movies-app-siit.herokuapp.com/movies", {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": logInToken,
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: JSON.stringify(newMovie),
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          console.log(json);
+        });
+      this.showModal();
+    } else {
+      this.validator.showMessages();
+    }
   };
 
   updateInputValue = (e) => {
@@ -126,6 +133,7 @@ export class AddMovie extends Component {
                       placeholder="eg. The Godfather"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message("Title", Title, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="year">Year</label>
@@ -137,6 +145,7 @@ export class AddMovie extends Component {
                       placeholder="Movie's year here"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message("Year", Year, "required|integer")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="runtime">Runtime</label>
@@ -148,6 +157,11 @@ export class AddMovie extends Component {
                       placeholder="eg. 90 min"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "Runtime",
+                      Runtime,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="genre">Genre</label>
@@ -159,6 +173,7 @@ export class AddMovie extends Component {
                       placeholder="eg. Action, Drama, etc."
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message("Genre", Genre, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="language">Language</label>
@@ -170,6 +185,11 @@ export class AddMovie extends Component {
                       placeholder="eg. English"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "Language",
+                      Language,
+                      "required|alpha"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="country">Country</label>
@@ -181,6 +201,11 @@ export class AddMovie extends Component {
                       placeholder="eg. UK"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "Country",
+                      Country,
+                      "required|alpha"
+                    )}
                   </div>
                 </div>
                 <div className="second-group">
@@ -194,6 +219,7 @@ export class AddMovie extends Component {
                       placeholder="URL here"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message("Poster", Poster, "required")}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbRating">imdbRating</label>
@@ -205,6 +231,11 @@ export class AddMovie extends Component {
                       placeholder="Between 0 and 10"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "imdbRating",
+                      imdbRating,
+                      "required|numeric|min:0,num"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbVotes">imdbVotes</label>
@@ -216,6 +247,11 @@ export class AddMovie extends Component {
                       placeholder="Number of Votes"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "imdbVotes",
+                      imdbVotes,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="imdbID">imdbID</label>
@@ -227,6 +263,11 @@ export class AddMovie extends Component {
                       placeholder="eg. tt9839146"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "imdbID",
+                      imdbID,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                   <div className="input-fields">
                     <label htmlFor="type">Type</label>
@@ -238,15 +279,15 @@ export class AddMovie extends Component {
                       placeholder="eg. Movie, TV-series, Game"
                       onChange={this.updateInputValue}
                     />
+                    {this.validator.message(
+                      "Type",
+                      Type,
+                      "required|alpha_num_dash_space"
+                    )}
                   </div>
                 </div>
               </div>
-              <input
-                type="submit"
-                value="Add Movie"
-                className="submit-btn"
-                onClick={this.showModal}
-              />
+              <input type="submit" value="Add Movie" className="submit-btn" />
             </form>
             <Modal
               size="lg"

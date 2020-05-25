@@ -51,3 +51,7 @@ input:focus {
 ::placeholder {
   font-style: italic;
 }
+
+.srv-validation-message {
+  color: #dc3545;
+}
